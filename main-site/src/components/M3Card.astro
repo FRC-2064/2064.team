@@ -1,0 +1,22 @@
+---
+interface Props {
+  class?: string;
+  variant?: 'surface' | 'inverse' | 'plain';
+  interactive?: boolean;
+}
+
+const { variant = 'surface', interactive = false } = Astro.props;
+const className = Astro.props.class ?? '';
+
+const variants = {
+  surface: 'border border-black/10 bg-white shadow-[0_8px_28px_-20px_rgba(0,0,0,0.25)]',
+  inverse: 'border border-white/10 bg-brand-ink text-white shadow-[0_18px_60px_-30px_rgba(0,0,0,0.6)]',
+  plain: 'border border-black/10 bg-white'
+};
+
+const interactiveClass = interactive ? 'card-lift cursor-pointer' : '';
+---
+
+<article class={`relative overflow-hidden rounded-2xl p-6 ${variants[variant]} ${interactiveClass} ${className}`}>
+  <slot />
+</article>

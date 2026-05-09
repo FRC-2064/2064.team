@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import RobotCard from '../components/RobotCard.astro';
+
+const robots = (await getCollection('robots')).sort((a, b) => {
+  const orderA = a.data.order ?? Number.MAX_SAFE_INTEGER;
+  const orderB = b.data.order ?? Number.MAX_SAFE_INTEGER;
+  return orderA - orderB || b.data.season - a.data.season;
+});
+---
+
+<BaseLayout title="Robots | 2064 | The Panther Project">
+  <section class="relative isolate overflow-hidden bg-brand-ink text-white">
+    <div class="flair-iso flair-iso--dim absolute inset-0 opacity-60"></div>
+    <div
+      class="pointer-events-none absolute -top-20 right-0 -z-10 h-[24rem] w-[24rem] rounded-full bg-brand-red/20 blur-[120px]"
+      aria-hidden="true"
+    ></div>
+    <div class="relative mx-auto flex max-w-7xl flex-col gap-6 px-4 py-20 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:px-8">
+      <div class="max-w-3xl">
+        <p class="t-eyebrow inline-flex items-center gap-3 text-brand-red">
+          <span class="brand-rule"></span>
+          Page Eyebrow
+        </p>
+        <h1 class="t-h1 mt-4 text-6xl text-white sm:text-7xl">Robots</h1>
+        <p class="t-subtitle mt-6 max-w-2xl text-lg text-white/65">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </div>
+      <p class="t-h3 shrink-0 text-white/40">
+        <span class="text-brand-red">{robots.length}</span> {robots.length === 1 ? 'Entry' : 'Entries'}
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      {robots.length === 0 ? (
+        <div class="rounded-2xl border border-dashed border-black/15 bg-brand-bone p-12 text-center">
+          <p class="t-eyebrow text-brand-red">No Entries Yet</p>
+          <p class="t-subtitle mt-3 text-black/60">Lorem ipsum placeholder for empty state.</p>
+        </div>
+      ) : (
+        <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {robots.map((robot) => <RobotCard robot={robot} />)}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

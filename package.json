@@ -1,0 +1,21 @@
+{
+  "name": "2064-team-monorepo",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "main-site",
+    "docs-site"
+  ],
+  "scripts": {
+    "dev": "bunx concurrently -n main,docs -c red,gray \"bun run --cwd main-site dev -- --host 0.0.0.0 --port 4321\" \"bun run --cwd docs-site dev -- --host 0.0.0.0 --port 4322\"",
+    "build": "bun run --cwd main-site build && bun run --cwd docs-site build",
+    "check": "bun run --cwd main-site astro check && bun run --cwd docs-site astro check",
+    "migrate:docs": "bun run scripts/migrate-mkdocs-to-starlight.mjs"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "concurrently": "^9.2.1",
+    "typescript": "^6.0.3"
+  }
+}

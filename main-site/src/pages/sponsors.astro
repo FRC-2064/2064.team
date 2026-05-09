@@ -1,0 +1,155 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import M3Button from '../components/M3Button.astro';
+import { HACK_CLUB_DONATION_URL, SPONSOR_CONTACT_EMAIL, sponsors } from '../data/site';
+
+const tiers = [
+  {
+    level: 'Tier One',
+    range: 'Range Placeholder',
+    perks: ['Perk placeholder', 'Perk placeholder', 'Perk placeholder', 'Perk placeholder']
+  },
+  {
+    level: 'Tier Two',
+    range: 'Range Placeholder',
+    perks: ['Perk placeholder', 'Perk placeholder', 'Perk placeholder']
+  },
+  {
+    level: 'Tier Three',
+    range: 'Range Placeholder',
+    perks: ['Perk placeholder', 'Perk placeholder']
+  },
+  {
+    level: 'Tier Four',
+    range: 'Range Placeholder',
+    perks: ['Perk placeholder', 'Perk placeholder']
+  }
+];
+
+const placeholderBody = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+---
+
+<BaseLayout title="Sponsors | 2064 | The Panther Project">
+  <section class="relative isolate overflow-hidden bg-brand-ink text-white">
+    <div class="flair-iso flair-iso--dim absolute inset-0 opacity-60"></div>
+    <div
+      class="pointer-events-none absolute -top-20 right-1/3 -z-10 h-[28rem] w-[28rem] rounded-full bg-brand-red/20 blur-[140px]"
+      aria-hidden="true"
+    ></div>
+    <div class="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+        <div>
+          <p class="t-eyebrow inline-flex items-center gap-3 text-brand-red">
+            <span class="brand-rule"></span>
+            Page Eyebrow
+          </p>
+          <h1 class="t-h1 mt-4 text-6xl text-white sm:text-7xl">Sponsors</h1>
+          <p class="t-subtitle mt-6 max-w-2xl text-lg text-white/65">
+            {placeholderBody}
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <M3Button href={`mailto:${SPONSOR_CONTACT_EMAIL}`}>Become a Sponsor</M3Button>
+            <M3Button href={HACK_CLUB_DONATION_URL} variant="ghost" target="_blank" rel="noreferrer">
+              Donate via Hack Club
+            </M3Button>
+          </div>
+        </div>
+
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+          <p class="t-eyebrow text-brand-red">Direct Contact</p>
+          <a href={`mailto:${SPONSOR_CONTACT_EMAIL}`} class="t-h3 mt-3 block break-all text-lg text-white underline decoration-brand-red decoration-2 underline-offset-[6px]">
+            {SPONSOR_CONTACT_EMAIL}
+          </a>
+          <p class="t-subscript mt-4 text-white/55">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Current sponsors ─────────────────────────────────────────── */}
+  <section class="bg-white py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-10 flex items-end justify-between">
+        <div>
+          <p class="t-eyebrow text-brand-red">Section Eyebrow</p>
+          <h2 class="t-h2 mt-2 text-3xl text-brand-black sm:text-4xl">Section Heading</h2>
+        </div>
+        <span class="t-h3 hidden text-brand-charcoal/30 sm:block">{String(sponsors.length).padStart(2, '0')}</span>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {sponsors.map((sponsor, index) => (
+          <article class="group card-lift relative overflow-hidden rounded-2xl border border-black/10 bg-white p-6">
+            <div class="flex items-start justify-between gap-4">
+              <div class="logo-slot h-16 w-24 min-w-0">Logo {String(index + 1).padStart(2, '0')}</div>
+              <span class="rounded-full bg-brand-red/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-brand-red">
+                {sponsor.level}
+              </span>
+            </div>
+            <h3 class="t-h3 mt-5 text-xl text-brand-black">{sponsor.name}</h3>
+            <p class="t-body mt-2 text-black/60">{placeholderBody}</p>
+            <span class="brand-rule mt-5 block transition group-hover:w-12"></span>
+          </article>
+        ))}
+        {Array.from({ length: Math.max(0, 3 - sponsors.length) }).map(() => (
+          <article class="relative overflow-hidden rounded-2xl border border-dashed border-black/15 bg-brand-bone p-6">
+            <div class="flex items-start justify-between gap-4">
+              <div class="logo-slot h-16 w-24 min-w-0">Logo</div>
+              <span class="rounded-full bg-black/5 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-black/45">
+                Placeholder
+              </span>
+            </div>
+            <h3 class="t-h3 mt-5 text-xl text-black/55">Sponsor Name</h3>
+            <p class="t-body mt-2 text-black/45">{placeholderBody}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ── Tiers ───────────────────────────────────────────────────── */}
+  <section class="bg-brand-bone py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-10 max-w-2xl">
+        <p class="t-eyebrow text-brand-red">Section Eyebrow</p>
+        <h2 class="t-h2 mt-2 text-3xl text-brand-black sm:text-4xl">Section Heading</h2>
+        <p class="t-subtitle mt-4 text-black/65">{placeholderBody}</p>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        {tiers.map((tier, index) => {
+          const featured = index === 0;
+          return (
+            <article class:list={[
+              'relative flex flex-col gap-5 overflow-hidden rounded-2xl border p-6 transition',
+              featured
+                ? 'border-transparent bg-brand-ink text-white shadow-[0_28px_60px_-30px_rgba(205,32,48,0.5)]'
+                : 'border-black/10 bg-white hover:border-brand-red'
+            ]}>
+              {featured && <div class="flair-iso flair-iso--dim absolute inset-0 opacity-50"></div>}
+              <div class="relative">
+                <p class="t-eyebrow text-brand-red">
+                  Tier {String(index + 1).padStart(2, '0')}
+                </p>
+                <h3 class:list={['t-h2 mt-3 text-2xl', featured ? 'text-white' : 'text-brand-black']}>
+                  {tier.level}
+                </h3>
+                <p class:list={['t-h3 mt-1 text-base', featured ? 'text-brand-red' : 'text-brand-charcoal']}>{tier.range}</p>
+              </div>
+              <ul class:list={['relative flex flex-col gap-2.5 text-sm', featured ? 'text-white/75' : 'text-black/65']}>
+                {tier.perks.map((perk) => (
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red"></span>
+                    <span>{perk}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

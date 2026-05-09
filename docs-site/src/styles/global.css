@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-brand-red: #CD2030;
+  --color-brand-red-deep: #A4111F;
+  --color-brand-grey: #808285;
+  --color-brand-charcoal: #414143;
+  --color-brand-ink: #18181a;
+  --color-brand-black: #000000;
+  --color-brand-white: #FFFFFF;
+  --color-brand-bone: #f4f4f5;
+  --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ───────────── Light theme (Starlight default) ─────────────────────────── */
+:root {
+  --sl-font: "Roboto", ui-sans-serif, system-ui, sans-serif;
+  --sl-font-mono: ui-monospace, "JetBrains Mono", "Fira Code", monospace;
+
+  /* Accent — Panther Red */
+  --sl-color-accent-low: #fde7ea;
+  --sl-color-accent: #CD2030;
+  --sl-color-accent-high: #7f111c;
+
+  /* Surfaces */
+  --sl-color-white: #0a0a0b;
+  --sl-color-gray-1: #18181a;
+  --sl-color-gray-2: #2a2a2c;
+  --sl-color-gray-3: #414143;
+  --sl-color-gray-4: #6b6b6e;
+  --sl-color-gray-5: #a4a4a7;
+  --sl-color-gray-6: #d8d8da;
+  --sl-color-gray-7: #f1f1f2;
+  --sl-color-black: #ffffff;
+
+  --sl-color-bg: #ffffff;
+  --sl-color-bg-nav: #ffffff;
+  --sl-color-bg-sidebar: #fafafa;
+  --sl-color-bg-inline-code: #f4f4f5;
+  --sl-color-bg-accent: #CD2030;
+  --sl-color-text: #1a1a1c;
+  --sl-color-text-accent: #CD2030;
+  --sl-color-text-invert: #ffffff;
+  --sl-color-hairline: rgba(0, 0, 0, 0.08);
+  --sl-color-hairline-light: rgba(0, 0, 0, 0.04);
+  --sl-color-hairline-shade: rgba(0, 0, 0, 0.12);
+
+  --sl-shadow-md: 0 8px 28px -20px rgba(0, 0, 0, 0.18);
+  --sl-shadow-lg: 0 18px 48px -30px rgba(0, 0, 0, 0.22);
+}
+
+/* ───────────── Dark theme ──────────────────────────────────────────────── */
+:root[data-theme='dark'] {
+  --sl-color-accent-low: #3a070d;
+  --sl-color-accent: #ff5d6d;
+  --sl-color-accent-high: #ffd0d5;
+
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #f1f1f2;
+  --sl-color-gray-2: #d8d8da;
+  --sl-color-gray-3: #a4a4a7;
+  --sl-color-gray-4: #6b6b6e;
+  --sl-color-gray-5: #414143;
+  --sl-color-gray-6: #2a2a2c;
+  --sl-color-gray-7: #18181a;
+  --sl-color-black: #0a0a0b;
+
+  --sl-color-bg: #0f0f10;
+  --sl-color-bg-nav: #18181a;
+  --sl-color-bg-sidebar: #131315;
+  --sl-color-bg-inline-code: #25252a;
+  --sl-color-bg-accent: #CD2030;
+  --sl-color-text: #ededee;
+  --sl-color-text-accent: #ff5d6d;
+  --sl-color-text-invert: #0f0f10;
+  --sl-color-hairline: rgba(255, 255, 255, 0.08);
+  --sl-color-hairline-light: rgba(255, 255, 255, 0.04);
+  --sl-color-hairline-shade: rgba(255, 255, 255, 0.14);
+}
+
+/* ───────────── Body / global look ─────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--sl-font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: rgba(205, 32, 48, 0.85);
+  color: #ffffff;
+}
+
+/* ───────────── Header — red accent bar ────────────────────────────────── */
+.header {
+  border-bottom: 1px solid var(--sl-color-hairline) !important;
+  background-color: var(--sl-color-bg-nav) !important;
+  position: relative;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--color-brand-red);
+}
+
+.site-title {
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  color: var(--sl-color-text);
+}
+
+/* ───────────── Headings (per design system) ──────────────────────────── */
+.sl-markdown-content h1,
+.sl-markdown-content h2,
+.sl-markdown-content h3,
+.sl-markdown-content h4 {
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+
+.sl-markdown-content h1 {
+  letter-spacing: -0.015em;
+}
+
+.sl-markdown-content h2 {
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--sl-color-hairline);
+  padding-bottom: 0.4em;
+  margin-top: 2.4em;
+}
+
+.sl-markdown-content h2::before {
+  content: '';
+  display: inline-block;
+  width: 0.4em;
+  height: 0.16em;
+  background: var(--color-brand-red);
+  margin-right: 0.5em;
+  vertical-align: middle;
+  transform: translateY(-0.12em);
+}
+
+/* ───────────── Sidebar polish ─────────────────────────────────────────── */
+nav.sidebar a[aria-current='page'] {
+  background-color: var(--sl-color-accent-low) !important;
+  color: var(--sl-color-accent-high) !important;
+  border-left: 3px solid var(--color-brand-red);
+  padding-left: calc(var(--sl-sidebar-item-padding-inline, 0.5rem) - 3px);
+  font-weight: 700;
+}
+
+:root[data-theme='dark'] nav.sidebar a[aria-current='page'] {
+  background-color: rgba(205, 32, 48, 0.12) !important;
+  color: #ffd0d5 !important;
+}
+
+/* Group labels uppercase italic for the brand feel */
+nav.sidebar summary,
+nav.sidebar .group-label > span {
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.78rem;
+}
+
+/* ───────────── Links (in content) ─────────────────────────────────────── */
+.sl-markdown-content a:not(.not-content *) {
+  color: var(--sl-color-text-accent);
+  text-decoration: underline;
+  text-decoration-color: rgba(205, 32, 48, 0.4);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease;
+}
+
+.sl-markdown-content a:hover:not(.not-content *) {
+  text-decoration-color: var(--color-brand-red);
+}
+
+/* ───────────── Inline code + code blocks ─────────────────────────────── */
+.sl-markdown-content :not(pre) > code:not(.not-content *) {
+  background-color: var(--sl-color-bg-inline-code);
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: 0.35rem;
+  padding: 0.1em 0.35em;
+  font-size: 0.92em;
+}
+
+/* ───────────── Asides (note / tip / caution / danger) ─────────────────── */
+.starlight-aside {
+  border-left-width: 4px !important;
+  border-radius: 0.5rem;
+  background-color: var(--sl-color-gray-7);
+}
+
+:root[data-theme='dark'] .starlight-aside {
+  background-color: rgba(255, 255, 255, 0.025);
+}
+
+.starlight-aside--tip {
+  border-color: var(--color-brand-red) !important;
+}
+
+.starlight-aside--tip .starlight-aside__title {
+  color: var(--color-brand-red) !important;
+}
+
+/* ───────────── Hero (splash template) ─────────────────────────────────── */
+.hero h1 {
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  background: linear-gradient(180deg, var(--sl-color-text) 0%, var(--color-brand-red) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero .tagline {
+  color: var(--sl-color-gray-3);
+  font-weight: 300;
+}
+
+.hero .actions a[data-variant='primary'] {
+  background-color: var(--color-brand-red) !important;
+  border-color: var(--color-brand-red) !important;
+  color: #ffffff !important;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 9999px;
+}
+
+.hero .actions a[data-variant='primary']:hover {
+  background-color: var(--color-brand-red-deep) !important;
+  border-color: var(--color-brand-red-deep) !important;
+}
+
+.hero .actions a[data-variant='minimal'],
+.hero .actions a[data-variant='secondary'] {
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 9999px;
+}
+
+/* Hero image: scale logo nicely */
+.hero img {
+  max-height: 18rem;
+  filter: drop-shadow(0 24px 48px rgba(205, 32, 48, 0.25));
+}
+
+/* ───────────── CardGrid / Cards on splash pages ──────────────────────── */
+.card {
+  border-radius: 1rem !important;
+  border: 1px solid var(--sl-color-hairline);
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.card:hover {
+  border-color: var(--color-brand-red);
+  transform: translateY(-2px);
+  box-shadow: var(--sl-shadow-md);
+}
+
+/* ───────────── Pagination footer ─────────────────────────────────────── */
+.pagination-links a {
+  border-color: var(--sl-color-hairline) !important;
+  border-radius: 0.75rem !important;
+  transition: border-color 0.18s ease;
+}
+
+.pagination-links a:hover {
+  border-color: var(--color-brand-red) !important;
+}
+
+/* ───────────── ToC accent ─────────────────────────────────────────────── */
+starlight-toc nav a[aria-current='true'] {
+  color: var(--color-brand-red) !important;
+  font-weight: 700;
+  border-color: var(--color-brand-red) !important;
+}

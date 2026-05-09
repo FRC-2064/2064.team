@@ -1,0 +1,38 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'surface' | 'ghost';
+  disabled?: boolean;
+  target?: string;
+  rel?: string;
+}
+
+const { href, variant = 'primary', disabled = false, target, rel } = Astro.props;
+
+const styles = {
+  primary:
+    'bg-brand-red text-white shadow-[0_14px_30px_-14px_rgba(205,32,48,0.7)] hover:bg-brand-red-deep hover:shadow-[0_18px_36px_-12px_rgba(205,32,48,0.85)] active:translate-y-px',
+  secondary:
+    'border-2 border-brand-charcoal/20 bg-white text-brand-black hover:border-brand-red hover:text-brand-red',
+  surface:
+    'bg-brand-ink text-white hover:bg-brand-black',
+  ghost:
+    'border-2 border-white/30 bg-white/5 text-white backdrop-blur hover:border-white hover:bg-white/10'
+};
+
+const classes = [
+  'group inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-6 py-2.5 text-xs font-black uppercase tracking-[0.14em] transition-all duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-red/30',
+  disabled ? 'pointer-events-none cursor-not-allowed opacity-45 bg-brand-grey text-white' : styles[variant]
+].join(' ');
+---
+
+{href && !disabled ? (
+  <a class={classes} href={href} target={target} rel={rel}>
+    <slot />
+    <span class="inline-block transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">→</span>
+  </a>
+) : (
+  <span class={classes} aria-disabled="true">
+    <slot />
+  </span>
+)}

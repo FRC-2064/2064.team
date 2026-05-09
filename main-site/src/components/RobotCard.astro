@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import M3Button from './M3Button.astro';
+
+interface Props {
+  robot: CollectionEntry<'robots'>;
+}
+
+const { robot } = Astro.props;
+const { name, season, game, summary, image, techBinderUrl, onshapeUrl } = robot.data;
+---
+
+<article class="group card-lift relative flex h-full flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_8px_28px_-20px_rgba(0,0,0,0.25)]">
+  <div class="relative aspect-[4/3] w-full overflow-hidden">
+    {image ? (
+      <img src={image} alt={`${name} robot`} class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
+    ) : (
+      <div class="relative h-full w-full bg-gradient-to-br from-brand-ink via-brand-charcoal to-brand-grey">
+        <div class="flair-iso flair-iso--dim absolute inset-0 opacity-80"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-transparent to-brand-red/30"></div>
+        <div class="relative flex h-full w-full flex-col items-center justify-center gap-2 text-center text-white">
+          <span class="t-eyebrow text-brand-red">Robot</span>
+          <span class="t-subscript text-white/50">Photo Placeholder</span>
+        </div>
+      </div>
+    )}
+
+    <div class="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-brand-red/95 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-white shadow-lg backdrop-blur">
+      <span>{season}</span>
+      {game && <><span class="opacity-50">·</span><span>{game}</span></>}
+    </div>
+  </div>
+
+  <div class="flex flex-1 flex-col gap-4 p-6">
+    <div>
+      <span class="brand-rule"></span>
+      <h2 class="t-h3 mt-3 text-2xl text-brand-black">{name}</h2>
+    </div>
+    <p class="t-body flex-1 text-black/65">{summary}</p>
+    <div class="flex flex-wrap gap-2">
+      <M3Button href={techBinderUrl} disabled={!techBinderUrl} target="_blank" rel="noreferrer">Tech Binder</M3Button>
+      <M3Button href={onshapeUrl} disabled={!onshapeUrl} variant="secondary" target="_blank" rel="noreferrer">Onshape</M3Button>
+    </div>
+  </div>
+</article>

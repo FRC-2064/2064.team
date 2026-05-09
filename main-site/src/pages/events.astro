@@ -1,0 +1,77 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EventCard from '../components/EventCard.astro';
+import { GOOGLE_CALENDAR_EMBED_URL } from '../data/site';
+
+const events = (await getCollection('events')).sort((a, b) => {
+  const orderA = a.data.order ?? Number.MAX_SAFE_INTEGER;
+  const orderB = b.data.order ?? Number.MAX_SAFE_INTEGER;
+  return orderA - orderB || a.data.date.getTime() - b.data.date.getTime();
+});
+
+const now = new Date();
+const upcoming = events.filter((e) => (e.data.endDate ?? e.data.date) >= now);
+const past = events.filter((e) => (e.data.endDate ?? e.data.date) < now);
+---
+
+<BaseLayout title="Events | 2064 | The Panther Project">
+  <section class="relative isolate overflow-hidden bg-brand-ink text-white">
+    <div class="flair-iso flair-iso--dim absolute inset-0 opacity-60"></div>
+    <div
+      class="pointer-events-none absolute -top-20 left-0 -z-10 h-[24rem] w-[24rem] rounded-full bg-brand-red/20 blur-[120px]"
+      aria-hidden="true"
+    ></div>
+    <div class="relative mx-auto flex max-w-7xl flex-col gap-6 px-4 py-20 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:px-8">
+      <div class="max-w-3xl">
+        <p class="t-eyebrow inline-flex items-center gap-3 text-brand-red">
+          <span class="brand-rule"></span>
+          Page Eyebrow
+        </p>
+        <h1 class="t-h1 mt-4 text-6xl text-white sm:text-7xl">Events</h1>
+        <p class="t-subtitle mt-6 max-w-2xl text-lg text-white/65">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </div>
+      <div class="flex gap-8 text-sm">
+        <div>
+          <p class="t-eyebrow text-white/45">Upcoming</p>
+          <p class="t-h2 mt-2 text-3xl text-brand-red">{upcoming.length}</p>
+        </div>
+        <div>
+          <p class="t-eyebrow text-white/45">Past</p>
+          <p class="t-h2 mt-2 text-3xl text-white/70">{past.length}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-10">
+        <p class="t-eyebrow text-brand-red">Section Eyebrow</p>
+        <h2 class="t-h2 mt-2 text-2xl text-brand-black sm:text-3xl">Section Heading</h2>
+      </div>
+      <div class="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_18px_48px_-30px_rgba(0,0,0,0.25)]">
+        <iframe
+          title="Team 2064 Google Calendar"
+          src={GOOGLE_CALENDAR_EMBED_URL}
+          class="h-[42rem] w-full"
+          loading="lazy"
+        ></iframe>
+      </div>
+
+      {events.length > 0 && (
+        <div class="mt-16">
+          <div class="mb-8">
+            <p class="t-eyebrow text-brand-red">Section Eyebrow</p>
+            <h2 class="t-h2 mt-2 text-2xl text-brand-black sm:text-3xl">Section Heading</h2>
+          </div>
+          <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {events.map((event) => <EventCard event={event} />)}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

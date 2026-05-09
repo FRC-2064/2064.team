@@ -1,0 +1,95 @@
+---
+import { SPONSOR_CONTACT_EMAIL } from '../data/site';
+
+const navColumns = [
+  {
+    heading: 'Team',
+    links: [
+      { href: '/robots/', label: 'Robots' },
+      { href: '/events/', label: 'Events' },
+      { href: '/sponsors/', label: 'Sponsors' }
+    ]
+  },
+  {
+    heading: 'Resources',
+    links: [
+      { href: 'https://docs.2064.team/', label: 'Docs Site', external: true },
+      { href: 'https://www.firstinspires.org/robotics/frc', label: 'FIRST FRC', external: true },
+      { href: 'mailto:' + SPONSOR_CONTACT_EMAIL, label: 'Contact' }
+    ]
+  },
+  {
+    heading: 'Community',
+    links: [
+      { href: '#', label: 'Pomperaug Robotics' },
+      { href: '#', label: 'Outreach' },
+      { href: '#', label: 'Donate' }
+    ]
+  }
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="relative isolate overflow-hidden bg-brand-ink text-white">
+  <div class="flair-iso flair-iso--dim absolute inset-0 -z-10 opacity-60"></div>
+  <div class="absolute inset-x-0 top-0 -z-10 h-[3px] bg-brand-red"></div>
+
+  <div class="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.4fr_2fr] lg:px-8">
+    <div>
+      <div class="flex items-center gap-3">
+        <img
+          src="/brand/logo.png"
+          alt="2064 The Panther Project"
+          class="h-12 w-12 object-contain"
+          width="48"
+          height="48"
+        />
+        <img
+          src="/brand/wordmark.png"
+          alt="Panther Project 2064"
+          class="h-9 object-contain"
+          height="36"
+        />
+      </div>
+      <p class="t-subtitle mt-6 max-w-sm text-white/65">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <a
+        href={`mailto:${SPONSOR_CONTACT_EMAIL}`}
+        class="mt-6 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wider text-white underline decoration-brand-red decoration-2 underline-offset-[6px] transition hover:decoration-4"
+      >
+        {SPONSOR_CONTACT_EMAIL}
+      </a>
+    </div>
+
+    <div class="grid grid-cols-2 gap-8 sm:grid-cols-3">
+      {navColumns.map((column) => (
+        <div>
+          <p class="t-eyebrow text-brand-red">{column.heading}</p>
+          <ul class="mt-4 space-y-2.5 text-sm text-white/80">
+            {column.links.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  target={link.external ? '_blank' : undefined}
+                  rel={link.external ? 'noreferrer' : undefined}
+                  class="transition hover:text-white"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="mx-auto flex max-w-7xl flex-col items-start justify-between gap-3 px-4 py-5 text-xs text-white/50 sm:flex-row sm:items-center sm:px-6 lg:px-8">
+      <p class="t-subscript">© {year} FRC Team 2064 · The Panther Project</p>
+      <p class="t-subscript">Placeholder footer line</p>
+    </div>
+  </div>
+</footer>

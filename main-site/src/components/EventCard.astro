@@ -1,0 +1,68 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import M3Button from './M3Button.astro';
+
+interface Props {
+  event: CollectionEntry<'events'>;
+}
+
+const { event } = Astro.props;
+const { title, date, endDate, summary, location, image, signupUrl, category } = event.data;
+
+const monthFormatter = new Intl.DateTimeFormat('en-US', { month: 'short' });
+const dayFormatter = new Intl.DateTimeFormat('en-US', { day: 'numeric' });
+const yearFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric' });
+
+const fullFormatter = new Intl.DateTimeFormat('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric'
+});
+const fullLabel = endDate ? `${fullFormatter.format(date)} – ${fullFormatter.format(endDate)}` : fullFormatter.format(date);
+
+const categoryLabels: Record<string, string> = {
+  camp: 'Camp',
+  meeting: 'Meeting',
+  competition: 'Competition',
+  outreach: 'Outreach',
+  other: 'Event'
+};
+---
+
+<article class="group card-lift relative flex h-full flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_8px_28px_-20px_rgba(0,0,0,0.25)]">
+  <div class="relative aspect-[16/9] w-full overflow-hidden">
+    {image ? (
+      <img src={image} alt="" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
+    ) : (
+      <div class="relative h-full w-full bg-gradient-to-br from-brand-charcoal via-brand-grey to-brand-charcoal">
+        <div class="flair-iso flair-iso--dim absolute inset-0 opacity-80"></div>
+        <div class="relative flex h-full w-full items-center justify-center text-center">
+          <span class="t-eyebrow text-white/60">Event Image Placeholder</span>
+        </div>
+      </div>
+    )}
+
+    <div class="absolute left-4 top-4 flex items-center gap-3">
+      <div class="flex w-14 flex-col items-center overflow-hidden rounded-lg border border-white/30 bg-white/95 text-center shadow-lg backdrop-blur">
+        <span class="block w-full bg-brand-red py-0.5 text-[10px] font-black uppercase tracking-[0.16em] text-white">
+          {monthFormatter.format(date)}
+        </span>
+        <span class="t-h2 block py-1 text-xl text-brand-black leading-none">{dayFormatter.format(date)}</span>
+        <span class="block pb-1 text-[9px] font-bold uppercase tracking-[0.12em] text-brand-charcoal">{yearFormatter.format(date)}</span>
+      </div>
+      <span class="rounded-full bg-brand-black/90 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-white shadow backdrop-blur">
+        {categoryLabels[category] ?? category}
+      </span>
+    </div>
+  </div>
+
+  <div class="flex flex-1 flex-col gap-4 p-6">
+    <div>
+      <h2 class="t-h3 text-2xl text-brand-black">{title}</h2>
+      {location && <p class="t-subscript mt-1 text-brand-charcoal">{location}</p>}
+      <p class="t-subscript mt-1 text-black/45">{fullLabel}</p>
+    </div>
+    <p class="t-body flex-1 text-black/65">{summary}</p>
+    <M3Button href={signupUrl} disabled={!signupUrl} target="_blank" rel="noreferrer">Sign Up</M3Button>
+  </div>
+</article>

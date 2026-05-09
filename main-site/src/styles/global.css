@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-brand-red: #CD2030;
+  --color-brand-red-deep: #A4111F;
+  --color-brand-grey: #808285;
+  --color-brand-charcoal: #414143;
+  --color-brand-ink: #18181a;
+  --color-brand-black: #000000;
+  --color-brand-white: #FFFFFF;
+  --color-brand-bone: #f4f4f5;
+  --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif;
+  --shadow-brand: 0 18px 40px -18px rgba(205, 32, 48, 0.55);
+}
+
+:root {
+  color: #000000;
+  background: #ffffff;
+  font-family: "Roboto", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  background: #ffffff;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background-color: rgba(205, 32, 48, 0.85);
+  color: #ffffff;
+}
+
+/* ── Typography (per Team 2064 design system) ──────────────────────────── */
+
+.t-eyebrow {
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.78rem;
+  line-height: 1;
+}
+
+.t-h1 {
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.015em;
+  line-height: 0.95;
+}
+
+.t-h2 {
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.t-h3 {
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.005em;
+  line-height: 1.1;
+}
+
+.t-subtitle {
+  font-weight: 300;
+  letter-spacing: 0.005em;
+  line-height: 1.5;
+}
+
+.t-body {
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+.t-subscript {
+  font-weight: 300;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+
+/* Backwards compatibility */
+.m3-title {
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+/* ── Wordmark (synthetic — matches Panther Project lockup) ─────────────── */
+
+.wordmark {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 0.85;
+  font-style: italic;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.wordmark__top {
+  color: var(--color-brand-red);
+  letter-spacing: 0.01em;
+  -webkit-text-stroke: 0;
+}
+
+.wordmark__bottom {
+  color: var(--color-brand-black);
+  letter-spacing: -0.04em;
+  font-size: 1.6em;
+  text-shadow:
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff;
+}
+
+.wordmark--inverted .wordmark__bottom {
+  color: var(--color-brand-white);
+  text-shadow:
+    -1px -1px 0 var(--color-brand-black),
+    1px -1px 0 var(--color-brand-black),
+    -1px 1px 0 var(--color-brand-black),
+    1px 1px 0 var(--color-brand-black);
+}
+
+.wordmark--mono .wordmark__top,
+.wordmark--mono .wordmark__bottom {
+  color: var(--color-brand-black);
+  text-shadow: none;
+}
+
+/* ── Isogrid background flair ──────────────────────────────────────────── */
+
+.flair-iso {
+  --iso-color: rgba(65, 65, 67, 0.18);
+  --iso-size: 56px;
+  background-image:
+    linear-gradient(60deg, var(--iso-color) 1px, transparent 1px),
+    linear-gradient(-60deg, var(--iso-color) 1px, transparent 1px),
+    linear-gradient(0deg, var(--iso-color) 1px, transparent 1px);
+  background-size:
+    var(--iso-size) calc(var(--iso-size) * 1.732),
+    var(--iso-size) calc(var(--iso-size) * 1.732),
+    var(--iso-size) calc(var(--iso-size) * 1.732);
+  background-position: 0 0;
+}
+
+.flair-iso--dim {
+  --iso-color: rgba(255, 255, 255, 0.06);
+}
+
+.flair-iso--light {
+  --iso-color: rgba(0, 0, 0, 0.05);
+}
+
+/* ── Decorative red rule ───────────────────────────────────────────────── */
+
+.brand-rule {
+  display: inline-block;
+  width: 2.5rem;
+  height: 4px;
+  background: var(--color-brand-red);
+}
+
+/* ── Logo placeholder boxes ────────────────────────────────────────────── */
+
+.logo-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  min-width: 9rem;
+  border-radius: 0.5rem;
+  border: 1.5px dashed rgba(0, 0, 0, 0.18);
+  background: rgba(0, 0, 0, 0.02);
+  color: rgba(0, 0, 0, 0.45);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.logo-slot--inverse {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* ── Marquee (sponsors / stats) ────────────────────────────────────────── */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee { animation: none; }
+}
+
+/* ── Card hover lift ───────────────────────────────────────────────────── */
+
+.card-lift {
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-brand-red);
+  box-shadow: 0 24px 48px -28px rgba(205, 32, 48, 0.35);
+}
