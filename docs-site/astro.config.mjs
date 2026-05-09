@@ -250,13 +250,13 @@ export default defineConfig({
         replacesTitle: false
       },
       editLink: {
-        baseUrl: 'https://github.com/mrmarganski/mkdoc/edit/main/docs/'
+        baseUrl: 'https://github.com/FRC-2064/2064.team'
       },
       social: [
         {
           icon: 'github',
           label: 'MkDocs source repository',
-          href: 'https://github.com/mrmarganski/mkdoc'
+          href: 'https://github.com/FRC-2064/2064.team'
         },
         {
           icon: 'instagram',

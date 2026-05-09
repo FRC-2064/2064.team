@@ -12,10 +12,46 @@ export const SUMMER_CAMP_SIGNUP_URL = 'https://TODO.example/summer-camp-google-f
 
 export const SPONSOR_CONTACT_EMAIL = 'info@2064.team';
 
+export const DOCS_PRODUCTION_URL = 'https://docs.2064.team/';
+export const DOCS_DEVELOPMENT_URL = 'http://localhost:4322/';
+
+export const getDocsUrl = (isDev: boolean) => (isDev ? DOCS_DEVELOPMENT_URL : DOCS_PRODUCTION_URL);
+
 export const sponsors = [
   {
-    name: 'Sponsor Name',
-    level: 'Current Sponsor',
-    description: 'Placeholder sponsor entry. Replace with current sponsor details when available.'
+    name: 'Ace',
+    logo: '/SponsorLogos/Ace.png'
+  },
+  {
+    name: 'BAE Systems',
+    logo: '/SponsorLogos/BAESystems.png'
+  },
+  {
+    name: 'Boeing',
+    logo: '/SponsorLogos/Boeing.png'
+  },
+  {
+    name: 'Connecticut Manufacturing',
+    logo: '/SponsorLogos/CTMFG.png'
+  },
+  {
+    name: 'D&V',
+    logo: '/SponsorLogos/D&V.png'
+  },
+  {
+    name: 'RTX',
+    logo: '/SponsorLogos/RTX.png'
+  },
+  {
+    name: 'FRC Tees',
+    logo: '/SponsorLogos/frctees.png'
+  },
+  {
+    name: 'MannKind',
+    logo: '/SponsorLogos/mannkind.png'
+  },
+  {
+    name: 'Sperry',
+    logo: '/SponsorLogos/sperry.png'
   }
 ];

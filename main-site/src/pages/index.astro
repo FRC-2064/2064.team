@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import M3Button from '../components/M3Button.astro';
+import { sponsors } from '../data/site';
 
 const pillars = [
   { eyebrow: 'Pillar One', title: 'Section Heading' },
@@ -9,7 +10,6 @@ const pillars = [
 ];
 
 const placeholderBody = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
-const sponsorCount = 8;
 const galleryTiles = [
   { label: 'Photo Placeholder', span: 'lg:col-span-2 lg:row-span-2 aspect-square lg:aspect-auto' },
   { label: 'Photo Placeholder', span: 'aspect-[4/3]' },
@@ -68,12 +68,22 @@ const galleryTiles = [
       <div class="flex items-center gap-6">
         <div class="shrink-0">
           <p class="t-eyebrow text-brand-red">Sponsored By</p>
-          <p class="t-subscript mt-1 text-black/40">Logo Placeholders</p>
+          <p class="t-subscript mt-1 text-black/40">Teams that power our season</p>
         </div>
-        <div class="relative flex-1 overflow-hidden">
+        <div class="sponsor-marquee-window relative flex-1 overflow-hidden">
           <div class="marquee gap-6">
-            {Array.from({ length: sponsorCount * 2 }).map(() => (
-              <div class="logo-slot shrink-0" aria-hidden="true"></div>
+            {[...sponsors, ...sponsors].map((sponsor, index) => (
+              <a
+                href="/sponsors/"
+                class="sponsor-logo-rail-item shrink-0"
+                aria-label={`${sponsor.name} sponsor logo`}
+                aria-hidden={index >= sponsors.length ? 'true' : undefined}
+                tabindex={index >= sponsors.length ? '-1' : undefined}
+              >
+                <span class="sponsor-logo-frame sponsor-logo-frame--marquee">
+                  <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="sponsor-logo-image sponsor-logo-image--muted" loading="lazy" />
+                </span>
+              </a>
             ))}
           </div>
         </div>

@@ -37,7 +37,7 @@ const placeholderBody = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit
         <div>
           <p class="t-eyebrow inline-flex items-center gap-3 text-brand-red">
             <span class="brand-rule"></span>
-            Page Eyebrow
+            Back The Team
           </p>
           <h1 class="t-h1 mt-4 text-6xl text-white sm:text-7xl">Sponsors</h1>
           <p class="t-subtitle mt-6 max-w-2xl text-lg text-white/65">
@@ -69,15 +69,19 @@ const placeholderBody = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="mb-10 flex items-end justify-between">
         <div>
-          <p class="t-eyebrow text-brand-red">Section Eyebrow</p>
-          <h2 class="t-h2 mt-2 text-3xl text-brand-black sm:text-4xl">Section Heading</h2>
+          <p class="t-eyebrow text-brand-red">Current Sponsors</p>
+          <h2 class="t-h2 mt-2 text-3xl text-brand-black sm:text-4xl">Organizations behind the build season</h2>
         </div>
         <span class="t-h3 hidden text-brand-charcoal/30 sm:block">{String(sponsors.length).padStart(2, '0')}</span>
       </div>
 
       <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        {Array.from({ length: Math.max(sponsors.length, 8) }).map(() => (
-          <div class="logo-slot h-28 w-full" aria-hidden="true"></div>
+        {sponsors.map((sponsor) => (
+          <article class="sponsor-logo-card sponsor-logo-card--page h-32 w-full sm:h-36">
+            <span class="sponsor-logo-frame sponsor-logo-frame--page">
+              <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="sponsor-logo-image" loading="lazy" />
+            </span>
+          </article>
         ))}
       </div>
     </div>

@@ -1,9 +1,14 @@
 ---
+import { getDocsUrl } from '../data/site';
+
+const docsUrl = getDocsUrl(import.meta.env.DEV);
+
 const navItems = [
   { href: '/', label: 'Home' },
   { href: '/robots/', label: 'Robots' },
   { href: '/events/', label: 'Events' },
-  { href: '/sponsors/', label: 'Sponsors' }
+  { href: '/sponsors/', label: 'Sponsors' },
+  { href: docsUrl, label: 'Docs', external: true, newTab: false }
 ];
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -27,7 +32,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     <div class="flex items-center gap-1 text-xs font-black uppercase tracking-wider sm:gap-2">
       {navItems.map((item) => {
         const itemPath = item.href.replace(/\/$/, '') || '/';
-        const isActive = itemPath === currentPath;
+        const isActive = !item.external && itemPath === currentPath;
         if (isActive) {
           return (
             <a
@@ -43,6 +48,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
         return (
           <a
             href={item.href}
+            target={item.newTab ? '_blank' : undefined}
+            rel={item.newTab ? 'noreferrer' : undefined}
             class="rounded-full px-3 py-2 text-brand-charcoal transition hover:bg-brand-red hover:text-white sm:px-4"
           >
             {item.label}

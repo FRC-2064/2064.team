@@ -1,5 +1,7 @@
 ---
-import { SPONSOR_CONTACT_EMAIL } from '../data/site';
+import { getDocsUrl, SPONSOR_CONTACT_EMAIL } from '../data/site';
+
+const docsUrl = getDocsUrl(import.meta.env.DEV);
 
 const navColumns = [
   {
@@ -13,8 +15,8 @@ const navColumns = [
   {
     heading: 'Resources',
     links: [
-      { href: 'https://docs.2064.team/', label: 'Docs Site', external: true },
-      { href: 'https://www.firstinspires.org/robotics/frc', label: 'FIRST FRC', external: true },
+      { href: docsUrl, label: 'Docs Site' },
+      { href: 'https://www.firstinspires.org/robotics/frc', label: 'FIRST FRC', external: true, newTab: true },
       { href: 'mailto:' + SPONSOR_CONTACT_EMAIL, label: 'Contact' }
     ]
   },
@@ -65,8 +67,8 @@ const year = new Date().getFullYear();
               <li>
                 <a
                   href={link.href}
-                  target={link.external ? '_blank' : undefined}
-                  rel={link.external ? 'noreferrer' : undefined}
+                  target={link.newTab ? '_blank' : undefined}
+                  rel={link.newTab ? 'noreferrer' : undefined}
                   class="transition hover:text-white"
                 >
                   {link.label}
