@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="104" height="90" viewBox="0 0 104 90">
+  <defs>
+    <g id="h" stroke="#000" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15"/>
+      <line x1="0" y1="-3" x2="0" y2="-30"/>
+      <line x1="2.6" y1="-1.5" x2="26" y2="-15"/>
+      <line x1="2.6" y1="1.5" x2="26" y2="15"/>
+      <line x1="0" y1="3" x2="0" y2="30"/>
+      <line x1="-2.6" y1="1.5" x2="-26" y2="15"/>
+      <line x1="-2.6" y1="-1.5" x2="-26" y2="-15"/>
+      <circle cx="0" cy="0" r="3"/>
+    </g>
+  </defs>
+  <use href="#h" transform="translate(0,-15)"/>
+  <use href="#h" transform="translate(52,-15)"/>
+  <use href="#h" transform="translate(104,-15)"/>
+  <use href="#h" transform="translate(26,30)"/>
+  <use href="#h" transform="translate(78,30)"/>
+  <use href="#h" transform="translate(0,75)"/>
+  <use href="#h" transform="translate(52,75)"/>
+  <use href="#h" transform="translate(104,75)"/>
+</svg>

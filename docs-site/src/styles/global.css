@@ -95,21 +95,27 @@ body {
   color: #ffffff;
 }
 
-/* ───────────── Header — red accent bar ────────────────────────────────── */
-.header {
-  border-bottom: 1px solid var(--sl-color-hairline) !important;
-  background-color: var(--sl-color-bg-nav) !important;
-  position: relative;
+/* ── Isogrid background flair (for hero / feature blocks) ──────────────── */
+.flair-iso {
+  -webkit-mask-image: url('/iso.svg');
+          mask-image: url('/iso.svg');
+  -webkit-mask-repeat: repeat;
+          mask-repeat: repeat;
+  -webkit-mask-size: 104px 90px;
+          mask-size: 104px 90px;
+  background-color: rgba(65, 65, 67, 0.14);
+  pointer-events: none;
 }
 
-.header::before {
-  content: '';
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 3px;
-  background: var(--color-brand-red);
+.flair-iso--dim {
+  background-color: rgba(255, 255, 255, 0.10);
 }
 
+.flair-iso--light {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+/* ───────────── Header ─────────────────────────────────────────────────── */
 .site-title {
   font-weight: 900;
   font-style: italic;
@@ -134,20 +140,7 @@ body {
 
 .sl-markdown-content h2 {
   text-transform: uppercase;
-  border-bottom: 1px solid var(--sl-color-hairline);
-  padding-bottom: 0.4em;
   margin-top: 2.4em;
-}
-
-.sl-markdown-content h2::before {
-  content: '';
-  display: inline-block;
-  width: 0.4em;
-  height: 0.16em;
-  background: var(--color-brand-red);
-  margin-right: 0.5em;
-  vertical-align: middle;
-  transform: translateY(-0.12em);
 }
 
 /* ───────────── Sidebar polish ─────────────────────────────────────────── */
@@ -221,10 +214,13 @@ nav.sidebar .group-label > span {
   font-style: italic;
   letter-spacing: -0.02em;
   line-height: 0.95;
-  background: linear-gradient(180deg, var(--sl-color-text) 0%, var(--color-brand-red) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--sl-color-text);
+}
+
+.hero h1 .accent,
+.hero h1 em {
+  color: var(--color-brand-red);
+  font-style: italic;
 }
 
 .hero .tagline {
@@ -260,7 +256,6 @@ nav.sidebar .group-label > span {
 /* Hero image: scale logo nicely */
 .hero img {
   max-height: 18rem;
-  filter: drop-shadow(0 24px 48px rgba(205, 32, 48, 0.25));
 }
 
 /* ───────────── CardGrid / Cards on splash pages ──────────────────────── */

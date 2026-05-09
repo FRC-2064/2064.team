@@ -15,9 +15,8 @@ const { name, season, game, summary, image, techBinderUrl, onshapeUrl } = robot.
     {image ? (
       <img src={image} alt={`${name} robot`} class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
     ) : (
-      <div class="relative h-full w-full bg-gradient-to-br from-brand-ink via-brand-charcoal to-brand-grey">
+      <div class="relative h-full w-full bg-brand-ink">
         <div class="flair-iso flair-iso--dim absolute inset-0 opacity-80"></div>
-        <div class="absolute inset-0 bg-gradient-to-br from-transparent to-brand-red/30"></div>
         <div class="relative flex h-full w-full flex-col items-center justify-center gap-2 text-center text-white">
           <span class="t-eyebrow text-brand-red">Robot</span>
           <span class="t-subscript text-white/50">Photo Placeholder</span>
