@@ -5,8 +5,6 @@ description: "Mandatory technical onboarding bootcamp for all incoming FRC Team 
 
 ![Team 2064 Logo](/img/2064_logo.png)
 
-# 🏁 Phase 1: Rookie Foundations
-
 :::tip[Target Audience]
 **Mandatory** for all incoming members of *The Panther Project - FRC Team 2064*.
 :::
