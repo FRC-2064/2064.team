@@ -1,14 +1,14 @@
 export const SITE_TITLE = '2064 | The Panther Project';
 
 export const MISSION_STATEMENT =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+  'Engineering excellence through hands-on learning. The Panther Project builds technical proficiency, fosters leadership, and drives innovation through competitive robotics.';
 
 export const GOOGLE_CALENDAR_EMBED_URL =
   'https://calendar.google.com/calendar/embed?src=c_a246400a88a21fe4e3b65cc96f43ae4020788d8410fe2a1c572ab632d872a20a%40group.calendar.google.com&ctz=America%2FNew_York';
 
-export const HACK_CLUB_DONATION_URL = 'https://TODO.example/hack-club-donation';
+export const HACK_CLUB_DONATION_URL = 'https://hcb.hackclub.com/donations/start/the-panther-project';
 
-export const SUMMER_CAMP_SIGNUP_URL = 'https://TODO.example/summer-camp-google-form';
+export const SUMMER_CAMP_SIGNUP_URL = 'https://docs.google.com/forms/u/1/d/e/1FAIpQLSfiyNGWaMS4lSMUwHNTbGs5DZIo2ijGzyMe01h0hKUNEKrATA/viewform?usp=send_form';
 
 export const SPONSOR_CONTACT_EMAIL = 'info@2064.team';
 
