@@ -22,7 +22,17 @@ const galleryTiles = [
 <BaseLayout>
   {/* ── HERO ──────────────────────────────────────────────────────── */}
   <section class="relative isolate overflow-hidden bg-brand-ink text-white">
-    <div class="flair-iso flair-iso--dim absolute inset-0 -z-10"></div>
+    
+    {/* MACHINING BACKGROUND VIDEO */}
+    <video 
+      class="absolute inset-0 h-full w-full object-cover opacity-15 -z-10 pointer-events-none" 
+      autoplay 
+      loop 
+      muted 
+      playsinline
+    >
+      <source src="/video/Manufacturing_and_Machining_Video_Ready.mp4" type="video/mp4" />
+    </video>
 
     <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:py-28 lg:px-8">
       <div>

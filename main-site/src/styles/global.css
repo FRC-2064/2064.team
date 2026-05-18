@@ -143,26 +143,30 @@ a {
   text-shadow: none;
 }
 
-/* ── Isogrid background flair (hexagons w/ center node + spokes) ──────── */
+/* --- Video background flair --- */
 
-.flair-iso {
-  --iso-tile: 104px 90px;
-  -webkit-mask-image: url('/iso.svg');
-          mask-image: url('/iso.svg');
-  -webkit-mask-repeat: repeat;
-          mask-repeat: repeat;
-  -webkit-mask-size: var(--iso-tile);
-          mask-size: var(--iso-tile);
-  background-color: rgba(65, 65, 67, 0.14);
-  pointer-events: none;
+.flair-video {
+  position: fixed; /* Keeps it locked to the viewport */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover; /* Ensures the video fills the screen without stretching */
+  z-index: -1; /* Pushes it behind all your text and layout */
+  pointer-events: none; /* Prevents the video from stealing mouse clicks */
+  
+  /* To match your old isogrid's subtle look, we drop the opacity here */
+  opacity: 0.14; 
 }
 
-.flair-iso--dim {
-  background-color: rgba(255, 255, 255, 0.10);
+/* If you still need your --dim and --light variations for different themes: */
+
+.flair-video--dim {
+  opacity: 0.10; /* Mimics your rgba(255, 255, 255, 0.10) logic */
 }
 
-.flair-iso--light {
-  background-color: rgba(0, 0, 0, 0.06);
+.flair-video--light {
+  opacity: 0.06; /* Mimics your rgba(0, 0, 0, 0.06) logic */
 }
 
 /* ── Decorative red rule ───────────────────────────────────────────────── */
