@@ -53,7 +53,7 @@ export const sponsors = [
   {
     name: 'Sperry',
     logo: '/SponsorLogos/sperry.png'
-  }
+  },
   {
     name: 'Haas Foundation',
     logo: '/SponsorLogos/haas.png'
