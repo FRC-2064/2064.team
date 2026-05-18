@@ -2,8 +2,6 @@
 title: "1.5.3 - VSCode and WPIlib"
 ---
 
-# 1.5.3 - VSCode and WPIlib
-
 Installing WPIlib and VScode onto your Personal Computer
 
 :::note
