@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// ── MEDIA DATA ──────────────────────────────────────────────────────────
+// Add new photos and videos here! 
+// Use 'span' to make certain items larger in the grid (e.g., 'sm:col-span-2 sm:row-span-2')
+
+const mediaItems = [
+  {
+    type: 'video',
+    title: '2026 Season Recap',
+    season: '2026',
+    src: 'https://www.youtube.com/embed/YOUR_YOUTUBE_ID_HERE', // Swap with real ID
+    thumbnail: '/images/video-thumb-placeholder.jpg', // Fallback if needed
+    span: 'sm:col-span-2 sm:row-span-2', // Makes the featured video huge!
+  },
+  {
+    type: 'image',
+    title: 'Drive Team at District Champs',
+    season: '2026',
+    src: '/images/placeholder1.jpg',
+    span: 'col-span-1 row-span-1',
+  },
+  {
+    type: 'image',
+    title: 'Pit Crew Triage',
+    season: '2026',
+    src: '/images/placeholder2.jpg',
+    span: 'col-span-1 row-span-1',
+  },
+  {
+    type: 'image',
+    title: 'Machining the Swerve Modules',
+    season: '2025',
+    src: '/images/placeholder3.jpg',
+    span: 'sm:col-span-2 row-span-1', // A wide horizontal photo
+  },
+  {
+    type: 'image',
+    title: 'Alliance Captains Selection',
+    season: '2025',
+    src: '/images/placeholder4.jpg',
+    span: 'col-span-1 row-span-2', // A tall vertical photo
+  },
+  {
+    type: 'image',
+    title: 'Kickoff Strategy Session',
+    season: '2024',
+    src: '/images/placeholder5.jpg',
+    span: 'col-span-1 row-span-1',
+  }
+];
+---
+
+<BaseLayout>
+  {/* ── HERO ──────────────────────────────────────────────────────── */}
+  <section class="bg-brand-ink py-24 px-4 sm:px-6 lg:px-8 text-white">
+    <div class="mx-auto max-w-7xl">
+      <p class="t-eyebrow inline-flex items-center gap-3 text-brand-red">
+        <span class="brand-rule"></span>
+        Team Media
+      </p>
+      <h1 class="t-h1 mt-6 text-5xl sm:text-6xl lg:text-7xl">
+        The Panther <span class="text-brand-red">Gallery.</span>
+      </h1>
+      <p class="t-subtitle mt-6 max-w-2xl text-lg text-white/70">
+        Capturing the engineering, the competition, and the community of FRC Team 2064 across every build season.
+      </p>
+    </div>
+  </section>
+
+  {/* ── GALLERY GRID ──────────────────────────────────────────────── */}
+  <section class="bg-brand-bone py-20 px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      
+      {/* This is a CSS Grid. It defaults to 1 column on mobile, 
+        2 on small tablets, and 4 on desktop. 
+        The auto-rows-[250px] sets a standard height unit for masonry scaling.
+      */}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[250px] gap-4">
+        
+        {mediaItems.map((item) => (
+          <div class={`group relative overflow-hidden rounded-2xl bg-brand-charcoal border border-black/10 shadow-sm transition hover:shadow-md ${item.span}`}>
+            
+            {item.type === 'image' ? (
+              // IMAGE RENDERER
+              <>
+                {item.src ? (
+                  <img 
+                    src={item.src} 
+                    alt={item.title} 
+                    class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                ) : (
+                  // Fallback if image path is broken/missing
+                  <div class="absolute inset-0 flex items-center justify-center bg-brand-ink">
+                     <span class="t-subscript text-white/50">Image Missing</span>
+                  </div>
+                )}
+                
+                {/* Hover Overlay for Images */}
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition duration-300 group-hover:opacity-100 flex flex-col justify-end p-6">
+                  <span class="t-eyebrow text-brand-red">{item.season}</span>
+                  <p class="t-h3 text-white text-lg leading-tight mt-1">{item.title}</p>
+                </div>
+              </>
+            ) : (
+              // VIDEO RENDERER (YouTube Embed)
+              <iframe
+                src={item.src}
+                title={item.title}
+                class="absolute inset-0 h-full w-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            )}
+
+          </div>
+        ))}
+
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>
