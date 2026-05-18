@@ -1,6 +1,7 @@
 ---
 title: "Summer Robotics Camp"
 date: 2026-07-09
+image: "/brand/wordmark.png"
 endDate: 2026-08-06
 summary: "Join the Panther Project for a Summer Camp discovering the Engineering Design Process."
 location: "Pomperaug High School"
