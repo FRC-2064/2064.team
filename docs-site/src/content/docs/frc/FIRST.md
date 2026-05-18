@@ -3,21 +3,18 @@ title: "1.1.1 - Intro to FIRST"
 ---
 
 # 1.1.1 - Intro to FIRST
-> **Objective:** Understand the mission of *FIRST*, the structure of the Robotics Competition, and the core values that drive Team 2064.
 
-:::note
-**📋 Prerequisites: Before You Start**
+**Objective:** Understand the mission of *FIRST*, the structure of the Robotics Competition, and the core values that drive Team 2064.
+
+:::note[📋 Prerequisites: Before You Start]
 Ensure you have addressed the following foundational requirements:
 
 - [x] **No Prerequisites required for this module.**
-
-    :::danger
-    **STOP**
-If you have not completed your safety training, you do not have clearance to enter the build area for any FRC activities.
-
-    :::
 :::
----
+
+:::danger[STOP]
+If you have not completed your safety training, you do not have clearance to enter the build area for any FRC activities.
+:::
 
 ## 🚀 The Culture of FIRST
 
