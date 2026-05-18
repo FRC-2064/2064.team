@@ -4,7 +4,7 @@ title: "Welcome to The Panther Project - FRC Team 2064"
 
 # 🐾 Welcome to The Panther Project - FRC Team 2064
 
-![Team 2064 Logo](/img/LogoWith2064.png)
+<img src="/img/LogoWith2064.png" alt="Team 2064 Logo" style="max-width: 100%; width: 350px; height: auto; display: block; margin: 0 auto;" />
 
 Welcome to the official documentation and training hub for The Panther Project - FRC Team 2064. Whether you are a rookie stepping into the shop for the very first time, or a veteran drive-team member looking up a CAD standard, everything you need to build great robots is right here.
 
