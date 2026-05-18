@@ -18,7 +18,7 @@ In this phase, you will learn the culture of FIRST Robotics, how to safely navig
 
 ---
 
-## 🗺️ Your Training Modules
+## 🗺️ Your Training Modules!
 
 ### 🤖 Module 1.1: FRC Basics
 **Status:** SELF PACED ~ *Learn the culture.* Get an overview of FIRST, understand robot anatomy, analyze a past game, and learn what to expect during Build Season.
