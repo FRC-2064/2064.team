@@ -3,7 +3,7 @@ name: "Bandit"
 season: 2026
 game: "Rebuilt"
 image: "/images/robot2026.JPG"
-summary: "Finalist robot in Waterbury, NECMP Qualifying."
+summary: "Industrial Design Award Recipient in Waterbury."
 techBinderUrl: "https://docs.google.com/document/d/1sJ4UnWthWbwBFwkm89uRD-Exee4FkW7oc9Mlz8DmQvg/edit?usp=sharing"
 onshapeUrl: "https://cad.onshape.com/documents/5b72bea013e0485426248771/w/a6706dce8e0757b4d74fa663/e/da1841d28b7f0eaf726a88fd?renderMode=0&uiState=6a0b50af524d70d07f30d4d1"
 featured: true
