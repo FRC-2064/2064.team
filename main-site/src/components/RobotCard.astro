@@ -12,17 +12,15 @@ const { name, season, game, summary, image, techBinderUrl, onshapeUrl } = robot.
 
 <article class="group card-lift relative flex h-full flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_8px_28px_-20px_rgba(0,0,0,0.25)]">
   <div class="relative aspect-[4/3] w-full overflow-hidden">
-    {image ? (
-      <img src={image} alt={`${name} robot`} class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
-    ) : (
-      <div class="relative h-full w-full bg-brand-ink">
-        <div class="flair-iso flair-iso--dim absolute inset-0 opacity-80"></div>
-        <div class="relative flex h-full w-full flex-col items-center justify-center gap-2 text-center text-white">
-          <span class="t-eyebrow text-brand-red">Robot</span>
-          <span class="t-subscript text-white/50">Photo Placeholder</span>
-        </div>
-      </div>
-    )}
+    <img 
+      src="/images/robot2026.JPG" 
+      alt="2026 Robot" 
+      class="h-full w-full object-cover transition duration-500 group-hover:scale-105" 
+      loading="lazy" 
+    />
+  </div>
+  {/* The rest of your card content goes here */}
+</article>
 
     <div class="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-brand-red/95 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-white shadow-lg backdrop-blur">
       <span>{season}</span>
