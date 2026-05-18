@@ -2,7 +2,7 @@
 title: "Welcome to The Panther Project - FRC Team 2064"
 ---
 
-# 🐾 Welcome to The Panther Project - FRC Team 2064
+# 🐾 Welcome to The Panther Project - FRC Team 2064!
 
 <img src="/img/LogoWith2064.png" alt="Team 2064 Logo" style="max-width: 100%; width: 350px; height: auto; display: block; margin: 0 auto;" />
 
