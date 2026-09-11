@@ -20,13 +20,6 @@ Mounts to the XRP to attach the main structure and pivot. A standard 10-32 bolt 
 
 ![Main Assembly Mount](/img/Mount_Shoot.png)
 
-:::note
-**🖥️ Watch: Onshape Design Tutorial**
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-  <iframe src="https://www.youtube.com/embed/PLACEHOLDER" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
-</div>
-
-:::
 :::tip
 **🔧 Watch: Physical Assembly Video**
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
@@ -43,13 +36,6 @@ Mounts to the XRP to hold the winch motor. You will use zip-ties to secure the m
 
 ![Winch Motor Mount](/img/Mount_Winch.png)
 
-:::note
-**🖥️ Watch: Onshape Design Tutorial**
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-  <iframe src="https://www.youtube.com/embed/PLACEHOLDER" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
-</div>
-
-:::
 :::tip
 **🔧 Watch: Physical Assembly Video**
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
@@ -67,13 +53,6 @@ The core assembly part where the shooter flywheels and motors attach. The 6V mot
 
 ![Ping Pong Launcher](/img/PingPongLauncher.png)
 
-:::note
-**🖥️ Watch: Onshape Design Tutorial**
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-  <iframe src="https://www.youtube.com/embed/PLACEHOLDER" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
-</div>
-
-:::
 :::tip
 **🔧 Watch: Physical Assembly Video**
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
@@ -91,14 +70,7 @@ Feeds the ping pong balls into the intake and rolls them out to be sent through 
 ![Feeder](/img/feeder.png)
 
 :::note
-**🖥️ Watch: Onshape Design Tutorial**
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-  <iframe src="https://www.youtube.com/embed/PLACEHOLDER" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
-</div>
-
-:::
-:::tip
-**🔧 Watch: Physical Assembly Video**
+**🖥️ Watch: Physical Assembly Video**
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
   <iframe src="https://www.youtube.com/embed/PLACEHOLDER" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
 </div>
@@ -112,13 +84,6 @@ A small roller to pull and release a string, allowing you to control the shooter
 
 ![Winch](/img/Winch.png)
 
-:::note
-**🖥️ Watch: Onshape Design Tutorial**
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-  <iframe src="https://www.youtube.com/embed/PLACEHOLDER" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
-</div>
-
-:::
 :::tip
 **🔧 Watch: Physical Assembly Video**
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
@@ -136,13 +101,6 @@ A dedicated mounting board. You will hot-glue your Arduino and L9110S motor driv
 
 ![Electronics](/img/Electronics.png)
 
-:::note
-**🖥️ Watch: Onshape Design Tutorial**
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-  <iframe src="https://www.youtube.com/embed/PLACEHOLDER" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
-</div>
-
-:::
 :::tip
 **🔧 Watch: Physical Assembly Video**
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
