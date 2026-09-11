@@ -1,109 +1,207 @@
 ---
-title: "1.5.9 - Launcher Code"
+title: "1.5.10 - Arduino Motor Bridge (The Shooter)"
 ---
 
-# 1.5.9 - Launcher Code
+# 1.5.10 - Arduino Motor Bridge (The Shooter)
 
-If you are building a symmetrical mechanism like a grabbing claw or a dual-sided lifting arm, you will need two servos to work together.
+The XRP board has 4 built-in motor ports. But what happens when you build a complex robot and run out of ports? Or what if you want to run a heavy-duty motor that requires an external motor controller? 
 
-However, because the servos are usually mounted facing *opposite* directions on the robot, sending them the exact same angle will make your claw twist instead of open and close! We need to write code that makes the second servo act as a **mirror** to the first one.
+We can solve this by using an **Arduino** as a secondary "brain." We will plug the Arduino into one of the XRP's **Servo Ports**. Instead of turning a servo, the XRP will send a signal to the Arduino, and the Arduino will translate that signal into raw power for our shooter motors!
 
-(add gif of cad model simulation visualizing the movement described here)
+*(add image or diagram showing XRP Servo Port connected to Arduino Pin 2, and Arduino connected to a motor driver)*
 
-Here is how to update our `Servo.java` subsystem to handle two mirrored servos.
+Here is how to wire and code a custom Arduino motor bridge.
 
 ---
 
-Step 1: Updating the Port Map (`Constants.java`)
+### Step 1: The Hardware Wiring
 
-Before we can write any code for the new servo, we need to tell the robot where it is plugged in. Open your `Constants.java` file and find the `ServoConstants` section.
+A standard servo port has three pins: **Signal, Power (5V), and Ground**. The XRP natively outputs 5V on these pins, which is perfect for an Arduino. 
+
+Locate the **Servo 2** port on your XRP board and connect three standard jumper wires to your Arduino:
+* **Signal (Inside Pin):** Connect to **Arduino Digital Pin 2**.
+* **Power / 5V (Middle Pin):** Connect to **Arduino 5V**.
+* **Ground / GND (Outside Pin):** Connect to **Arduino GND**.
+
+:::tip
+**Hardware Safety First!**
+Because the XRP is now providing power to the Arduino through that 5V wire, **NEVER** have the Arduino plugged into your computer via USB while the XRP battery is turned on. Having two power sources fighting each other is a quick way to fry your electronics! 
+:::
+
+---
+
+### Step 2: The Arduino Code (C++)
+
+Normally, a servo signal is just a series of electrical pulses. A short pulse (1000 microseconds) means "0 degrees," and a long pulse (2000 microseconds) means "180 degrees." 
+
+We need to upload a C++ sketch to the Arduino that acts like a stopwatch. It will measure the exact length of the pulse coming from the XRP and convert that time into a motor speed (0 to 255). 
+
+Open the Arduino IDE, paste this code, and upload it to your Arduino:
+
+```cpp
+// --- PIN DEFINITIONS ---
+const int pwmInputPin = 2;  // DIRECT WIRE from XRP Servo 2 Signal
+
+// Motor 1 Pins (Shooter Left)
+const int motor1_PinA = 5;
+const int motor1_PinB = 6;
+// Motor 2 Pins (Shooter Right)
+const int motor2_PinA = 9;
+const int motor2_PinB = 10;
+
+// --- VOLATILE VARIABLES FOR THE STOPWATCH ---
+volatile unsigned long pulseStartTime = 0;
+volatile unsigned long pulseWidth = 1500; 
+volatile unsigned long lastPulseTime = 0; 
+
+void setup() {
+  pinMode(pwmInputPin, INPUT);
+  pinMode(motor1_PinA, OUTPUT);
+  pinMode(motor1_PinB, OUTPUT);
+  pinMode(motor2_PinA, OUTPUT);
+  pinMode(motor2_PinB, OUTPUT);
+
+  // Attach the interrupt to Pin 2 to listen for the XRP signal
+  attachInterrupt(digitalPinToInterrupt(pwmInputPin), measurePulse, CHANGE);
+  stopMotors();
+}
+
+void loop() {
+  noInterrupts(); 
+  unsigned long currentPulse = pulseWidth;
+  unsigned long signalAge = millis() - lastPulseTime;
+  interrupts(); 
+
+  // SAFETY: Stop if signal is lost or wire falls out (>100ms old)
+  if (signalAge > 100) {
+    stopMotors();
+    return;
+  }
+
+  int motorSpeed = 0;
+
+  // --- FORWARD (Shooting) ---
+  // If the pulse jumps up to 2200 when you press the button on the controller
+  if (currentPulse > 1550 && currentPulse < 2500) { 
+    // Map the XRP signal to Arduino Motor Power
+    motorSpeed = map(currentPulse, 1550, 2200, 0, 255);
+    motorSpeed = constrain(motorSpeed, 0, 255);
+    
+    analogWrite(motor1_PinA, motorSpeed);
+    digitalWrite(motor1_PinB, LOW);
+    analogWrite(motor2_PinA, motorSpeed);
+    digitalWrite(motor2_PinB, LOW);
+  } 
+  // --- STOP (Neutral ~1500us) ---
+  else {
+    stopMotors();
+  }
+
+  delay(20); 
+}
+
+void stopMotors() {
+  digitalWrite(motor1_PinA, LOW);
+  digitalWrite(motor1_PinB, LOW);
+  digitalWrite(motor2_PinA, LOW);
+  digitalWrite(motor2_PinB, LOW);
+}
+
+// The background listener that measures the pulse length
+void measurePulse() {
+  if (digitalRead(pwmInputPin) == HIGH) {
+    pulseStartTime = micros();
+  } else {
+    pulseWidth = micros() - pulseStartTime;
+    lastPulseTime = millis();
+  }
+}
+```
+
+---
+
+### Step 3: The Java Subsystem (`shooter.java`)
+
+Now we switch over to VS Code. We need to create a new Subsystem to represent our shooter mechanism. Even though we are spinning flywheels, we are going to use the `XRPServo` class because we need to generate that specific pulsing signal out of the physical Servo 2 port.
+
+Create a new file in your `subsystems` folder called `shooter.java` and paste this in:
 
 ```java
-    public final class ServoConstants {
-        // The ports that the servos are plugged into on the XRP
-        public static final int SERVO_MOTOR = 4;
-        public static final int SERVO_MOTOR_TWO = 5; // Add this line!
+package frc.robot.subsystems;
 
-        public static final Angle POSITION_DEFAULT = Angle.ofBaseUnits(90.0, Degrees);
-        public static final Angle POSITION_ONE = Angle.ofBaseUnits(0.0, Degrees);
-        public static final Angle POSITION_TWO = Angle.ofBaseUnits(180.0, Degrees);
+import edu.wpi.first.wpilibj.xrp.XRPServo;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class shooter extends SubsystemBase {
+    
+    // Physical Servo 2 port is recognized as Channel 5 in the software
+    private final XRPServo shooterBridge = new XRPServo(5); 
+
+    public shooter() {
     }
+
+    /**
+     * @param speed Value from -1.0 to 1.0 (from joystick or hardcoded)
+     */
+    public void setTargetSpeed(double speed) {
+        // XRPServo uses "Degrees" (0 to 180) to stretch the pulse.
+        // -1.0 -> 0 degrees (1000us)
+        //  0.0 -> 90 degrees (1500us - Neutral)
+        //  1.0 -> 180 degrees (2000+ us)
+        double angle = (speed + 1.0) * 90.0;
+        shooterBridge.setAngle(angle); 
+    }
+
+    public void stop() {
+        // 90.0 degrees is exactly the middle point (1500us / Neutral / Stop)
+        shooterBridge.setAngle(90.0); 
+    }
+
+    @Override
+    public void periodic() {
+        // Leave empty for now
+    }
+}
+```
+
+:::note
+**The Software Illusion**
+Notice how we created a method called `setTargetSpeed()` that takes a standard motor speed between `-1.0` and `1.0`. By hiding the `setAngle()` math inside the subsystem, the rest of our robot code just thinks it's talking to a normal motor! This keeps our Commands clean and easy to read.
+:::
+
+---
+
+### Step 4: Binding the Button (`RobotContainer.java`)
+
+The final step is to hook our new shooter subsystem up to a button on our PS4 controller. 
+
+Open your `RobotContainer.java` file. First, add the import at the very top, and create the subsystem object near the top of the class:
+
+```java
+import frc.robot.subsystems.shooter;
+
+public class RobotContainer {
+
+  // Create the software object representing our physical shooter
+  private final shooter m_shooter = new shooter();
+```
+
+Next, scroll down to your `configureButtonBindings()` method and add the logic for the Triangle button:
+
+```java
+  private void configureButtonBindings() {
+    
+    // --- SHOOTER ---
+    // While Triangle is held, send a speed of 0.8 (80% power).
+    // When released, immediately call stop().
+    new Trigger(driverController::getTriangleButton)
+        .whileTrue(new RunCommand(() -> m_shooter.setTargetSpeed(0.8), m_shooter))
+        .onFalse(new InstantCommand(() -> m_shooter.stop(), m_shooter));
+
+  }
 ```
 
 :::tip
-**The FRC Way: Why use Constants?**
-We never type raw numbers (like the port `5`) directly into our subsystem code. This is called using "Magic Numbers," and it is a bad programming habit. By keeping all our port numbers in `Constants.java`, if a physical wire breaks at a competition and we have to plug the servo into a different port, we only have to change the number in *one single place* in our code.
-
-:::
----
-
-Step 2: Creating the Second Servo Object (`Servo.java`)
-
-Now, open your `Servo.java` subsystem file. At the very top, where we declare our hardware, we need to add the second servo.
-
-```java
-public class Servo extends SubsystemBase {
-
-  // Initialize the first servo using the port in constants
-  private final XRPServo servoOne = new XRPServo(ServoConstants.SERVO_MOTOR);
-
-  // Initialize the second servo
-  private final XRPServo servoTwo = new XRPServo(ServoConstants.SERVO_MOTOR_TWO);
-```
-
-:::note
-**Hardware to Software**
-In Java, creating a `new XRPServo()` is how we tell the software that a physical piece of hardware exists in the real world. We are creating a "software object" (`servoTwo`) that we can control, which is permanently linked to the physical pin on the XRP board.
-
-:::
----
-
-Step 3: Writing the Mirrored Math (`Servo.java`)
-
-This is where the magic happens. We want our Commands to be simple. When a command says "Go to 45 degrees", the subsystem should be smart enough to handle the complex math of moving *both* servos correctly at the same time.
-
-Find your `setAngle()` method and update it to look like this:
-
-```java
-  // Set the angle of BOTH servo motors simultaneously
-  public void setAngle(Angle angle) {
-    // Extract the raw double value from the Angle object
-    double setValue = angle.in(Degrees);
-
-    // Set the first servo to the requested angle
-    servoOne.setAngle(setValue);
-
-    // Set the second servo to the exact opposite angle
-    servoTwo.setAngle(180.0 - setValue);
-  }
-```
-
-:::note
-**The Physics of the Mirror Math**
-Standard hobby servos have a physical range of 0 to 180 degrees. If you mount two servos back-to-back, moving them both to `0` means they will point in the same absolute direction (like a pair of windshield wipers).
-
-To make them squeeze together like a claw, we subtract the target angle from the maximum angle (`180.0 - setValue`). Now, if Servo 1 is told to move to 45°, Servo 2 automatically calculates its position and moves to 135°!
-
-:::
----
-
-Step 4: Adding Telemetry for Debugging (`Servo.java`)
-
-Finally, we want to prove that our math is working without having to guess by looking at the physical robot. We will update the `periodic()` method to post the live angles of both servos to our Driver Station screen.
-
-```java
-  @Override
-  public void periodic() {
-    // Output both servo angles to the dashboard for easy debugging
-    SmartDashboard.putNumber("Servo 1 Angle", servoOne.getAngle());
-    SmartDashboard.putNumber("Servo 2 Mirrored Angle", servoTwo.getAngle());
-  }
-} // End of the Subsystem class
-```
-
-:::note
-**Why use Telemetry?**
-`SmartDashboard` is your best friend when debugging FRC code. If your physical claw isn't closing properly, look at the dashboard first. If the numbers say `45` and `135`, your code is perfect, and you know you have a mechanical hardware issue! If the numbers say `45` and `45`, you know you have a software bug.
-
-
+**`.whileTrue` vs `.onTrue`**
+In command-based programming, `.whileTrue()` is perfect for flywheels or intakes. It actively runs the command continuously for as long as your finger is holding the button down, and safely stops the moment you let go!
 :::
