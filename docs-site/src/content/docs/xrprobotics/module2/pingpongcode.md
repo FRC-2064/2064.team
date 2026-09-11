@@ -1,130 +1,31 @@
 ---
-title: "1.5.10 - Arduino Motor Bridge Code (The Shooter)"
+title: "1.5.10 - Advanced Mechanisms: Shooter, Feeder, and Winch"
 ---
 
-# 1.5.10 - Arduino Motor Bridge Code (The Shooter)
+# 1.5.10 - Advanced Mechanisms: Shooter, Feeder, and Winch
 
-The XRP board has 4 built-in motor ports. But what happens when you build a complex robot and run out of ports? Or what if you want to run a heavy-duty motor that requires an external motor controller? 
+A competitive robot does more than just drive. To score, you need specialized mechanisms that all work together. In this section, we are adding three distinct mechanisms to our robot. Because they all do very different jobs, we have to program each one using a different strategy.
 
-We can solve this by using an **Arduino** as a secondary "brain." We will plug the Arduino into one of the XRP's **Servo Ports**. Instead of turning a servo, the XRP will send a signal to the Arduino, and the Arduino will translate that signal into raw power for our shooter motors!
-
-*(add image or diagram showing XRP Servo Port connected to Arduino Pin 2, and Arduino connected to a motor driver)*
-
-Here is how to wire and code a custom Arduino motor bridge.
+Here is a breakdown of the three systems we are building:
+1. **The Shooter (Arduino Bridge):** Needs massive power and speed.
+2. **The Feeder (Smart Motor):** Needs high precision to load exactly one ball at a time.
+3. **The Winch (Manual Motor):** Needs direct driver control to aim the shooter.
 
 ---
 
-### Step 1: The Hardware Wiring
+## 1. The Shooter: Why an Arduino Bridge?
 
-A standard servo port has three pins: **Signal, Power (5V), and Ground**. The XRP natively outputs 5V on these pins, which is perfect for an Arduino. 
+The XRP has four built-in motor ports, but they are designed for small robotics. If you want to spin heavy flywheels to launch game pieces, you need larger motors and a separate, high-power motor controller. 
 
-Locate the **Servo 2** port on your XRP board and connect three standard jumper wires to your Arduino:
-* **Signal (Inside Pin):** Connect to **Arduino Digital Pin 2**.
-* **Power / 5V (Middle Pin):** Connect to **Arduino 5V**.
-* **Ground / GND (Outside Pin):** Connect to **Arduino GND**.
+Because we cannot plug a giant FRC-style motor directly into the XRP, we use an **Arduino** as a translator. We plug the Arduino into the XRP's **Servo 2 Port**. The XRP sends a low-power "pulse" signal to the Arduino, and the Arduino commands the heavy-duty motor controller to spin the flywheels.
 
-:::tip
-**Hardware Safety First!**
-Because the XRP is now providing power to the Arduino through that 5V wire, **NEVER** have the Arduino plugged into your computer via USB while the XRP battery is turned on. Having two power sources fighting each other is a quick way to fry your electronics! 
+:::note
+**The Software Illusion**
+Even though we are spinning a motor, our code uses the `XRPServo` class to generate the signal. We hide this inside the `shooter.java` subsystem so the rest of our robot just thinks it is talking to a normal motor!
 :::
 
----
-
-### Step 2: The Arduino Code (C++)
-
-Normally, a servo signal is just a series of electrical pulses. A short pulse (1000 microseconds) means "0 degrees," and a long pulse (2000 microseconds) means "180 degrees." 
-
-We need to upload a C++ sketch to the Arduino that acts like a stopwatch. It will measure the exact length of the pulse coming from the XRP and convert that time into a motor speed (0 to 255). 
-
-Open the Arduino IDE, paste this code, and upload it to your Arduino:
-
-```cpp
-// --- PIN DEFINITIONS ---
-const int pwmInputPin = 2;  // DIRECT WIRE from XRP Servo 2 Signal
-
-// Motor 1 Pins (Shooter Left)
-const int motor1_PinA = 5;
-const int motor1_PinB = 6;
-// Motor 2 Pins (Shooter Right)
-const int motor2_PinA = 9;
-const int motor2_PinB = 10;
-
-// --- VOLATILE VARIABLES FOR THE STOPWATCH ---
-volatile unsigned long pulseStartTime = 0;
-volatile unsigned long pulseWidth = 1500; 
-volatile unsigned long lastPulseTime = 0; 
-
-void setup() {
-  pinMode(pwmInputPin, INPUT);
-  pinMode(motor1_PinA, OUTPUT);
-  pinMode(motor1_PinB, OUTPUT);
-  pinMode(motor2_PinA, OUTPUT);
-  pinMode(motor2_PinB, OUTPUT);
-
-  // Attach the interrupt to Pin 2 to listen for the XRP signal
-  attachInterrupt(digitalPinToInterrupt(pwmInputPin), measurePulse, CHANGE);
-  stopMotors();
-}
-
-void loop() {
-  noInterrupts(); 
-  unsigned long currentPulse = pulseWidth;
-  unsigned long signalAge = millis() - lastPulseTime;
-  interrupts(); 
-
-  // SAFETY: Stop if signal is lost or wire falls out (>100ms old)
-  if (signalAge > 100) {
-    stopMotors();
-    return;
-  }
-
-  int motorSpeed = 0;
-
-  // --- FORWARD (Shooting) ---
-  // If the pulse jumps up to 2200 when you press the button on the controller
-  if (currentPulse > 1550 && currentPulse < 2500) { 
-    // Map the XRP signal to Arduino Motor Power
-    motorSpeed = map(currentPulse, 1550, 2200, 0, 255);
-    motorSpeed = constrain(motorSpeed, 0, 255);
-    
-    analogWrite(motor1_PinA, motorSpeed);
-    digitalWrite(motor1_PinB, LOW);
-    analogWrite(motor2_PinA, motorSpeed);
-    digitalWrite(motor2_PinB, LOW);
-  } 
-  // --- STOP (Neutral ~1500us) ---
-  else {
-    stopMotors();
-  }
-
-  delay(20); 
-}
-
-void stopMotors() {
-  digitalWrite(motor1_PinA, LOW);
-  digitalWrite(motor1_PinB, LOW);
-  digitalWrite(motor2_PinA, LOW);
-  digitalWrite(motor2_PinB, LOW);
-}
-
-// The background listener that measures the pulse length
-void measurePulse() {
-  if (digitalRead(pwmInputPin) == HIGH) {
-    pulseStartTime = micros();
-  } else {
-    pulseWidth = micros() - pulseStartTime;
-    lastPulseTime = millis();
-  }
-}
-```
-
----
-
-### Step 3: The Java Subsystem (`shooter.java`)
-
-Now we switch over to VS Code. We need to create a new Subsystem to represent our shooter mechanism. Even though we are spinning flywheels, we are going to use the `XRPServo` class because we need to generate that specific pulsing signal out of the physical Servo 2 port.
-
-Create a new file in your `subsystems` folder called `shooter.java` and paste this in:
+### `shooter.java`
+Create this file inside your `subsystems` folder. 
 
 ```java
 package frc.robot.subsystems;
@@ -137,71 +38,298 @@ public class shooter extends SubsystemBase {
     // Physical Servo 2 port is recognized as Channel 5 in the software
     private final XRPServo shooterBridge = new XRPServo(5); 
 
-    public shooter() {
-    }
+    public shooter() {}
 
-    /**
-     * @param speed Value from -1.0 to 1.0 (from joystick or hardcoded)
-     */
     public void setTargetSpeed(double speed) {
-        // XRPServo uses "Degrees" (0 to 180) to stretch the pulse.
-        // -1.0 -> 0 degrees (1000us)
-        //  0.0 -> 90 degrees (1500us - Neutral)
-        //  1.0 -> 180 degrees (2000+ us)
+        // We convert a standard motor speed (-1.0 to 1.0) into a Servo Angle (0 to 180)
+        // This stretches the signal pulse so the Arduino knows how fast to spin!
         double angle = (speed + 1.0) * 90.0;
         shooterBridge.setAngle(angle); 
     }
 
     public void stop() {
-        // 90.0 degrees is exactly the middle point (1500us / Neutral / Stop)
+        // 90.0 degrees is exactly the middle point (Neutral / Stop)
         shooterBridge.setAngle(90.0); 
     }
 
     @Override
-    public void periodic() {
-        // Leave empty for now
+    public void periodic() {}
+}
+```
+
+---
+
+## 2. The Feeder: Why use an Encoder?
+
+The feeder's job is to push a ball into the spinning flywheels. If we just turn a standard motor on, it might push two balls, or jam halfway through. 
+
+We plug the feeder into **Motor Port 3**. This port has a built-in sensor called an **Encoder**. An encoder measures the physical rotation of the motor shaft. By using the encoder, we can tell the motor to rotate exactly 45 degrees (one "tick" of our feeder) and stop perfectly every single time.
+
+:::warning
+**Zero-Indexing Reminder**
+In programming, we start counting at `0`. So, physical **Motor Port 3** is actually Channel `2` in your Java code!
+:::
+
+### `feeder.java`
+Create this file inside your `subsystems` folder.
+
+```java
+package frc.robot.subsystems;
+
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.xrp.XRPMotor;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class feeder extends SubsystemBase {
+    
+    // Physical Motor Port 3 is Channel 2
+    private final XRPMotor feederMotor = new XRPMotor(2); 
+    
+    // Motor 3's built-in encoder uses DIO pins 8 and 9
+    private final Encoder feederEncoder = new Encoder(8, 9);
+
+    public feeder() {
+        // Standard XRP motor ticks per revolution
+        feederEncoder.setDistancePerPulse(1.0 / 585.6);
+        resetEncoder();
+    }
+
+    public void runFeeder(double speed) {
+        feederMotor.set(speed);
+    }
+
+    public void stop() {
+        feederMotor.set(0.0);
+    }
+
+    public double getRevolutions() {
+        // Math.abs ensures it counts positively no matter which way it spins
+        return Math.abs(feederEncoder.getDistance());
+    }
+
+    public void resetEncoder() {
+        feederEncoder.reset();
+    }
+
+    @Override
+    public void periodic() {}
+}
+```
+
+---
+
+## 3. The Winch: Why use Manual Control?
+
+Our winch uses a string to pull the shooter up and down to change its angle. We plug this into **Motor Port 4**. 
+
+Unlike the feeder, we want the driver to have direct manual control over the winch using the L1 and R1 buttons. Because a string can spool backward if wound too far, it is safest for a beginner to control this motor manually with their eyes, rather than relying on software limits that might get confused if the string gets tangled.
+
+### `winch.java`
+Create this file inside your `subsystems` folder.
+
+```java
+package frc.robot.subsystems;
+
+import edu.wpi.first.wpilibj.xrp.XRPMotor;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class winch extends SubsystemBase {
+    
+    // Physical Motor Port 4 is recognized as Channel 3 in software
+    private final XRPMotor winchMotor = new XRPMotor(3); 
+
+    public winch() {}
+
+    public void setPower(double speed) {
+        // The driver has direct, raw control over the motor power
+        winchMotor.set(speed);
+    }
+
+    public void stop() {
+        winchMotor.set(0.0);
+    }
+
+    @Override
+    public void periodic() {}
+}
+```
+
+---
+
+## 4. Tying it Together: The AutoShoot Sequence
+
+We need the Feeder and the Shooter to work together perfectly. We want the flywheels to spin up to max speed, wait half a second, push a ball in exactly 45 degrees, wait, and repeat. 
+
+We do this using a **Command** with a "State Machine." A state machine checks what step we are currently on, finishes that step, and moves to the next one.
+
+### `AutoShoot.java`
+Create a new folder inside `frc/robot` called `commands`. Create this file inside the `commands` folder.
+
+```java
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.shooter;
+import frc.robot.subsystems.feeder;
+
+public class AutoShoot extends Command {
+    private final shooter m_shooter;
+    private final feeder m_feeder;
+    private final Timer m_timer = new Timer();
+
+    // 45 Degrees is exactly 1/8th (0.125) of a full rotation!
+    private final double FEED_ROTATIONS = 0.125;  
+    private int m_state = 0; 
+
+    public AutoShoot(shooter shooterSub, feeder feederSub) {
+        m_shooter = shooterSub;
+        m_feeder = feederSub;
+        // addRequirements locks these subsystems so no other command can use them right now
+        addRequirements(m_shooter, m_feeder);
+    }
+
+    @Override
+    public void initialize() {
+        // This runs once when you first press the button
+        m_timer.restart();
+        m_state = 0; 
+        m_feeder.stop();
+        m_feeder.resetEncoder(); 
+    }
+
+    @Override
+    public void execute() {
+        // Force the flywheels to stay on at all times while the button is held
+        m_shooter.setTargetSpeed(0.8);
+
+        // STATE 0: INITIAL SPIN UP (Wait 0.5 seconds for flywheels to get fast)
+        if (m_state == 0) {
+            if (m_timer.hasElapsed(0.5)) {
+                m_state = 1; 
+                m_feeder.resetEncoder(); 
+            }
+        } 
+        // STATE 1: PUSH 45 DEGREES
+        else if (m_state == 1) {
+            m_feeder.runFeeder(0.6); 
+            
+            // If the encoder reaches 45 degrees...
+            if (m_feeder.getRevolutions() >= FEED_ROTATIONS) {
+                m_state = 2; // Move to wait state
+                m_feeder.stop(); 
+                m_timer.restart(); 
+            }
+        } 
+        // STATE 2: RECOVERY PAUSE
+        else if (m_state == 2) {
+            // Wait 0.5 seconds for the next ball to settle
+            if (m_timer.hasElapsed(0.5)) {
+                m_state = 1; // LOOP BACK to pushing!
+                m_feeder.resetEncoder(); 
+            }
+        }
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        // When you let go of the button, stop both motors entirely
+        m_shooter.stop();
+        m_feeder.stop();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false; 
     }
 }
 ```
 
-:::note
-**The Software Illusion**
-Notice how we created a method called `setTargetSpeed()` that takes a standard motor speed between `-1.0` and `1.0`. By hiding the `setAngle()` math inside the subsystem, the rest of our robot code just thinks it's talking to a normal motor! This keeps our Commands clean and easy to read.
-:::
-
 ---
 
-### Step 4: Binding the Button (`RobotContainer.java`)
+## 5. Hooking up the Controller
 
-The final step is to hook our new shooter subsystem up to a button on our PS4 controller. 
+The very last step is to wire all of our new code to the buttons on the PS4 controller. 
 
-Open your `RobotContainer.java` file. First, add the import at the very top, and create the subsystem object near the top of the class:
+We need to tell the robot three things:
+1. When the driver presses **L1**, wind the winch UP.
+2. When the driver presses **R1**, wind the winch DOWN.
+3. When the driver presses **Triangle**, run the entire `AutoShoot` sequence we just built.
+
+### `RobotContainer.java`
+Open your `RobotContainer.java` file and completely replace the code with this updated version. This imports our new mechanisms and binds them to the triggers.
 
 ```java
+package frc.robot;
+
+import edu.wpi.first.wpilibj.PS4Controller;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.OperatorConstants;
+
+// --- 1. IMPORT OUR NEW SUBSYSTEMS & COMMANDS ---
+import frc.robot.subsystems.XRP;
 import frc.robot.subsystems.shooter;
+import frc.robot.subsystems.feeder;
+import frc.robot.subsystems.winch;
+import frc.robot.commands.AutoShoot;
 
 public class RobotContainer {
 
-  // Create the software object representing our physical shooter
+  // --- 2. CREATE THE SOFTWARE OBJECTS ---
   private final shooter m_shooter = new shooter();
-```
+  private final feeder m_feeder = new feeder();     
+  private final winch m_winch = new winch();        
+  private final XRP xrp = new XRP();
+  private final PS4Controller driverController = new PS4Controller(OperatorConstants.DRIVER_CONTROLLER_PORT);
 
-Next, scroll down to your `configureButtonBindings()` method and add the logic for the Triangle button:
+  public RobotContainer() {
+    // We replaced L1 and R1 with 'false' here so they don't trigger drivetrain actions anymore!
+    xrp.setDefaultCommand(new RunCommand(
+        () -> xrp.executeDrive(
+            driverController.getLeftY(),
+            driverController.getRightY(),
+            false,
+            false),
+        xrp));
 
-```java
+    configureButtonBindings();
+  }
+
   private void configureButtonBindings() {
     
-    // --- SHOOTER ---
-    // While Triangle is held, send a speed of 0.8 (80% power).
-    // When released, immediately call stop().
-    new Trigger(driverController::getTriangleButton)
-        .whileTrue(new RunCommand(() -> m_shooter.setTargetSpeed(0.8), m_shooter))
-        .onFalse(new InstantCommand(() -> m_shooter.stop(), m_shooter));
+    // --- 3. WINCH BUTTON BINDINGS ---
+    // L1 = Wind Up (Positive power)
+    new Trigger(driverController::getL1Button)
+        .whileTrue(new RunCommand(() -> m_winch.setPower(0.7), m_winch))
+        .onFalse(new InstantCommand(() -> m_winch.stop(), m_winch));
 
+    // R1 = Unwind Down (Negative power)
+    new Trigger(driverController::getR1Button)
+        .whileTrue(new RunCommand(() -> m_winch.setPower(-0.7), m_winch))
+        .onFalse(new InstantCommand(() -> m_winch.stop(), m_winch));
+
+
+    // --- 4. AUTOSHOOT SEQUENCE BINDING ---
+    // Instead of just turning on a motor, holding Triangle now runs our smart AutoShoot file!
+    new Trigger(driverController::getTriangleButton)
+        .whileTrue(new AutoShoot(m_shooter, m_feeder));
+
+
+    // --- ARM ---
+    new Trigger(driverController::getSquareButton)
+        .onTrue(new InstantCommand(() -> xrp.setServoPositionOne()))
+        .onFalse(new InstantCommand(() -> xrp.setServoDefault()));
+
+    new Trigger(driverController::getCrossButton)
+        .onTrue(new InstantCommand(() -> xrp.setServoPositionTwo()))
+        .onFalse(new InstantCommand(() -> xrp.setServoDefault()));
   }
+}
 ```
 
 :::tip
-**`.whileTrue` vs `.onTrue`**
-In command-based programming, `.whileTrue()` is perfect for flywheels or intakes. It actively runs the command continuously for as long as your finger is holding the button down, and safely stops the moment you let go!
+**Test Your Code!**
+Deploy this code to your robot. Hold the **Triangle** button and watch the magic happen: your Arduino flywheels will spin up, and half a second later, your feeder will start perfectly pushing 45 degrees at a time to load the balls!
 :::
