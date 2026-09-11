@@ -1,8 +1,8 @@
 ---
-title: "1.5.10 - Arduino Motor Bridge (The Shooter)"
+title: "1.5.10 - Arduino Motor Bridge Code (The Shooter)"
 ---
 
-# 1.5.10 - Arduino Motor Bridge (The Shooter)
+# 1.5.10 - Arduino Motor Bridge Code (The Shooter)
 
 The XRP board has 4 built-in motor ports. But what happens when you build a complex robot and run out of ports? Or what if you want to run a heavy-duty motor that requires an external motor controller? 
 

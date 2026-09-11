@@ -17,16 +17,14 @@ We will make the shooter concept together, to follow a design process for a phys
 Main Components to Create
 1. **Magazine/Hopper and Shooter Structure**
     * The primary assembly for ball storage and shooter mounting; includes the feeder mount.
-2. **Pinion Gear**
-    * Small gear that attaches to the 6V motor shaft to drive the flywheel system.
 3. **Winch Roller**
     * Custom roller designed to manage the string used for shooter angle adjustment.
 4. **Electronics Board**
     * Mounting plate for the Arduino and additional circuitry.
 5. **Feeder Wheel**
     * Mechanism that moves balls from the hopper into the flywheel path.
-6. **Flywheels with Gears**
-    * High-speed wheels wrapped in rubber bands with a 4:1 gear mesh assembly.
+6. **Flywheel**
+    * High-speed wheel made of TPU for shooting the ping pong balls.
 7. **Pivot Mount**
     * Main interface to the XRP chassis that allows the launcher to tilt on a 10-32 axle.
 8. **Winch Mount**

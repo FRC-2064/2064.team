@@ -34,7 +34,11 @@ Mounts to the XRP to attach the main structure and pivot. A standard 10-32 bolt 
 </div>
 
 :::
-Winch Motor Mount
+---
+
+🏗️ 2. Winch Motor Mount
+*Mount the motor to the winch mount with zip ties.*
+
 Mounts to the XRP to hold the winch motor. You will use zip-ties to secure the motor to this printed frame.
 
 ![Winch Motor Mount](/img/Mount_Winch.png)
@@ -55,7 +59,7 @@ Mounts to the XRP to hold the winch motor. You will use zip-ties to secure the m
 :::
 ---
 
-⚙️ 2. The Core Structure
+⚙️ 3. The Core Structure
 *Building the main body of the launcher.*
 
 Launcher Main Body
@@ -77,7 +81,11 @@ The core assembly part where the shooter flywheels and motors attach. The 6V mot
 </div>
 
 :::
-Ball Feeder
+---
+
+🏗️ 4. Feeder
+*Mount the feeder motor and wheel to the shooter assembly to feed the balls into the intake.*
+
 Feeds the ping pong balls into the intake and rolls them out to be sent through the flywheel at a consistent rate.
 
 ![Feeder](/img/feeder.png)
@@ -98,49 +106,8 @@ Feeds the ping pong balls into the intake and rolls them out to be sent through 
 :::
 ---
 
-🏎️ 3. Motors & Drivetrain
-*Assembling the high-RPM flywheels and angle adjustment mechanisms.*
-
-Shooter Flywheel
-The main shooting wheel. Wrap this in rubber bands to create friction against the ball. It has a gear mesh attached for a 4:1 ratio to shoot the balls at high speeds.
-
-![Flywheel](/img/Flywheel.png)
-
-:::note
-**🖥️ Watch: Onshape Design Tutorial**
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-  <iframe src="https://www.youtube.com/embed/PLACEHOLDER" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
-</div>
-
-:::
-:::tip
-**🔧 Watch: Physical Assembly Video**
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-  <iframe src="https://www.youtube.com/embed/PLACEHOLDER" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
-</div>
-
-:::
-Motor Driving Pinion
-Attaches directly to the small 6V motor shaft to drive the main flywheel.
-*Requires the Gear Generator FeatureScript in Onshape: [Access FeatureScript Here](https://cad.onshape.com/documents/72d1bb826437a60af1fdd59c/w/2f2531a9f27d31cb4ee169d4/e/8f3bf9d133ff3fe42be9ab1e)*
-
-![Pinion](/img/Pinion.png)
-
-:::note
-**🖥️ Watch: Onshape Design Tutorial (Gear Generator)**
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-  <iframe src="https://www.youtube.com/embed/2q2hagoLq2M?rel=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
-</div>
-
-:::
-:::tip
-**🔧 Watch: Physical Assembly Video**
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-  <iframe src="https://www.youtube.com/embed/BvACU7PLt28?si=_ovwe3iUahYGAT8D" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
-</div>
-
-:::
-Winch Roller
+🏗️ 5. Winch Roller
+*Mount the winch wheel to the frame for angling the shooter"
 A small roller to pull and release a string, allowing you to control the shooter angle (elevation) via code.
 
 ![Winch](/img/Winch.png)
@@ -161,7 +128,7 @@ A small roller to pull and release a string, allowing you to control the shooter
 :::
 ---
 
-🔌 4. Control Systems
+🔌 6. Control Systems
 *Mounting the brains of the operation.*
 
 Electronics Board
