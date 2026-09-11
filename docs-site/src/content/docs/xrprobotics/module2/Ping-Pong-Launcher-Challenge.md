@@ -1,6 +1,20 @@
 ---
-title: "1.5.6 - Launcher Game Concepts"
+title: "1.5.6 - XRP Launcher Game"
 ---
+
+## TODO:  
+1. **Wireless**
+    * Test access point and change settings of xrp robot to be able to have multiple run at the same time.
+3. **Controller/Operator**
+    * Add two controller support for a driver/operator setup on XRP.
+4. **Battery Station**
+    * Easy place to charge AA batteries and controller batteries for them to swap easily.
+5. **Bluetooth**
+    * Bluetooth vs Wired testing, probably go towards just wired but need to test and setup.
+6. **Game Field**
+    * Need to design and build game elements, waiting to see how high I can shoot ping pong ball myself to have limit set.
+7. **Instructions**
+    * Update MKDoc to have images/videos for instructions to build and test.
 
 # 1.5.6 - Launcher Game Concepts
 We will make the shooter concept together, to follow a design process for a physical product we will all make together.  Following these steps will help you successufully achieve a working product, but feel free to iterate on your own as well -just be sure to not veer to far off and return to this tutorial to complete this challenge.
