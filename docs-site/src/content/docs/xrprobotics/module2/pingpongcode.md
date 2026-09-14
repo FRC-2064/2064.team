@@ -275,20 +275,22 @@ public class AutoShoot extends Command {
     private final feeder m_feeder;
     private final Timer m_timer = new Timer();
 
-    // 45 Degrees is exactly 1/8th (0.125) of a full rotation!
     private final double FEED_ROTATIONS = 0.125;  
+    
+    // --- ADDED: Easily adjustable delay variables ---
+    private final double INITIAL_SPIN_UP_TIME = 1.5; 
+    private final double RECOVERY_TIME = 1.5;       
+    
     private int m_state = 0; 
 
     public AutoShoot(shooter shooterSub, feeder feederSub) {
         m_shooter = shooterSub;
         m_feeder = feederSub;
-        // addRequirements locks these subsystems so no other command can use them right now
         addRequirements(m_shooter, m_feeder);
     }
 
     @Override
     public void initialize() {
-        // This runs once when you first press the button
         m_timer.restart();
         m_state = 0; 
         m_feeder.stop();
@@ -297,32 +299,30 @@ public class AutoShoot extends Command {
 
     @Override
     public void execute() {
-        // Force the flywheels to stay on at all times while the button is held
         m_shooter.setTargetSpeed(0.8);
 
-        // STATE 0: INITIAL SPIN UP (Wait 0.5 seconds for flywheels to get fast)
+        // STATE 0: INITIAL SPIN UP
         if (m_state == 0) {
-            if (m_timer.hasElapsed(0.5)) {
+            // Now checks against our new 1.0 second variable
+            if (m_timer.hasElapsed(INITIAL_SPIN_UP_TIME)) {
                 m_state = 1; 
                 m_feeder.resetEncoder(); 
             }
         } 
-        // STATE 1: PUSH 45 DEGREES
         else if (m_state == 1) {
             m_feeder.runFeeder(0.6); 
             
-            // If the encoder reaches 45 degrees...
             if (m_feeder.getRevolutions() >= FEED_ROTATIONS) {
-                m_state = 2; // Move to wait state
+                m_state = 2; 
                 m_feeder.stop(); 
                 m_timer.restart(); 
             }
         } 
         // STATE 2: RECOVERY PAUSE
         else if (m_state == 2) {
-            // Wait 0.5 seconds for the next ball to settle
-            if (m_timer.hasElapsed(0.5)) {
-                m_state = 1; // LOOP BACK to pushing!
+            // Now checks against our new 0.75 second variable
+            if (m_timer.hasElapsed(RECOVERY_TIME)) {
+                m_state = 1; 
                 m_feeder.resetEncoder(); 
             }
         }
@@ -330,9 +330,8 @@ public class AutoShoot extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        // When you let go of the button, return control to the default behaviors
+        m_shooter.stop();
         m_feeder.stop();
-        // We do not call m_shooter.stop() here, because the default command handles it!
     }
 
     @Override
