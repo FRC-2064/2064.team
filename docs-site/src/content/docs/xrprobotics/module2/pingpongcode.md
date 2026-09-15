@@ -2,12 +2,14 @@
 title: "1.5.10 - Advanced Mechanisms: Shooter, Feeder, and Winch"
 ---
 
+import { LinkButton } from '@astrojs/starlight/components';
+
 # 1.5.10 - Advanced Mechanisms: Shooter, Feeder, and Winch
 
 On The Panther Project, we know a competitive robot does more than just drive. To score, you need specialized mechanisms that all work together. In this section, we are adding three distinct mechanisms to our robot. Because they all do very different jobs, we have to program each one using a different strategy.
 
 Here is a breakdown of the three systems we are building:
-1. **The Shooter (Arduino Bridge):** Needs massive power, speed, and an "Idle Mode" to prevent the motors from getting stuck.
+1. **The Shooter (Arduino Bridge):** Needs massive power and speed to launch game pieces.
 2. **The Feeder (Smart Motor):** Needs high precision to load exactly one ball at a time.
 3. **The Winch (Manual Motor):** Needs direct driver control to aim the shooter.
 
@@ -102,9 +104,276 @@ void measurePulse() {
 :::tip
 **Alternative File Access**
 If your network restricts direct transfers or code copying, a backup copy of this sketch is also available via the class Google Drive folder linked in your student portal.
+
+<LinkButton href="https://github.com/FRC-2064/XRP-Cammand-Based-Introduction.git" variant="primary">
+  View The Panther Project Repository
+</LinkButton>
 :::
 
-[View The Panther Project Repository](https://github.com/FRC-2064/XRP-Cammand-Based-Introduction.git){: .md-button .md-button--primary }
+### Part B: The Java Subsystem (`shooter.java`)
+Now switch to VS Code. Even though we are spinning a motor, our Java code uses the `XRPServo` class to generate the signal. We hide this inside the `shooter.java` subsystem.
+
+Create this file inside your `subsystems` folder. 
+
+```java
+package frc.robot.subsystems;
+
+import edu.wpi.first.wpilibj.xrp.XRPServo;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class shooter extends SubsystemBase {
+    
+    private final XRPServo shooterBridge = new XRPServo(5); 
+
+    public shooter() {}
+
+    public void setTargetSpeed(double speed) {
+        double angle = (speed + 1.0) * 90.0;
+        shooterBridge.setAngle(angle); 
+    }
+
+    public void stop() {
+        shooterBridge.setAngle(90.0); 
+    }
+
+    public void runDefaultBehavior() {
+        stop(); 
+    }
+
+    @Override
+    public void periodic() {
+        // Left blank since idle mode tracking is removed
+    }
+}
+```
+
+---
+
+## 2. The Feeder: Why use an Encoder?
+
+The feeder's job is to push a ball into the spinning flywheels. We plug the feeder into **Motor Port 3** (Channel `2` in code) and use its built-in encoder to turn it a precise amount every single time.
+
+### `feeder.java`
+Create this file inside your `subsystems` folder.
+
+```java
+package frc.robot.subsystems;
+
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.xrp.XRPMotor;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class feeder extends SubsystemBase {
+    
+    private final XRPMotor feederMotor = new XRPMotor(2); 
+    private final Encoder feederEncoder = new Encoder(8, 9);
+
+    public feeder() {
+        feederEncoder.setDistancePerPulse(1.0 / 585.6);
+        resetEncoder();
+    }
+
+    public void runFeeder(double speed) {
+        feederMotor.set(speed);
+    }
+
+    public void stop() {
+        feederMotor.set(0.0);
+    }
+
+    public double getRevolutions() {
+        return Math.abs(feederEncoder.getDistance());
+    }
+
+    public void resetEncoder() {
+        feederEncoder.reset();
+    }
+
+    @Override
+    public void periodic() {}
+}
+```
+
+---
+
+## 3. The Winch: Manual Control
+
+Our winch uses a string to change the shooter angle. We plug this into **Motor Port 4** (Channel `3` in software) for direct manual control via the L1 and R1 buttons.
+
+### `winch.java`
+Create this file inside your `subsystems` folder.
+
+```java
+package frc.robot.subsystems;
+
+import edu.wpi.first.wpilibj.xrp.XRPMotor;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class winch extends SubsystemBase {
+    
+    private final XRPMotor winchMotor = new XRPMotor(3); 
+
+    public winch() {}
+
+    public void setPower(double speed) {
+        winchMotor.set(speed);
+    }
+
+    public void stop() {
+        winchMotor.set(0.0);
+    }
+
+    @Override
+    public void periodic() {}
+}
+```
+
+---
+
+## 4. Tying it Together: The AutoShoot Sequence
+
+We coordinate the Feeder and Shooter using a state machine command.
+
+### `AutoShoot.java`
+Create this file inside your `commands` folder.
+
+```java
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.shooter;
+import frc.robot.subsystems.feeder;
+
+public class AutoShoot extends Command {
+    private final shooter m_shooter;
+    private final feeder m_feeder;
+    private final Timer m_timer = new Timer();
+
+    private final double FEED_ROTATIONS = 0.125;  
+    private final double INITIAL_SPIN_UP_TIME = 1.5; 
+    private final double RECOVERY_TIME = 1.5;       
+    
+    private int m_state = 0; 
+
+    public AutoShoot(shooter shooterSub, feeder feederSub) {
+        m_shooter = shooterSub;
+        m_feeder = feederSub;
+        addRequirements(m_shooter, m_feeder);
+    }
+
+    @Override
+    public void initialize() {
+        m_timer.restart();
+        m_state = 0; 
+        m_feeder.stop();
+        m_feeder.resetEncoder(); 
+    }
+
+    @Override
+    public void execute() {
+        m_shooter.setTargetSpeed(0.8);
+
+        if (m_state == 0) {
+            if (m_timer.hasElapsed(INITIAL_SPIN_UP_TIME)) {
+                m_state = 1; 
+                m_feeder.resetEncoder(); 
+            }
+        } 
+        else if (m_state == 1) {
+            m_feeder.runFeeder(0.6); 
+            
+            if (m_feeder.getRevolutions() >= FEED_ROTATIONS) {
+                m_state = 2; 
+                m_feeder.stop(); 
+                m_timer.restart(); 
+            }
+        } 
+        else if (m_state == 2) {
+            if (m_timer.hasElapsed(RECOVERY_TIME)) {
+                m_state = 1; 
+                m_feeder.resetEncoder(); 
+            }
+        }
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        m_shooter.stop();
+        m_feeder.stop();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false; 
+    }
+}
+```
+
+---
+
+## 5. Hooking up the Controller (`RobotContainer.java`)
+
+```java
+package frc.robot;
+
+import edu.wpi.first.wpilibj.PS4Controller;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.OperatorConstants;
+
+import frc.robot.subsystems.XRPDrivetrain;
+import frc.robot.subsystems.shooter;
+import frc.robot.subsystems.feeder;
+import frc.robot.subsystems.winch;
+import frc.robot.commands.AutoShoot;
+
+public class RobotContainer {
+
+  private final shooter m_shooter = new shooter();
+  private final feeder m_feeder = new feeder();     
+  private final winch m_winch = new winch();        
+  private final XRPDrivetrain xrp = new XRPDrivetrain();
+  private final PS4Controller driverController = new PS4Controller(OperatorConstants.DRIVER_CONTROLLER_PORT);
+
+  public RobotContainer() {
+    xrp.setDefaultCommand(new RunCommand(
+        () -> xrp.executeDrive(
+            driverController.getLeftY(),    
+            driverController.getRightY(), 
+            false,
+            driverController.getCircleButton()
+        ),
+        xrp));
+
+    m_shooter.setDefaultCommand(new RunCommand(() -> m_shooter.runDefaultBehavior(), m_shooter));
+
+    configureButtonBindings();
+  }
+
+  private void configureButtonBindings() {
+    new Trigger(driverController::getL1Button)
+        .whileTrue(new RunCommand(() -> m_winch.setPower(0.7), m_winch))
+        .onFalse(new InstantCommand(() -> m_winch.stop(), m_winch));
+
+    new Trigger(driverController::getR1Button)
+        .whileTrue(new RunCommand(() -> m_winch.setPower(-0.7), m_winch))
+        .onFalse(new InstantCommand(() -> m_winch.stop(), m_winch));
+
+    new Trigger(driverController::getTriangleButton)
+        .whileTrue(new AutoShoot(m_shooter, m_feeder));
+
+    new Trigger(driverController::getSquareButton)
+        .onTrue(new InstantCommand(() -> xrp.setServoPositionOne()))
+        .onFalse(new InstantCommand(() -> xrp.setServoDefault()));
+
+    new Trigger(driverController::getCrossButton)
+        .onTrue(new InstantCommand(() -> xrp.setServoPositionTwo()))
+        .onFalse(new InstantCommand(() -> xrp.setServoDefault()));
+  }
+}
+```
 
 ---
 
