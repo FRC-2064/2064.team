@@ -2,7 +2,6 @@
 title: "1.5.8 - Launcher Wiring"
 ---
 
-# 1.5.8 - Launcher Wiring
 > **Custom Electronics:** This manifest defines the wiring for an **Arduino Pro Micro** acting as a sub-controller for the **XRP**.
 
 :::note

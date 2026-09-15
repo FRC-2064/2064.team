@@ -2,7 +2,6 @@
 title: "XRP Introduction"
 ---
 
-# XRP Introduction
 > Welcome to the Experiential Robotics Platform (XRP) training module. Choose your path below to get started!
 
 ---

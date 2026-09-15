@@ -1,8 +1,6 @@
 ---
 title: "1.5.7 - Ping Pong Assembly"
 ---
-
-# 1.5.7 - Ping Pong Assembly
 > **Custom Mechanism:** This guide covers the physical assembly of the Ping Pong Launcher add-on for your XRP.
 
 :::note

@@ -2,8 +2,6 @@
 title: "1.5.1 - Build Guide"
 ---
 
-# 1.5.1 - Build Guide
-
 Building Your XRP Bot
 
 :::note
