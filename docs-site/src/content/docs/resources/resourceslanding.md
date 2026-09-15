@@ -4,7 +4,6 @@ title: "📚 Team Resources"
 
 ![Team 2064 Logo](/img/2064_logo.png)
 
-# 📚 Team Resources
 > Your quick-reference library for Team 2064 standards, expectations, and terminology.
 
 ---

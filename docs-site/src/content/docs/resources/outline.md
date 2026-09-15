@@ -2,7 +2,6 @@
 title: "🗂️ Master Site Index & Glossary"
 ---
 
-# 🗂️ Master Site Index & Glossary
 > **The Panther Project - FRC Team 2064 Directory**
 
 Looking for something specific? Use this alphabetical directory to jump straight to any lesson on the Team 2064 hub.

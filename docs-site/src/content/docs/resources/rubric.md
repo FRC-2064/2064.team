@@ -2,8 +2,6 @@
 title: "Rubric: FRC Team 2064 Core Values - Self-Reflection"
 ---
 
-# Rubric: FRC Team 2064 Core Values - Self-Reflection
-
 Core Values Reference
 
 | Value | FRC Definition |

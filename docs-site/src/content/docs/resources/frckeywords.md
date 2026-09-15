@@ -2,8 +2,6 @@
 title: "Glossary: FIRST® Robotics Engineering Terms"
 ---
 
-# Glossary: FIRST® Robotics Engineering Terms
-
 This glossary contains key terms and definitions for the **FIRST® Robotics Program**.
 
 | Vocabulary Word | Definition |
