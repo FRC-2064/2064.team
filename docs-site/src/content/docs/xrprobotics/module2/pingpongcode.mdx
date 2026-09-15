@@ -4,6 +4,19 @@ title: "1.5.10 - Advanced Mechanisms: Shooter, Feeder, and Winch"
 
 import { LinkButton } from '@astrojs/starlight/components';
 
+<style>
+  .repo-btn {
+    text-decoration: none !important;
+    transition: all 0.2s ease-in-out;
+  }
+  .repo-btn:hover {
+    text-decoration: none !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    filter: brightness(1.15);
+  }
+</style>
+
 # 1.5.10 - Advanced Mechanisms: Shooter, Feeder, and Winch
 
 On The Panther Project, we know a competitive robot does more than just drive. To score, you need specialized mechanisms that all work together. In this section, we are adding three distinct mechanisms to our robot. Because they all do very different jobs, we have to program each one using a different strategy.
@@ -112,6 +125,7 @@ If your network restricts direct transfers or code copying, a backup copy of thi
   variant="secondary" 
   target="_blank" 
   rel="noopener noreferrer"
+  class="repo-btn"
 >
   View The Panther Project Repository
 </LinkButton>
