@@ -10,22 +10,22 @@ const robots = (await getCollection('robots')).sort((a, b) => {
 });
 ---
 
-<BaseLayout title="Robots | 2064 | The Panther Project">
+<BaseLayout title="Robots | FRC Team 2064 | The Panther Project">
   <section class="relative isolate overflow-hidden bg-brand-ink text-white">
     <div class="flair-iso flair-iso--dim absolute inset-0 opacity-80"></div>
     <div class="relative mx-auto flex max-w-7xl flex-col gap-6 px-4 py-20 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:px-8">
       <div class="max-w-3xl">
         <p class="t-eyebrow inline-flex items-center gap-3 text-brand-red">
           <span class="brand-rule"></span>
-          Page Eyebrow
+          Pomperaug High School • FRC Team 2064
         </p>
-        <h1 class="t-h1 mt-4 text-6xl text-white sm:text-7xl">Robots</h1>
+        <h1 class="t-h1 mt-4 text-6xl text-white sm:text-7xl">Our Competition Robots</h1>
         <p class="t-subtitle mt-6 max-w-2xl text-lg text-white/65">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Explore the engineering evolution of machines built by The Panther Project. From rigorous Onshape CAD designs and custom aluminum fabrication to advanced WPILib Java controls, discover what powers our season.
         </p>
       </div>
       <p class="t-h3 shrink-0 text-white/40">
-        <span class="text-brand-red">{robots.length}</span> {robots.length === 1 ? 'Entry' : 'Entries'}
+        <span class="text-brand-red">{robots.length}</span> {robots.length === 1 ? 'Robot' : 'Robots'} Built
       </p>
     </div>
   </section>
@@ -34,8 +34,8 @@ const robots = (await getCollection('robots')).sort((a, b) => {
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       {robots.length === 0 ? (
         <div class="rounded-2xl border border-dashed border-black/15 bg-brand-bone p-12 text-center">
-          <p class="t-eyebrow text-brand-red">No Entries Yet</p>
-          <p class="t-subtitle mt-3 text-black/60">Lorem ipsum placeholder for empty state.</p>
+          <p class="t-eyebrow text-brand-red">No Robot Profiles Yet</p>
+          <p class="t-subtitle mt-3 text-black/60">Check back soon as we compile documentation and specs for our competition machines.</p>
         </div>
       ) : (
         <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">

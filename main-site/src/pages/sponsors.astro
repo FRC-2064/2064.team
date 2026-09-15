@@ -5,31 +5,44 @@ import { HACK_CLUB_DONATION_URL, SPONSOR_CONTACT_EMAIL, sponsors } from '../data
 
 const tiers = [
   {
-    level: 'Tier One',
-    range: 'Range Placeholder',
-    perks: ['Perk placeholder', 'Perk placeholder', 'Perk placeholder', 'Perk placeholder']
+    level: 'Platinum Partner',
+    range: '$5,000+',
+    perks: [
+      'Large logo placement prominently displayed on competition robot',
+      'Prime logo sizing on team competition banner and pit display',
+      'Featured spotlight across team social media channels and website',
+      'Invited VIP pit tour and robot demonstration at regional events'
+    ]
   },
   {
-    level: 'Tier Two',
-    range: 'Range Placeholder',
-    perks: ['Perk placeholder', 'Perk placeholder', 'Perk placeholder']
+    level: 'Gold Partner',
+    range: '$2,000 - $4,999',
+    perks: [
+      'Medium logo placement on competition robot and team banner',
+      'Logo recognition on the official Team 2064 sponsor page',
+      'Social media shoutout during the build and competition season'
+    ]
   },
   {
-    level: 'Tier Three',
-    range: 'Range Placeholder',
-    perks: ['Perk placeholder', 'Perk placeholder']
+    level: 'Silver Partner',
+    range: '$1000 - $1,999',
+    perks: [
+      'Standard logo placement on the team banner and website',
+      'Name recognition in competition pit displays'
+    ]
   },
   {
-    level: 'Tier Four',
-    range: 'Range Placeholder',
-    perks: ['Perk placeholder', 'Perk placeholder']
+    level: 'Bronze Supporter',
+    range: '$100 - $999',
+    perks: [
+      'Company or individual name listed on our website sponsor page',
+      'Our heartfelt gratitude for powering local STEM education'
+    ]
   }
 ];
-
-const placeholderBody = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 ---
 
-<BaseLayout title="Sponsors | 2064 | The Panther Project">
+<BaseLayout title="Sponsors & Support | FRC Team 2064 | The Panther Project">
   <section class="relative isolate overflow-hidden bg-brand-ink text-white">
     <div class="flair-iso flair-iso--dim absolute inset-0 opacity-80"></div>
     <div class="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
@@ -39,9 +52,9 @@ const placeholderBody = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit
             <span class="brand-rule"></span>
             Back The Team
           </p>
-          <h1 class="t-h1 mt-4 text-6xl text-white sm:text-7xl">Sponsors</h1>
+          <h1 class="t-h1 mt-4 text-6xl text-white sm:text-7xl">Our Sponsors</h1>
           <p class="t-subtitle mt-6 max-w-2xl text-lg text-white/65">
-            {placeholderBody}
+            FRC Team 2064 relies heavily on community partnerships, grants, and corporate sponsorships to fund machine parts, raw materials, registration fees, and shop tools for our students at Pomperaug High School.
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <M3Button href={`mailto:${SPONSOR_CONTACT_EMAIL}`}>Become a Sponsor</M3Button>
@@ -57,7 +70,7 @@ const placeholderBody = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit
             {SPONSOR_CONTACT_EMAIL}
           </a>
           <p class="t-subscript mt-4 text-white/55">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Reach out to discuss corporate matching, in-kind tool donations, or custom partnership opportunities.
           </p>
         </div>
       </div>
@@ -91,9 +104,9 @@ const placeholderBody = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit
   <section class="bg-brand-bone py-16">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="mb-10 max-w-2xl">
-        <p class="t-eyebrow text-brand-red">Section Eyebrow</p>
-        <h2 class="t-h2 mt-2 text-3xl text-brand-black sm:text-4xl">Section Heading</h2>
-        <p class="t-subtitle mt-4 text-black/65">{placeholderBody}</p>
+        <p class="t-eyebrow text-brand-red">Support Levels</p>
+        <h2 class="t-h2 mt-2 text-3xl text-brand-black sm:text-4xl">Partnership Tiers</h2>
+        <p class="t-subtitle mt-4 text-black/65">Invest in the next generation of engineers, machinists, and problem solvers at Pomperaug High School.</p>
       </div>
 
       <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">

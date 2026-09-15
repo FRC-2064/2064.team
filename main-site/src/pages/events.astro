@@ -15,18 +15,18 @@ const upcoming = events.filter((e) => (e.data.endDate ?? e.data.date) >= now);
 const past = events.filter((e) => (e.data.endDate ?? e.data.date) < now);
 ---
 
-<BaseLayout title="Events | 2064 | The Panther Project">
+<BaseLayout title="Events & Schedule | FRC Team 2064 | The Panther Project">
   <section class="relative isolate overflow-hidden bg-brand-ink text-white">
     <div class="flair-iso flair-iso--dim absolute inset-0 opacity-80"></div>
     <div class="relative mx-auto flex max-w-7xl flex-col gap-6 px-4 py-20 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:px-8">
       <div class="max-w-3xl">
         <p class="t-eyebrow inline-flex items-center gap-3 text-brand-red">
           <span class="brand-rule"></span>
-          Page Eyebrow
+          Pomperaug High School • FRC Team 2064
         </p>
-        <h1 class="t-h1 mt-4 text-6xl text-white sm:text-7xl">Events</h1>
+        <h1 class="t-h1 mt-4 text-6xl text-white sm:text-7xl">Team Schedule & Events</h1>
         <p class="t-subtitle mt-6 max-w-2xl text-lg text-white/65">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Stay up to date with build season milestones, robot competitions, community outreach events, and team meetings. Check out our live schedule below.
         </p>
       </div>
       <div class="flex gap-8 text-sm">
@@ -45,8 +45,8 @@ const past = events.filter((e) => (e.data.endDate ?? e.data.date) < now);
   <section class="bg-white py-16">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="mb-10">
-        <p class="t-eyebrow text-brand-red">Section Eyebrow</p>
-        <h2 class="t-h2 mt-2 text-2xl text-brand-black sm:text-3xl">Section Heading</h2>
+        <p class="t-eyebrow text-brand-red">Master Calendar</p>
+        <h2 class="t-h2 mt-2 text-2xl text-brand-black sm:text-3xl">Google Calendar Feed</h2>
       </div>
       <div class="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_18px_48px_-30px_rgba(0,0,0,0.25)]">
         <iframe
@@ -60,8 +60,8 @@ const past = events.filter((e) => (e.data.endDate ?? e.data.date) < now);
       {events.length > 0 && (
         <div class="mt-16">
           <div class="mb-8">
-            <p class="t-eyebrow text-brand-red">Section Eyebrow</p>
-            <h2 class="t-h2 mt-2 text-2xl text-brand-black sm:text-3xl">Section Heading</h2>
+            <p class="t-eyebrow text-brand-red">Competitions & Milestones</p>
+            <h2 class="t-h2 mt-2 text-2xl text-brand-black sm:text-3xl">Featured Events</h2>
           </div>
           <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {events.map((event) => <EventCard event={event} />)}
