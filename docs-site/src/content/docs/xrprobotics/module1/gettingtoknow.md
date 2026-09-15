@@ -2,8 +2,6 @@
 title: "1.5.2 - XRP Firmware Installation"
 ---
 
-# 1.5.2 - XRP Firmware Installation
-
 Installing the Firmware and Booting up the XRP
 
 :::note
