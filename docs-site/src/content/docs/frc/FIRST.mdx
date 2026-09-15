@@ -2,7 +2,22 @@
 title: "1.1.1 - Intro to FIRST"
 ---
 
-# 1.1.1 - Intro to FIRST
+import { LinkButton } from '@astrojs/starlight/components';
+
+<style>{`
+  .ext-btn {
+    text-decoration: none !important;
+    color: #ffffff !important;
+    transition: all 0.2s ease-in-out;
+  }
+  .ext-btn:hover {
+    text-decoration: none !important;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    filter: brightness(1.15);
+  }
+`}</style>
 
 **Objective:** Understand the mission of *FIRST*, the structure of the Robotics Competition, and the core values that drive Team 2064.
 
@@ -46,9 +61,23 @@ Complete the analysis questionnaire at the link below. You will be asked to answ
 :::note
 **Identification Required**
 You **must** be logged into your **@region15.org** Google account to access and submit this form.
-
 :::
-[Submit Your Game & Culture Analysis :material-form-select:](https://forms.gle/PJuHm9MqTbs4jVVs7)
+
+<br/>
+
+<LinkButton 
+  href="https://forms.gle/PJuHm9MqTbs4jVVs7" 
+  variant="secondary" 
+  target="_blank" 
+  rel="noopener noreferrer"
+  class="ext-btn"
+  icon="pencil"
+>
+  Submit Your Game & Culture Analysis
+</LinkButton>
+
+<br/>
+<br/>
 
 ---
 
@@ -58,5 +87,3 @@ After submitting your Google Form:
 
 1. **Notify a Mentor:** Let a CAD mentor or your Subteam Lead know your analysis is complete.
 2. **Review:** Be prepared to explain how the "Panther Project" maintains a professional shop environment during the build season.
-
----
