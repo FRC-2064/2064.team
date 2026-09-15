@@ -2,5 +2,16 @@
 title: "1.3.3 - Certification Quiz"
 ---
 
-# 1.3.3 - Certification Quiz
 Students will show an understanding of safety and demonstrate their understanding...
+
+<LinkButton 
+  href="https://create.kahoot.it/solo?quizId=0585a4d8-3d49-4c37-91f4-bc53cf24d872&gameMode=nano" 
+  variant="secondary" 
+  target="_blank" 
+  rel="noopener noreferrer"
+  class="ext-btn"
+  icon="external"
+>
+  Open the Official XRP Build Guide
+</LinkButton>
+
