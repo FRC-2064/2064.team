@@ -8,10 +8,12 @@ const sidebar = [
   { label: 'Home', link: '/' },
   {
     label: 'Phase 1: Rookie Foundations',
+    collapsed: true, // <-- Collapsed by default
     items: [
       { label: 'Rookie Home', slug: 'frc/rookielanding' },
       {
         label: 'Module 1.1: FRC Basics',
+        collapsed: true,
         items: [
           { slug: 'frc/FIRST' },
           { slug: 'frc/botbasics' },
@@ -23,6 +25,7 @@ const sidebar = [
       },
       {
         label: 'Module 1.2: Basic CAD',
+        collapsed: true,
         items: [
           { slug: 'engineering/cad/CAD' },
           { slug: 'engineering/cad/stage0' },
@@ -33,6 +36,7 @@ const sidebar = [
       },
       {
         label: 'Module 1.3: Safety Certification',
+        collapsed: true,
         items: [
           { slug: 'safety/safetylanding' },
           { slug: 'safety/Safety' },
@@ -43,10 +47,12 @@ const sidebar = [
       },
       {
         label: 'Module 1.4: Basic Fabrication',
+        collapsed: true,
         items: [
           { slug: 'fabrication/fabricationbasic' },
           {
             label: 'Level 01 Overview',
+            collapsed: true,
             items: [
               { slug: 'fabrication/level1/level1' },
               { slug: 'fabrication/level1/Closet' },
@@ -55,6 +61,7 @@ const sidebar = [
           },
           {
             label: 'Level 01 - Measuring',
+            collapsed: true,
             items: [
               { slug: 'fabrication/level1/measuring/measuringtools' },
               { slug: 'fabrication/level1/measuring/blueprintlayout' }
@@ -62,6 +69,7 @@ const sidebar = [
           },
           {
             label: 'Level 01 - Hand Tools',
+            collapsed: true,
             items: [
               { slug: 'fabrication/level1/handtools/Handtools' },
               { slug: 'fabrication/level1/handtools/pliers' },
@@ -71,18 +79,22 @@ const sidebar = [
           },
           {
             label: 'Level 01 - 3D Printer',
+            collapsed: true,
             items: [{ slug: 'fabrication/level1/3dprinter' }]
           },
           {
             label: 'Skill Check - Level 01',
+            collapsed: true,
             items: [{ slug: 'fabrication/level1/handtoolsquiz' }]
           },
           {
             label: 'Level 02 Overview',
+            collapsed: true,
             items: [{ slug: 'fabrication/level2/level2' }]
           },
           {
             label: 'Level 02 - Powered Hand Tools',
+            collapsed: true,
             items: [
               { slug: 'fabrication/level2/poweredhandtools/poweredtools' },
               { slug: 'fabrication/level2/poweredhandtools/cordlesssaw' },
@@ -91,16 +103,19 @@ const sidebar = [
           },
           {
             label: 'Skill Check Level 02',
+            collapsed: true,
             items: [{ slug: 'fabrication/level2/powertoolsquiz' }]
           }
         ]
       },
       {
         label: 'Module 1.5: XRP Starter Bot',
+        collapsed: true,
         items: [
           { slug: 'xrprobotics/xrplanding' },
           {
             label: 'XRP Start',
+            collapsed: true,
             items: [
               { slug: 'xrprobotics/module1/Build' },
               { slug: 'xrprobotics/module1/gettingtoknow' },
@@ -111,6 +126,7 @@ const sidebar = [
           },
           {
             label: 'XRP Advanced',
+            collapsed: true,
             items: [
               { slug: 'xrprobotics/module2/Ping-Pong-Launcher-Challenge' },
               { slug: 'xrprobotics/module2/PingPongAssemble' },
@@ -125,10 +141,12 @@ const sidebar = [
   },
   {
     label: 'Phase 2: Specialization Pathways',
+    collapsed: true, // <-- Collapsed by default
     items: [
       { label: 'Specialization Paths', slug: 'engineering/engineeringlanding' },
       {
         label: 'Pathway 2.1: Advanced CAD',
+        collapsed: true,
         items: [
           { slug: 'engineering/cad/stage1D' },
           { slug: 'engineering/cad/stage1E' },
@@ -137,10 +155,12 @@ const sidebar = [
       },
       {
         label: 'Pathway 2.2: Advanced Fabrication',
+        collapsed: true,
         items: [
           { slug: 'fabrication/fabricationadvanced' },
           {
             label: 'Level 3 Overview',
+            collapsed: true,
             items: [
               { slug: 'fabrication/level3/level3' },
               { slug: 'fabrication/level3/3dprinting2' },
@@ -153,6 +173,7 @@ const sidebar = [
           },
           {
             label: 'Level 4 Overview',
+            collapsed: true,
             items: [
               { slug: 'fabrication/level4/level4' },
               { slug: 'fabrication/level4/laserengraver' },
@@ -165,6 +186,7 @@ const sidebar = [
       },
       {
         label: 'Pathway 2.3: Software & Controls',
+        collapsed: true,
         items: [
           { slug: 'engineering/programming/WPIlib' },
           { slug: 'engineering/programming/filestructure' },
@@ -179,6 +201,7 @@ const sidebar = [
       },
       {
         label: 'Pathway 2.4: Media & NEMO',
+        collapsed: true,
         items: [
           { slug: 'media/medialanding' },
           { slug: 'media/branding' },
@@ -193,10 +216,12 @@ const sidebar = [
   },
   {
     label: 'Phase 3: Leadership & Competition',
+    collapsed: true, // <-- Collapsed by default
     items: [
       { label: 'Advanced Pathways', slug: 'leadership/leadershiplanding' },
       {
         label: 'Pathway 3.1: Strategy',
+        collapsed: true,
         items: [
           { slug: 'strategy/game-manual' },
           { slug: 'strategy/scouting' },
@@ -206,6 +231,7 @@ const sidebar = [
       },
       {
         label: 'Pathway 3.2: Pit Crew',
+        collapsed: true,
         items: [
           { slug: 'competition/packing' },
           { slug: 'competition/triage' },
@@ -216,6 +242,7 @@ const sidebar = [
       },
       {
         label: 'Pathway 3.3: Project Management',
+        collapsed: true,
         items: [
           { slug: 'leadership/timeline' },
           { slug: 'leadership/awards' },
@@ -228,6 +255,7 @@ const sidebar = [
   },
   {
     label: 'Team Resources',
+    collapsed: true, // <-- Collapsed by default
     items: [
       { slug: 'resources/resourceslanding' },
       { slug: 'resources/outline' },
