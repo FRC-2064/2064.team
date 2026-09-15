@@ -4,18 +4,29 @@ import M3Button from '../components/M3Button.astro';
 import { sponsors } from '../data/site';
 
 const pillars = [
-  { eyebrow: 'Pillar One', title: 'Section Heading' },
-  { eyebrow: 'Pillar Two', title: 'Section Heading' },
-  { eyebrow: 'Pillar Three', title: 'Section Heading' }
+  { 
+    eyebrow: 'Technical Mastery', 
+    title: 'Engineering & Fabrication', 
+    body: 'Students gain hands-on experience operating industry-standard shop machinery—including CNC routers, metal lathes, milling machines, and 3D printers—while designing competition robots using Onshape.' 
+  },
+  { 
+    eyebrow: 'Software & Controls', 
+    title: 'Programming & Robotics', 
+    body: 'Our software team writes robust Java code using WPILib, implements advanced autonomous navigation and vision tracking pipelines, and builds custom microcontroller systems.' 
+  },
+  { 
+    eyebrow: 'Gracious Professionalism', 
+    title: 'Community & Leadership', 
+    body: 'Beyond building 125-pound competition robots, team members develop real-world skills in project management, public speaking, safety certification, and community outreach.' 
+  }
 ];
 
-const placeholderBody = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 const galleryTiles = [
-  { label: 'Photo Placeholder', span: 'lg:col-span-2 lg:row-span-2 aspect-square lg:aspect-auto' },
-  { label: 'Photo Placeholder', span: 'aspect-[4/3]' },
-  { label: 'Photo Placeholder', span: 'aspect-[4/3]' },
-  { label: 'Photo Placeholder', span: 'aspect-[4/3]' },
-  { label: 'Photo Placeholder', span: 'aspect-[4/3]' }
+  { label: 'Shop Machining & Fabrication', span: 'lg:col-span-2 lg:row-span-2 aspect-square lg:aspect-auto' },
+  { label: 'Robot Design & CAD', span: 'aspect-[4/3]' },
+  { label: 'Electrical & Controls Integration', span: 'aspect-[4/3]' },
+  { label: 'Driver Team & Pit Operation', span: 'aspect-[4/3]' },
+  { label: 'Community Outreach & STEM Promotion', span: 'aspect-[4/3]' }
 ];
 ---
 
@@ -38,14 +49,14 @@ const galleryTiles = [
       <div>
         <p class="t-eyebrow inline-flex items-center gap-3 text-brand-red">
           <span class="brand-rule"></span>
-          FRC Team 2064
+          Pomperaug High School • FRC Team 2064
         </p>
         <h1 class="t-h1 mt-6 text-6xl text-white sm:text-7xl lg:text-[88px]">
           The Panther
           <span class="block text-brand-red">Project</span>
         </h1>
         <p class="t-subtitle mt-8 max-w-xl text-lg text-white/70 sm:text-xl">
-          {placeholderBody} {placeholderBody}
+          Welcome to the official home of FRC Team 2064. Based out of Pomperaug High School in Southbury, Connecticut, we empower students through engineering, machining, programming, and STEM leadership.
         </p>
         <div class="mt-10 flex flex-wrap gap-3">
           <M3Button href="/robots/">View Robots</M3Button>
@@ -55,7 +66,7 @@ const galleryTiles = [
         <div class="mt-14 inline-flex items-center gap-4 border-t border-white/10 pt-8">
           <span class="brand-rule"></span>
           <p class="t-h3 text-base text-white/80 sm:text-lg">
-            Competing In FRC Since <span class="text-brand-red">2006</span>
+            Competing In FIRST Since <span class="text-brand-red">2006</span>
           </p>
         </div>
       </div>
@@ -78,7 +89,7 @@ const galleryTiles = [
       <div class="flex items-center gap-6">
         <div class="shrink-0">
           <p class="t-eyebrow text-brand-red">Sponsored By</p>
-          <p class="t-subscript mt-1 text-black/40">Teams that power our season</p>
+          <p class="t-subscript mt-1 text-black/40">Partners that power our season</p>
         </div>
         <div class="sponsor-marquee-window relative flex-1 overflow-hidden">
           <div class="marquee gap-6">
@@ -107,11 +118,11 @@ const galleryTiles = [
       <div class="max-w-3xl">
         <p class="t-eyebrow inline-flex items-center gap-3 text-brand-red">
           <span class="brand-rule"></span>
-          Section Eyebrow
+          What We Do
         </p>
-        <h2 class="t-h2 mt-4 text-4xl text-brand-black sm:text-5xl">Section Heading</h2>
+        <h2 class="t-h2 mt-4 text-4xl text-brand-black sm:text-5xl">Building Robots, Developing Students</h2>
         <p class="t-subtitle mt-4 text-lg text-black/60">
-          {placeholderBody}
+          The robot is just the vehicle we use to teach students how to design, collaborate, and execute complex real-world projects.
         </p>
       </div>
 
@@ -123,7 +134,7 @@ const galleryTiles = [
             </span>
             <p class="t-eyebrow text-brand-red">{pillar.eyebrow}</p>
             <h3 class="t-h3 mt-3 text-2xl text-brand-black">{pillar.title}</h3>
-            <p class="t-body mt-3 text-black/65">{placeholderBody}</p>
+            <p class="t-body mt-3 text-black/65">{pillar.body}</p>
             <span class="brand-rule mt-6 block"></span>
           </article>
         ))}
@@ -131,19 +142,19 @@ const galleryTiles = [
     </div>
   </section>
 
-  {/* ── GALLERY ───────────────────────────────────────────────────── */}
+  {/* ── GALLERY ────────────────────────────────────────────────     */}
   <section class="relative overflow-hidden bg-brand-bone py-20">
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
         <div>
           <p class="t-eyebrow inline-flex items-center gap-3 text-brand-red">
             <span class="brand-rule"></span>
-            Section Eyebrow
+            Shop & Build Season
           </p>
-          <h2 class="t-h2 mt-4 text-4xl text-brand-black sm:text-5xl">Section Heading</h2>
+          <h2 class="t-h2 mt-4 text-4xl text-brand-black sm:text-5xl">Inside The Panther Lab</h2>
         </div>
         <p class="t-subtitle max-w-md text-black/55">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          From initial CAD sketches in Onshape to final field deployment, take a look at our students in action.
         </p>
       </div>
 
@@ -152,7 +163,7 @@ const galleryTiles = [
           <div class={`group relative overflow-hidden rounded-2xl border border-black/10 bg-brand-charcoal ${photo.span}`}>
             <div class="flair-iso flair-iso--dim absolute inset-0 opacity-70"></div>
             <div class="relative flex h-full w-full flex-col items-center justify-center gap-2 p-4 text-center">
-              <span class="t-eyebrow text-brand-red">Photo {String(index + 1).padStart(2, '0')}</span>
+              <span class="t-eyebrow text-brand-red">Gallery {String(index + 1).padStart(2, '0')}</span>
               <span class="t-subscript text-white/50">{photo.label}</span>
             </div>
           </div>
@@ -165,12 +176,12 @@ const galleryTiles = [
   <section class="bg-brand-red py-16 text-white">
     <div class="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-4 sm:px-6 lg:flex-row lg:items-center lg:px-8">
       <div class="max-w-2xl">
-        <p class="t-eyebrow text-white/70">CTA Eyebrow</p>
-        <h2 class="t-h2 mt-3 text-4xl text-white sm:text-5xl">Call To Action Heading.</h2>
+        <p class="t-eyebrow text-white/70">Get Involved</p>
+        <h2 class="t-h2 mt-3 text-4xl text-white sm:text-5xl">Join The Panther Project.</h2>
       </div>
       <div class="flex flex-wrap gap-3">
-        <M3Button href="/sponsors/" variant="surface">Primary Action</M3Button>
-        <M3Button href="/events/" variant="ghost">Secondary Action</M3Button>
+        <M3Button href="/resources/" variant="surface">Explore Training Hub</M3Button>
+        <M3Button href="/sponsors/" variant="ghost">Our Sponsors</M3Button>
       </div>
     </div>
   </section>
