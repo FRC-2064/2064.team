@@ -1,0 +1,75 @@
+---
+title: "1.5.2 - XRP Firmware Installation"
+---
+
+import { LinkButton } from '@astrojs/starlight/components';
+
+<style>{`
+  .ext-btn {
+    text-decoration: none !important;
+    transition: all 0.2s ease-in-out;
+  }
+  .ext-btn:hover {
+    text-decoration: none !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    filter: brightness(1.15);
+  }
+`}</style>
+
+## Installing the Firmware and Booting up the XRP
+
+:::note
+You should already have an assembled XRP bot with the correct firmware installed - but this video is a good reference in case troubleshooting or repairs are needed - Watch if this is your first time using XRP.
+:::
+
+With the build process complete, we need to work on loading the firmware to the XRP. To accomplish this, the XRP will use custom FRC firmware that enables it to communicate wirelessly and utilize the WPILib commands. Luckily they provide the details to accomplish this, so follow this video and guide, and you should have the XRP robot broadcasting its own WIFI channel to connect to so we can deploy code to it after this step.
+
+:::caution
+If you already have VS Code with WPILib on your workstation: **Stop the video at the 9:04 marker**. The video continues to explain how to accomplish installation and create a **Time-Based Code**. We will **NOT** be coding in Time-Based format!
+:::
+
+<iframe 
+  width="100%" 
+  height="450" 
+  src="https://www.youtube.com/embed/Nlk52QdoasE?si=OOVQTXUfxC7waexL" 
+  title="YouTube video player" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  referrerpolicy="strict-origin-when-cross-origin" 
+  allowfullscreen
+  style={{ borderRadius: '8px', marginTop: '1rem', marginBottom: '2rem' }}
+></iframe>
+
+:::note
+**WPILib Official Documentation**
+For firmware updates, advanced programming guides, and the full Java library reference, the official WPILib site is your best resource.
+:::
+
+<LinkButton 
+  href="https://docs.wpilib.org/en/stable/docs/xrp-robot/index.html" 
+  variant="secondary" 
+  target="_blank" 
+  rel="noopener noreferrer"
+  class="ext-btn"
+  icon="external"
+>
+  View the WPILib XRP Guide
+</LinkButton>
+
+<br/>
+<br/>
+
+:::note
+Your XRP bot will be fully wireless at this point, and no longer will need to be plugged into a computer. All code is sent wirelessly and simulating the robot is completed over WIFI.
+:::
+
+---
+
+## Startup Sequence
+
+If you followed these steps correctly, upon start up (when power is applied to the XRP), the following will happen:
+
+1. **IMU Calibration:** The IMU will calibrate itself. This lasts approximately 3-5 seconds, and will be indicated by the green LED blinking rapidly. Ideally, the XRP should be placed on a flat surface prior to power up, and if necessary, users can hit the reset button to restart the firmware and IMU calibration process.
+2. **Network Configuration:** The network will be configured, depending on the configuration settings and if you successfully followed the steps in the video. See the section on [XRP Web UI Interface](https://docs.wpilib.org/en/stable/docs/xrp-robot/web-ui.html) for more information on how to configure the network settings if having issues. By default, the XRP will broadcast its own WiFi Access Point and you can connect to its WIFI when ready to **SIMULATE** and test code.
+3. **Ready:** After this, the XRP is ready for use.

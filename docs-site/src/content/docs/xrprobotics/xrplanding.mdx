@@ -2,33 +2,28 @@
 title: "XRP Introduction"
 ---
 
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
 > Welcome to the Experiential Robotics Platform (XRP) training module. Choose your path below to get started!
 
 ---
 
-<div class="grid cards" markdown>
-
--   <span style="color: var(--md-primary-fg-color);">:material-robot-outline:</span> **Part 1: The Basics**
-
-    ---
-
-    Start here to build your XRP chassis, load firmware, install WPILib, and write your very first command-based Java driving code.
-
-    [Start Part 1: Build Guide](/xrprobotics/module1/Build/)
-
--   <span style="color: var(--md-primary-fg-color);">:material-table-tennis:</span> **Part 2: Ping Pong Challenge**
-
-    ---
-
-    Already completed Part 1? Move on to designing, 3D Printing, assembling, wiring, and coding a custom ping-pong launcher mechanism.
-
-    [Start Part 2: Game Concepts](/xrprobotics/module2/Ping-Pong-Launcher-Challenge/)
-
-</div>
-
-XRP vs. FRC: Comparison Table
+<CardGrid>
+  <LinkCard 
+    title="Part 1: The Basics" 
+    description="Start here to build your XRP chassis, load firmware, install WPILib, and write your very first command-based Java driving code." 
+    href="/xrprobotics/module1/Build/" 
+  />
+  <LinkCard 
+    title="Part 2: Ping Pong Challenge" 
+    description="Already completed Part 1? Move on to designing, 3D Printing, assembling, wiring, and coding a custom ping-pong launcher mechanism." 
+    href="/xrprobotics/module2/Ping-Pong-Launcher-Challenge/" 
+  />
+</CardGrid>
 
 ---
+
+## XRP vs. FRC: Comparison Table
 
 | Key Component | XRP Robot (The Prototype) | FRC Robot (The Competition Machine) |
 | :--- | :--- | :--- |
@@ -39,11 +34,10 @@ XRP vs. FRC: Comparison Table
 | **Sensors** | Built-in **Encoders, Gyro, and Ultrasonic**. | Industrial **Encoders, NAVX Gyros**, and **Limelight/AprilTag** cameras. |
 | **Actuators** | Hobby-grade **DC Motors** and 9g **Servos**. | Powerful **Brushless Motors** (NEOs/Kraken's) and pneumatic pistons. |
 
-> 💡 Why are they so similar?
+> 💡 **Why are they so similar?**
 > We use the XRP because the **logic** is identical. If you can code an autonomous path on the XRP using WPILib, you have already learned 90% of what it takes to code the 125lb competition robot.
 
 :::note
 **Core Value Check: Discovery**
 "You don't need to know how to build a robot to join. You just need the courage to learn."
-
 :::
