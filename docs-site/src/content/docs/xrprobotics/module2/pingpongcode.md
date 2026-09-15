@@ -127,12 +127,7 @@ When you test your robot code on the practice field, default parameters rarely f
 * **What to change:** `FEED_ROTATIONS` (default: `0.125`).
 * **Why change it:** Controls how far the feeder wheel rotates per shot. If a piece does not completely enter the flywheels, increase it slightly (e.g., `0.15`).
 
-### 4. Adjusting Shooter Idle Speed
-* **Where to look:** `shooter.java`
-* **What to change:** `setTargetSpeed(0.6);` inside `runDefaultBehavior()`.
-* **Why change it:** `0.6` means 60% power. Drop to `0.4` if the flywheels whine too loudly while idling, or bump it up if they stall from static friction.
-
-### 5. Tuning Winch Speed
+### 4. Tuning Winch Speed
 * **Where to look:** `RobotContainer.java` (Winch Bindings)
 * **What to change:** The power values (`0.7` and `-0.7`).
 * **Why change it:** Lowering this to `0.4` or `0.5` gives the driver finer, safer control over the shooter tilt angle.
