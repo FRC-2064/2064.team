@@ -2,7 +2,6 @@
 title: "Pathway 2.4: Media & NEMO"
 ---
 
-# Pathway 2.4: Media & NEMO
 > Our team is more than just a robot. Master the tools and skills needed to build the Team 2064 brand.
 
 ---

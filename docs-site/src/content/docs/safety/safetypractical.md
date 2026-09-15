@@ -2,8 +2,6 @@
 title: "1.3.4 - Safety Practical"
 ---
 
-# 1.3.4 - Safety Practical
-
 🎉 Module Complete!
 You have reached the end of this module.
 

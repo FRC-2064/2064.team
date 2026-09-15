@@ -2,7 +2,6 @@
 title: "Safety Module Introduction"
 ---
 
-# Safety Module Introduction
 > Your safety is our #1 priority. Complete these modules to earn your shop credentials.
 
 !!!danger

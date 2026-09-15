@@ -2,7 +2,6 @@
 title: "2.4.1 - Branding Guideline"
 ---
 
-# 2.4.1 - Branding Guideline
 > **Objective:** Maintain a consistent professional identity across all Team 2064 media, documents, and apparel to ensure brand recognition within FIRST and our local community.
 
 ---

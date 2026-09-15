@@ -2,7 +2,6 @@
 title: "1.3.1 - General Safety"
 ---
 
-# 1.3.1 - General Safety
 > **The Panther Project Standard:** We don't just build robots; we build a safe, professional engineering environment. This page covers the essential protocols for FRC Team 2064.
 
 ---
