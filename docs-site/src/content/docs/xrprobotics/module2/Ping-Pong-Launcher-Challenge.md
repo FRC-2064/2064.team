@@ -16,7 +16,6 @@ title: "1.5.6 - XRP Launcher Game"
 7. **Instructions**
     * Update MKDoc to have images/videos for instructions to build and test.
 
-# 1.5.6 - Launcher Game Concepts
 We will make the shooter concept together, to follow a design process for a physical product we will all make together.  Following these steps will help you successufully achieve a working product, but feel free to iterate on your own as well -just be sure to not veer to far off and return to this tutorial to complete this challenge.
 
 <div style="text-align: center; margin: 20px auto;">
