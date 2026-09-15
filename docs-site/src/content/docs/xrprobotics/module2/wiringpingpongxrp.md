@@ -29,7 +29,7 @@ Only continue with this wiring step if you have **completed the physical assembl
 The standard XRP motors are too slow for shooting a ping pong ball, and the XRP board doesn't have enough motor ports for our design. We solve this by adding custom electronics:
 
 * **1. The "Smart Controller" (Arduino Pro Micro):** The Arduino takes the single command from WPILib (e.g., "Shoot at 80% speed"), does the math, and translates it into the specific dual-pin hardware signals needed by the motor driver.
-* **2. The "Heavy Valve" (L9110S Motor Driver):** This chip acts as a heavy-duty electronic valve. It connects directly to the 6V battery to pull high current, and waits for a tiny, low-current signal from the Arduino to tell it how much power to let through. This keeps dangerous electrical current isolated from your delicate XRP brain.
+* **2. The "Heavy Valve" (L9110S Motor Driver):** This chip acts as a heavy-duty electronic valve. It connects directly to a 9v battery (This is a secondary power source) to pull high current, and waits for a tiny, low-current signal from the Arduino to tell it how much power to let through. This keeps dangerous electrical current isolated from your delicate XRP brain.
 
 :::note
 **The FRC Big Picture: Why We Build This**

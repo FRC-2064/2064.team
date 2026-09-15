@@ -28,7 +28,7 @@ We will make the shooter concept together, to follow a design process for a phys
   <p style="margin-top: 10px; color: #666; font-style: italic;">Testing Ping Pong Shooter.</p>
 </div>
 
-Main Components to Create
+Main Components to Build
 1. **Magazine/Hopper and Shooter Structure**
     * The primary assembly for ball storage and shooter mounting; includes the feeder mount.
 3. **Winch Roller**
@@ -46,6 +46,4 @@ Main Components to Create
 
 ---
 
-We will be assembling these parts in Onshape as well, and some will need to be created in the assembly to derive off of existing geometry of other parts existing in the project as we build it.
-
-Once complete, we will 3D print each part for assembly and testing before wiring can begin.
+Students are provided all 3d printed components as a kit, and will be able to modify and/or improve if they want to.  The game is designed to be completed with default robot design and should be able to score points as the provided kitbot. 

@@ -32,7 +32,7 @@ Mounts to the XRP to attach the main structure and pivot. A standard 10-32 bolt 
 🏗️ 2. Winch Motor Mount
 *Mount the motor to the winch mount with zip ties.*
 
-Mounts to the XRP to hold the winch motor. You will use zip-ties to secure the motor to this printed frame.
+Mounts to the XRP to hold the winch motor. You will use zip-ties to secure the motor to this printed frame.  Also add the winch roller to the axle after mounting the motor.
 
 ![Winch Motor Mount](/img/Mount_Winch.png)
 
@@ -49,7 +49,7 @@ Mounts to the XRP to hold the winch motor. You will use zip-ties to secure the m
 *Building the main body of the launcher.*
 
 Launcher Main Body
-The core assembly part where the shooter flywheels and motors attach. The 6V motors have a friction fit, and the red motor uses zip-ties to attach to the frame.
+The core assembly part where the shooter flywheels and motors attach. The 6V motors have a friction fit, and the red motor uses zip-ties to attach to the frame.  We will use a dab of hot glue to secure the friction fit components for game play.
 
 ![Ping Pong Launcher](/img/PingPongLauncher.png)
 
@@ -65,7 +65,7 @@ The core assembly part where the shooter flywheels and motors attach. The 6V mot
 🏗️ 4. Feeder
 *Mount the feeder motor and wheel to the shooter assembly to feed the balls into the intake.*
 
-Feeds the ping pong balls into the intake and rolls them out to be sent through the flywheel at a consistent rate.
+Feeds the ping pong balls into the intake and rolls them out to be sent through the flywheel at a consistent rate.  Look out for interference with the fit and all parts spin freely.
 
 ![Feeder](/img/feeder.png)
 
@@ -79,8 +79,8 @@ Feeds the ping pong balls into the intake and rolls them out to be sent through 
 ---
 
 🏗️ 5. Winch Roller
-*Mount the winch wheel to the frame for angling the shooter"
-A small roller to pull and release a string, allowing you to control the shooter angle (elevation) via code.
+*String the winch wheel to the shooter for angle control*
+A small roller to pull and release a string that is tied off at both ended with fishing line, allowing you to control the shooter angle (elevation) via code.
 
 ![Winch](/img/Winch.png)
 
