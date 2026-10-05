@@ -2,124 +2,96 @@
 title: "3.2.5 - Bumper Construction"
 ---
 
-> **The First Line of Defense:** Bumpers aren't just an aesthetic requirement; they are a critical engineering component. A well-built set of bumpers protects our robot, complies with strict FIRST rules, and makes Team 2064 look professional on the field.
+import { Card, CardGrid } from '@astrojs/starlight/components';
 
----
+> **The first line of defense.** Bumpers protect the robot, meet FIRST rules, and show team number and alliance color. Build them to the current Game Manual, not last year's noodle method.
 
-Section 1: Core Rules & Purpose
-*Understanding why we build them and the strict rules we must follow.*
+## Core rules
 
-* **Why Bumpers Matter** <span style="color: var(--md-primary-fg-color);">:material-shield-half-full:</span>
-    * **Robot Protection:** They absorb massive impacts during high-speed collisions, protecting our electronics and mechanisms.
-    * **Field Protection:** They prevent our metal chassis from gouging the field perimeter.
-    * **Alliance Identification:** They clearly display our team number and alliance color to the referees.
+Bumpers absorb collisions, keep the frame off the field perimeter, and identify the alliance. They are an inspection item. If they fail, the robot does not play.
 
-* **The "Golden Rules" of Bumpers** <span style="color: var(--md-primary-fg-color);">:material-ruler-square:</span>
-
-    :::danger
-    **Strict Inspection Item**
-Bumpers are heavily scrutinized during Robot Inspection. If our bumpers fail, **the robot does not play**. Always verify these against the *current year's FRC Game Manual*.
-
-    :::
-    * **Wood Backing:** Must be 3/4-inch thick (nominal) plywood.
-    * **Height:** Typically must be exactly 5 inches tall.
-    * **Bumper Foam:** Must use approved Foam Profiles (e.g., EPE, EVA, or PE foam).
-    * **Fabric:** Must be a rugged, smooth cloth (1000 Denier Cordura).
-    * **Weight Limit:** Entire assembly typically cannot exceed 15 lbs.
-
-* **Team Numbers** <span style="color: var(--md-primary-fg-color);">:material-numeric:</span>
-    * **Size:** At least 4 inches tall with a 1/2-inch stroke.
-    * **Color:** White (or have a white outline).
-    * **Placement:** Clearly visible from all 4 sides of the robot.
-
----
-
-Section 2: Materials & Tools
-*Gather everything needed before starting the build. This acts as your official Bill of Materials.*
-
-<div class="grid cards" markdown>
-
--   <span style="color: var(--md-primary-fg-color);">:material-forest:</span> **Backing & Padding**
-    ---
-    * **3/4" Plywood:** Cut strictly to 5" height
-    * **Sheet Metal:** Thin sheet metal as a backing (Optional/Replacement)
-    * **Bumper Foam:** Approved profiles for FRC (EPE/EVA/PE)
-    * **Tape:** Gaffer or heavy-duty duct tape
-
--   <span style="color: var(--md-primary-fg-color);">:material-texture:</span> **Fabric & Fasteners**
-    ---
-    * **Cordura Fabric:** 1000 Denier (Red and Blue)
-    * **Team Numbers:** Iron-on Vinyl Cut out with Vinyl Cutter to FRC Specifications
-    * **Staples:** Heavy-duty 3/8" or 1/2"
-    * **Adhesive:** Wood glue
-
--   <span style="color: var(--md-primary-fg-color);">:material-nut:</span> **Mounting Hardware**
-    ---
-    * **T-Nuts:** 1/4-20 size (embedded in the wood)
-    * **Fasteners:** 1/4-20 Bolts or Quick-Release Pins
-    * **Brackets:** Custom aluminum angle brackets (Optional)
-
--   <span style="color: var(--md-primary-fg-color);">:material-toolbox:</span> **Shop Tools**
-    ---
-    * **Cutting:** Bandsaw, Table Saw and/or Chop Saw
-    * **Assembly:** Pneumatic/Electric Staple Gun & Cordless Drill
-    * **Finishing:** Iron for Vinyl Numbers & Woodworking Clamps
-    * **Flat Surface:** A large clean work area to assemble bumpers
-
-</div>
-
----
-
-Section 3: Step-by-Step Construction
-*Measure twice, cut once. Follow these steps in order.*
-
-* **1. The Wood Backing** <span style="color: var(--md-primary-fg-color);">:material-saw-blade:</span>
-    * Measure your robot perimeter exactly. Cut the 3/4" plywood into 5-inch tall strips.
-    :::caution
-    **Pro-Tip: Leave a Gap**
-Always leave a small tolerance (about 1/8" to 1/4") between the wood bumper segments and the robot frame so the fabric has room to wrap.
-
-    :::
-* **2. Install Mounting Hardware (Do this FIRST!)** <span style="color: var(--md-primary-fg-color);">:material-nut:</span>
-    * **Do not attach the foam yet.** Drill the holes for your mounting brackets and hammer in your T-Nuts on the *outside* face of the wood.
-
-* **3. Attach the Bumper Foam** <span style="color: var(--md-primary-fg-color);">:material-tape-measure:</span>
-    * Position foam against the wood backing. Use gaffer tape to bind the foam securely.
-    * **Corners:** Miter the ends of the foam at 45-degree angles so they meet perfectly at the corners with no unprotected gaps.
-
-* **4. Wrap the Fabric & Iron on Numbers** <span style="color: var(--md-primary-fg-color);">:material-iron:</span>
-    1. Lay fabric face-down. Pull fabric tightly over the foam to the back of the wood.
-    2. Tape the center first, pulling the fabric taut as you move outward.
-    3. Use duct tape to set fabric to backing temporarily so it doesn't shift.
-    4. Mark center location for number alignment with a LIGHT pencil line only.
-    5. **The Corners:** Treat them like wrapping a present. Fold neatly, avoid bulging, and staple heavily.
-    6. Mark all center lines of where numbers will be placed on all bumper sets.
-    7. Dry fit numbers to ensure perfect alignment (Do not iron yet).
-    8. Set up iron and press onto fabric *(Note: See separate tutorial for ironing)*.
-    9. Let cool completely.
-    10. Remove plastic backing when cooled down. Repeat for all sides.
-
----
-
-Section 4: Mounting Strategies
-*How we attach them to the chassis is just as important as how we build them.*
-
-:::note
-**Method A: Two Sets of Bumpers (Standard)**
-We build one complete RED set and one complete BLUE set.
-**Pros:** Very durable, looks incredibly clean.
-**Cons:** Costs twice as much, takes up pit space, and takes time to swap bolts.
-
+:::danger[Check the current manual]
+Padding rules changed for 2026. Hollow pool noodles are not legal. Confirm depth, height, materials, and the bumper zone against this year's Game Manual before you cut wood.
 :::
-:::note
-**Method B: Reversible Bumpers**
-We build one set, but the fabric has a sewn-in flap with velcro that flips colors.
-**Pros:** Lightning-fast color changes. Cheaper on materials.
-**Cons:** Much harder to sew. Velcro can sag over time.
 
+2026 padding (R402):
+
+- At least 2.25 in deep and 4.5 in tall
+- Solid blocks, sheets, or stacked rods
+- Solid pool noodle or backer rod
+- Closed-cell polyethylene, including crosslinked, 1.5–3 lb/ft³
+- EVA closed-cell foam, 2–6 lb/ft³
+- Foam floor tiles
+- Mixed layers are allowed in one bumper
+
+Also:
+
+- Wood backing is 3/4 in nominal plywood and must support the pad
+- Cloth is a rugged smooth fabric, commonly 1000 denier Cordura
+- Hard parts may not extend more than 1.25 in past the robot perimeter, and foam must cover them by at least 2 in
+- Each corner is filled with uncompressed foam for at least 2.25 in, with no gap
+- The bumper zone, 2.5 in to 5.75 in off the floor, must be filled with supported padding
+- Numbers are at least 4 in tall, 1/2 in stroke, white or white outline, visible from all four sides
+
+## Materials and tools
+
+<CardGrid>
+  <Card title="Backing">
+    - 3/4 in plywood, at least 4.5 in tall
+    - Must support the full depth of the foam
+  </Card>
+  <Card title="Padding">
+    - Default: stacked foam floor tiles, or crosslinked polyethylene sheet
+    - Solid pool noodle or backer rod is a backup
+    - Hollow noodles are not legal
+    - Minimum stack is 2.25 in deep
+  </Card>
+  <Card title="Cover and fasteners">
+    - 1000 denier Cordura, red and blue
+    - Iron-on vinyl numbers, cut to the manual size
+    - Staples into the wood, tape to hold the pad
+    - Soft fasteners only outside the hard-part limit
+  </Card>
+  <Card title="Mounting and tools">
+    - 1/4-20 T-nuts, bolts, or ball-lock pins
+    - Saw, drill, staple gun, iron, clamps
+    - A clean assembly surface
+  </Card>
+</CardGrid>
+
+## Construction
+
+Build a solid pad, not a noodle wrap.
+
+**1. Wood backing.** Measure the robot perimeter. Cut 3/4 in plywood to at least 4.5 in tall. Leave about 1/8 in to 1/4 in of clearance to the frame so the cloth can wrap.
+
+**2. Mounting hardware, before the foam.** Drill and set T-nuts on the robot face of the wood. Nothing hard may stick out past the foam.
+
+**3. Build the pad.** Stack tiles or sheets to at least 2.25 in. Glue or tape the stack to itself, then to the wood. If you use solid noodle, pack the rods so there is no tunnel down the bumper. Do not use a hollow noodle.
+
+**4. Corners.** Fill each corner with uncompressed foam for at least 2.25 in from the corner. A 45-degree cut is fine only if the joint is solid foam with no gap.
+
+**5. Cloth and numbers.**
+
+1. Lay the cloth face-down and pull it tight over the pad onto the back of the wood.
+2. Tape the center first, then pull outward.
+3. Hold it with tape so it cannot shift, then staple to the wood.
+4. Mark number centers with a light pencil line.
+5. Fold corners flat, like a wrapped package, and staple them.
+6. Dry-fit the numbers. Do not iron yet.
+7. Press with the iron, using the ironing tutorial for temperature and dwell.
+8. Let them cool, peel the backing, and repeat for the other sides.
+
+## Mounting
+
+:::note[Two sets]
+One complete red set and one complete blue set. Durable and clean. Costs more, uses pit space, and bolt swaps take time.
 :::
-:::tip
-**The Panther Project Standard**
-We prefer to use **heavy-duty quick-release pins** (like ball-lock pins) through custom aluminum brackets. It allows the drive team to swap bumpers in seconds without carrying a wrench to the field.
 
+:::note[Reversible]
+One set, with a sewn flap that flips color. Faster and cheaper. Harder to sew, and Velcro can sag.
+:::
+
+:::tip[Team standard]
+Use ball-lock pins through aluminum brackets. The drive team can swap bumpers on the field without a wrench. Brackets stay behind the hard-part limit.
 :::
