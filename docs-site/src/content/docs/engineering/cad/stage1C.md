@@ -2,7 +2,6 @@
 title: "1.2.4 - Stage 1C (Practice Mechanisms)"
 ---
 
-# 1.2.4 - Stage 1C (Practice Mechanisms)
 > **Objective:** Put your skills to the test! Model a variety of isolated FRC mechanisms to master layout sketches, consistent origins, and COTS integration.
 
 :::note

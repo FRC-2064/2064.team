@@ -2,7 +2,6 @@
 title: "1.4.14 - Skill Check - Level 02"
 ---
 
-# 1.4.14 - Skill Check - Level 02
 
 🛠️ Skill Check: The 3D Print Jig Challenge
 > **Objective:** Demonstrate precision measurement, hand-tool proficiency, and mechanical assembly by creating a matching component for a "blind" 3D printed fixture.

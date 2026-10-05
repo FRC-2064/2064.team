@@ -2,7 +2,6 @@
 title: "3.2.4 - Field Connectivity"
 ---
 
-# 3.2.4 - Field Connectivity
 > **Objective:** Learn the critical procedures for updating firmware, verifying Driver Station versions, and configuring our VH-109 radios for both the shop and the official competition Field Management System (FMS).
 
 A robot that works perfectly in the shop but cannot connect to the competition field is completely useless. Network configuration and firmware management are the most common reasons teams miss their first qualification matches.

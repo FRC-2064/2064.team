@@ -2,7 +2,6 @@
 title: "CAD Overview"
 ---
 
-# CAD Overview
 > **Target Audience:** All Rookie Members | **Deadline:** January 1st
 
 Welcome to the Team 2064 CAD Foundations! This is a self-paced, project-based module designed to take you from absolute zero to being a contributing member of our design subteam.

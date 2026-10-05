@@ -2,7 +2,6 @@
 title: "2.1.1 - Stage 1D (Design Methodology)"
 ---
 
-# 2.1.1 - Stage 1D (Design Methodology)
 > **Objective:** Learn the principles of "Top-Down Design" by using master layout sketches to model a complete Swerve Drivebase and integrate a pre-modeled scoring mechanism.
 
 :::note

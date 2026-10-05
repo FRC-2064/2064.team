@@ -2,7 +2,6 @@
 title: "2.1.2 - Stage 1E (Subsystem Workflow)"
 ---
 
-# 2.1.2 - Stage 1E (Subsystem Workflow)
 > **Objective:** Detail your Swerve Drivebase by modeling a custom battery mount, placing electronics, pocketing the bellypan for weight reduction, and designing competition bumpers.
 
 :::note

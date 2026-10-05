@@ -2,7 +2,6 @@
 title: "1.2.2 - Stage 1A (Fundamentals)"
 ---
 
-# 1.2.2 - Stage 1A (Fundamentals)
 > **Objective:** Learn the core building blocks of 3D modeling: creating 2D sketches, applying constraints, and pulling those sketches into 3D parts using the Extrude tool.
 
 :::note

@@ -2,7 +2,6 @@
 title: "Level 3 Overview"
 ---
 
-# Level 3 Overview
 > **Objective:** Transition into advanced fabrication by mastering heavy stationary machinery and the specialized handling protocols for toxic materials and precision metalworking.
 
 Welcome to Phase 2: Advanced Fabrication! You have proven yourself reliable with hand tools and basic power tools. Now, you are stepping up to the heavy machinery that acts as the workhorse of The Panther Project shop.

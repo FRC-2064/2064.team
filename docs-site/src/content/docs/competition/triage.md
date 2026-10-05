@@ -2,7 +2,6 @@
 title: "3.2.2 - Triage & Troubleshooting"
 ---
 
-# 3.2.2 - Triage & Troubleshooting
 > **Objective:** Master the high-pressure environment of the FRC Pit by learning how to prioritize repairs, execute pre-planned checklists, and successfully turn a damaged robot around for the next match in under 8 minutes.
 
 During qualification matches, you might an hour or two between field times. But during playoffs, or when the schedule compresses and we are on double deck, you might have as little as **8 minutes** from the time the robot enters the pit to the time it must be queuing for the next match.

@@ -2,7 +2,6 @@
 title: "3.2.1 - Packing Manifest"
 ---
 
-# 3.2.1 - Packing Manifest
 > **Objective:** Learn how to systematically pack the team trailer so we never arrive at a competition without a critical tool, battery, or spare part.
 
 A world-class robot cannot win if we leave its batteries on the charger back at the high school. Packing the trailer is one of the most critical logistical operations of the entire season. It requires strict organization, accountability, and the "everything has a home" mindset.

@@ -2,8 +2,6 @@
 title: "2.3.8 - States & State Machines"
 ---
 
-# 2.3.8 - States & State Machines
-
 When creating subsystems, 2064 takes the approach of using State Derived Action. A state can be though of as a 'mode' that the subsystem is currently in. By mapping each state to a specific function, using Java's runnable interface, we are able to call a corresponding action when a new state is set.
 
 In a state machine, we continuously check certain conditions to decide when to switch to a new state rather than simply calling a `setState` method. This lets the robot automatically transition to desired states without requiring input. This leads to more efficient robot movement and less cognitive load on our drivers.

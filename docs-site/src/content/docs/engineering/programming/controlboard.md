@@ -2,7 +2,6 @@
 title: "2.3.7 - Control Board"
 ---
 
-# 2.3.7 - Control Board
 
 For Reefscape, due to the large number of locations that the robot could score in, we knew that we couldn't just have another controller for our operator. We needed something that had substantially more inputs than a controller. This lead us to look at button boards, that we see many teams using things such as:
 ![](/img/Pasted%20image%2020250406212605.png)

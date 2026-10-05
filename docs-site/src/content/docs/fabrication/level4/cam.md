@@ -2,8 +2,6 @@
 title: "2.2.8 - CAM (Computer Aided Manufacturing)"
 ---
 
-# 2.2.8 - CAM (Computer Aided Manufacturing)
-
 Autodesk Fusion
 CAM (Computer Aided Manufacturing)
 ![](/img/Cam-Assist-2.jpg)

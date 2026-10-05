@@ -2,7 +2,6 @@
 title: "1.4.5.2 - Center Punch"
 ---
 
-# 1.4.5.2 - Center Punch
 
 > **Objective:** Learn how to create a physical "dimple" in metal to prevent your drill bit from wandering off your layout line.
 

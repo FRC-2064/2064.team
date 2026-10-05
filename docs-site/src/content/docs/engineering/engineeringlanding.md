@@ -4,7 +4,6 @@ title: "Phase 2: Specialization Pathways"
 
 ![Team 2064 Logo](/img/2064_logo.png)
 
-# Phase 2: Specialization Pathways
 > **Prerequisite:** Successful completion of Phase 1: Rookie Foundations
 
 Congratulations on passing Phase 1! You've mastered the basics of the shop, built your XRP Starter Bot, and earned your safety certifications. Now, it's time to choose your specialty.

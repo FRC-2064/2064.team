@@ -2,7 +2,6 @@
 title: "1.2.1 - Stage 0 (New to CAD)"
 ---
 
-# 1.2.1 - Stage 0 (New to CAD)
 > **Objective:** Create your Onshape Education account, set up your workspace, and install the required FRC parts libraries.
 
 :::note

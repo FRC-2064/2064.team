@@ -2,7 +2,6 @@
 title: "2.3.9 - Subsystems"
 ---
 
-# 2.3.9 - Subsystems
 
 Subsystems are how we break up a robot into logical chunks. The best way to decide if something should be its own subsystem is to ask yourself:
 

@@ -2,8 +2,6 @@
 title: "2.3.2 - File Structure"
 ---
 
-# 2.3.2 - File Structure
-
 When talking about file structure in our robot code, we start by ignoring all files outside of the `src` folder. These are generally generated code, either from WPILib[^1] or our vendor dependencies[^2] .
 
 ## \Deploy

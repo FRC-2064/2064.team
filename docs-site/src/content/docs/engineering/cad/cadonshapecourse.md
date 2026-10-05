@@ -2,8 +2,6 @@
 title: "2.1.3 - Skill Check - CAD Course"
 ---
 
-# 2.1.3 - Skill Check - CAD Course
-
 :::note
 **📋 Prerequisites: Before You Start**
 Ensure you have successfully completed and received mentor sign-off for the following modules:

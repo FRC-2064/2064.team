@@ -2,7 +2,6 @@
 title: "Level 01 Overview"
 ---
 
-# Level 01 Overview
 > **Objective:** Master the fundamental, unpowered hand tools and measurement techniques required to assemble and maintain the robot before touching a single power button.
 
 Welcome to Level 1 Fabrication. Before you are allowed to spin up a drill, fire up a 3D printer, or cut metal on a band saw, you have to prove you understand the basics of mechanical assembly.

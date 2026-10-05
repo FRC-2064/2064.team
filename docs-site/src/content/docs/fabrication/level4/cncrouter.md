@@ -2,7 +2,6 @@
 title: "2.2.7 - CNC Router Operations"
 ---
 
-# 2.2.7 - CNC Router Operations
 *A step-by-step tutorial for Full-Sheet Machining.*
 
 :::note

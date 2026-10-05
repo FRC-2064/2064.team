@@ -2,7 +2,6 @@
 title: "2.2.5 - Skill Check - Level 3"
 ---
 
-# 2.2.5 - Skill Check - Level 3
 
 🛠️ Skill Check: Precision Hub & Axle
 > **Objective:** Demonstrate precision turning on the lathe, square milling on the Bridgeport, and accurate hole placement to create a concentric, mated assembly.

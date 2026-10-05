@@ -2,7 +2,6 @@
 title: "2.2.6 - Laser Engraver Workflow"
 ---
 
-# 2.2.6 - Laser Engraver Workflow
 *A step-by-step tutorial from Zero to Laser.*
 
 :::note

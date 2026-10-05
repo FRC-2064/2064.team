@@ -2,7 +2,6 @@
 title: "1.2.3 - Stage 1B (Power Transmissions)"
 ---
 
-# 1.2.3 - Stage 1B (Power Transmissions)
 > **Objective:** Learn the fundamentals of FRC power transmissions—including motors, shafts, gears, belts, and chains—and model three different custom gearboxes in Onshape.
 
 :::note
