@@ -277,9 +277,6 @@ export default defineConfig({
         src: './src/assets/team-logo.png',
         replacesTitle: false
       },
-      editLink: {
-        baseUrl: 'https://github.com/FRC-2064/2064.team'
-      },
       social: [
         {
           icon: 'github',
