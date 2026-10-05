@@ -6,30 +6,30 @@ This page is for showing students how to create hand drawings of simple 2D layou
 
 :::tip
 **🔧 Watch: Video**
-<div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', marginTop: '1rem' }}>
-  <iframe 
-    src="https://www.youtube.com/embed/0SdWqEYKYrI?si=4JWmh710qqTVFQrQ" 
-    title="YouTube video player" 
-    frameBorder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-    referrerPolicy="strict-origin-when-cross-origin" 
+<div style={{ position: 'relative', width: '100%', maxWidth: '100%', height: 0, paddingBottom: '56.25%', marginTop: '1rem', overflow: 'hidden', borderRadius: '8px' }}>
+  <iframe
+    src="https://www.youtube.com/embed/0SdWqEYKYrI?si=4JWmh710qqTVFQrQ"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerPolicy="strict-origin-when-cross-origin"
     allowFullScreen
-    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', borderRadius: '8px' }}
+    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
   ></iframe>
 </div>
 :::
 
 :::tip
 **🔧 Watch: Video**
-<div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', marginTop: '1rem' }}>
-  <iframe 
-    src="https://www.youtube.com/embed/QTMfdxI5QYk?si=zIqppbf2FQRWZqPA" 
-    title="YouTube video player" 
-    frameBorder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-    referrerPolicy="strict-origin-when-cross-origin" 
+<div style={{ position: 'relative', width: '100%', maxWidth: '100%', height: 0, paddingBottom: '56.25%', marginTop: '1rem', overflow: 'hidden', borderRadius: '8px' }}>
+  <iframe
+    src="https://www.youtube.com/embed/QTMfdxI5QYk?si=zIqppbf2FQRWZqPA"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerPolicy="strict-origin-when-cross-origin"
     allowFullScreen
-    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', borderRadius: '8px' }}
+    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
   ></iframe>
 </div>
 :::
