@@ -122,7 +122,7 @@ You must stay within **line of sight** of the laser at all times during operatio
 ## Operation Workflow
 Since the laser process starts with a 2D PDF drawing rather than G-Code, the workflow is slightly different than a CNC mill. This chart provides an overview of the process:
 
-<div class="mermaid">
+```mermaid
 graph TD
     A[Onshape Design 3D Model] --> B[Create Onshape Drawing]
     B --> C[Export as PDF<br>Scaling 1:1<br>No Centerlines/Labels]
@@ -136,15 +136,3 @@ graph TD
 
     I -- No --> H
     I -- Yes --> J[Cleanup<br>Let Smoke Clear]
-</div>
-
----
-
-## Video Walkthrough
-<p align="center">
-  <video width="600" controls>
-    <source src="../vid/laser-tutorial.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</p>
-<p align="center">*Update the source path above to your actual video file.*</p>
