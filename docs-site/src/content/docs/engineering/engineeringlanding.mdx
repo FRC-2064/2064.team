@@ -2,6 +2,8 @@
 title: "Phase 2: Specialization Pathways"
 ---
 
+import { Card, CardGrid, LinkButton } from '@astrojs/starlight/components';
+
 ![Team 2064 Logo](/img/2064_logo.png)
 
 **Objective:** Pick one primary subteam for your first build season, meet that lead, and start its modules in order.
@@ -24,11 +26,15 @@ An FRC team is a small firm. Team 2064 cannot have every student design, machine
 :::note
 **Unsure where to start? Take the Pathfinder Assessment.**
 The quiz recommends a pathway from how you already solve problems. It is a starting point, not a placement. A lead can still move you.
-
-[Take the Pathfinder Assessment](/resources/quiz/)
 :::
 
----
+<LinkButton
+  href="/resources/quiz/"
+  variant="secondary"
+  icon="rocket"
+>
+  Take the Pathfinder Assessment
+</LinkButton>
 
 ## What each pathway owns
 
@@ -41,47 +47,30 @@ The quiz recommends a pathway from how you already solve problems. It is a start
 
 NEMO means Non-Engineering Member Opportunities. It is a primary path, not a leftover. Scouting, sponsors, imagery, and outreach are how the Panther Project gets picked, funded, and judged off the field. Gracious Professionalism and Coopertition show up here as much as they do in the pit.
 
----
-
 ## Specialization selections
 
-<div class="grid cards" markdown>
-
--   <span style="color: var(--md-primary-fg-color);">:material-cube-outline:</span> Pathway 2.1: Advanced CAD
-
-    ---
-
-    *Design the machine.* Onshape workflows, the design process from Phase 1, and mechanisms that can actually be built in this shop. A model is done when fabrication can hold it, not when the render looks finished.
+<CardGrid>
+  <Card title="Pathway 2.1: Advanced CAD" icon="puzzle">
+    Design the machine. Onshape workflows, the design process from Phase 1, and mechanisms that can actually be built in this shop. A model is done when fabrication can hold it, not when the render looks finished.
 
     [Start Pathway 2.1: Advanced CAD](/engineering/cad/stage1D/)
-
--   <span style="color: var(--md-primary-fg-color);">:material-factory:</span> Pathway 2.2: Advanced Fabrication
-
-    ---
-
-    *Build the machine.* CNC router, lathe, mill, and 3D printers. Every machine has its own sign-off. Phase 1 safety is the ticket into the room, not a license for the spindle.
+  </Card>
+  <Card title="Pathway 2.2: Advanced Fabrication" icon="setting">
+    Build the machine. CNC router, lathe, mill, and 3D printers. Every machine has its own sign-off. Phase 1 safety is the ticket into the room, not a license for the spindle.
 
     [Start Pathway 2.2: Advanced Fabrication](/fabrication/fabricationadvanced/)
-
--   <span style="color: var(--md-primary-fg-color);">:material-code-braces:</span> Pathway 2.3: Software & Controls
-
-    ---
-
-    *Bring the robot to life.* Java, WPILib, autonomous, sensors, and the button map the drive team actually uses. Code that has not been deployed and driven is not done.
+  </Card>
+  <Card title="Pathway 2.3: Software & Controls" icon="laptop">
+    Bring the robot to life. Java, WPILib, autonomous, sensors, and the button map the drive team actually uses. Code that has not been deployed and driven is not done.
 
     [Start Pathway 2.3: Software & Controls](/engineering/programminglanding/)
-
--   <span style="color: var(--md-primary-fg-color);">:material-bullhorn:</span> Pathway 2.4: Media & NEMO
-
-    ---
-
-    *Build the brand.* Imagery, scouting, business, and outreach. These jobs run during build season, not after the robot is finished. A missing scouting sheet loses matches the same way a missing wire does.
+  </Card>
+  <Card title="Pathway 2.4: Media & NEMO" icon="star">
+    Build the brand. Imagery, scouting, business, and outreach. These jobs run during build season, not after the robot is finished. A missing scouting sheet loses matches the same way a missing wire does.
 
     [Start Pathway 2.4: Media & NEMO](/media/medialanding/)
-
-</div>
-
----
+  </Card>
+</CardGrid>
 
 ## After you click a pathway
 
