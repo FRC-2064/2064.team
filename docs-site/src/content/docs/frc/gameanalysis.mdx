@@ -19,92 +19,143 @@ import { LinkButton } from '@astrojs/starlight/components';
   }
 `}</style>
 
-> **Objective:** Break down the current season's challenge to identify scoring priorities, technical constraints, and strategic opportunities for the Panther Project.
+**Objective:** Break *REBUILT* (the 2026 FRC game) into must-do rules, scoring priorities, and shop-realistic mechanisms so Team 2064 can explain why the Panther Project built what it built.
 
 :::note[📋 Prerequisites: Before You Start]
 Ensure you have completed the following:
 
-- [x] **No prerequisites for this module required**
+- [x] **1.1.1 - Intro to FIRST** is recommended, not required.
+- [x] **1.1.2 - Bot Basics** is recommended so the subsystem names in this module already mean something.
 :::
 
 :::danger[STOP]
-You must have a basic understanding of FRC culture and safety protocols before participating in strategic game sessions.
+Do not treat a highlight video as the rules. Scoring, robot size, and penalties live in the Game Manual. If the animation and the manual disagree, the manual wins.
 :::
+
+## Why this module exists
+
+Every January, *FIRST* releases a new game. The robot from last year is not a legal answer. Before Team 2064 cuts metal, the team has to answer three questions:
+
+* What are we **required** to do just to pass inspection and play?
+* What scores enough points, and ranking points, to matter?
+* What can this shop actually build, wire, and drive in six weeks?
+
+This module uses **REBUILT presented by Haas**, the 2026 game, as the worked example. The game will change. The method will not.
 
 ---
 
-## 🚦 Step 1: Resource Review
+## Step 1: Read the source, then watch the reveal
 
-Before starting your analysis, ensure you have reviewed the primary source materials provided by *FIRST*.
-
-* **The Game Manual:** Read the sections on **The Arena**, **The Game**, and **Robot Construction Rules**.
+Use the manual sections **The Arena**, **The Game**, and **Robot Construction Rules**. The button below opens the 2026 season library. Open the Game Manual from that page, not a summary site.
 
 <br/>
 
-<LinkButton 
-  href="https://www.firstinspires.org/resources/library/frc/season-materials?view=calendar" 
-  variant="secondary" 
-  target="_blank" 
+<LinkButton
+  href="https://www.firstinspires.org/resources/library/frc/season-materials?view=calendar"
+  variant="secondary"
+  target="_blank"
   rel="noopener noreferrer"
   class="ext-btn"
   icon="document"
 >
-  2026 Game Manual
+  2026 Season Materials
 </LinkButton>
 
 <br/>
 <br/>
 
-* **The Game Reveal:** Watch the official cinematic and game animation to see the scoring flow in motion.
+Then watch the official game animation. It shows flow. It does not show fouls, inspection limits, or team updates.
 
-<iframe 
-  width="100%" 
-  height="450" 
-  src="https://www.youtube.com/embed/_fybREErgyM?si=KEDZFhGSzjhEXM6w" 
-  title="YouTube video player" 
-  frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-  referrerpolicy="strict-origin-when-cross-origin" 
+<iframe
+  width="100%"
+  height="450"
+  src="https://www.youtube.com/embed/_fybREErgyM?si=KEDZFhGSzjhEXM6w"
+  title="2026 REBUILT game animation"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
   allowfullscreen
   style={{ borderRadius: '8px', marginTop: '1rem', marginBottom: '2rem' }}
 ></iframe>
 
+### What REBUILT is
+
+Two alliances of three robots score **FUEL** (yellow foam balls) into their **HUB** and climb their **TOWER**. Fuel scored in the hub is returned to the field, so there is no fixed pile of game pieces to run out of.
+
+Match shape:
+
+* **Auto, 20 seconds.** Both hubs are active. Robots may preload fuel, score in the hub, pick up from the depot or field, and climb to Level 1. Human players can also score.
+* **Teleop.** Hubs take turns active and inactive. Fuel in an inactive hub does not count. Use inactive time to gather fuel or play defense.
+* **Endgame, final 30 seconds.** Both hubs are active. Alliances climb and try to clear ranking-point thresholds.
+
+Point values at kickoff (confirm Table 6-4 in the manual you were assigned; team updates changed some of these during the season):
+
+| Action | Auto | Teleop |
+| --- | --- | --- |
+| FUEL in an active HUB | 1 | 1 |
+| FUEL in an inactive HUB | 0 | 0 |
+| TOWER Level 1 (2 robots max in auto) | 15 | 10 |
+| TOWER Level 2 | — | 20 |
+| TOWER Level 3 | — | 30 |
+
+Ranking points decide a lot of qualification seeding. A win is 3 RP. At a typical regional, bonus RP came from clearing a fuel threshold (Energized), a higher fuel threshold (Supercharged), and a tower-point threshold (Traversal). Those thresholds were higher at district championships. Look them up in Table 6-5 rather than memorizing a screenshot.
+
+### Rules that constrain the robot
+
+These are design limits, not suggestions:
+
+* **Starting size.** Frame perimeter at or under 110 in, height at or under 30 in. In REBUILT the robot also could not extend above 30 in during the match, and could extend out of only one side of the frame perimeter at a time.
+* **Weight.** Robot plus bumpers at or under 135 lb.
+* **Bumpers.** Must cover the frame perimeter, fill the zone from 2.75 in to 5.5 in off the floor, and show 2064 in white on at least three sides. Bumper openings have to be planned around the intake, not cut in later.
+* **Field obstacles.** Robots cross the field over the bumps or under the trenches. A tall robot that cannot use the trench gives up a cycle path.
+
 ---
 
-## 🛠️ Step 2: The "Need/Want" Analysis
+## Step 2: Need / want analysis
 
-A successful season begins with deciding what the robot **must** do versus what it **might** do. Complete the following breakdown in your digital notebook:
+Do this in your notes before you open the form. Separate rules from wishes.
 
-#### 1. Requirements (The "Musts")
-List the non-negotiable rules and basic functions required to play.
-* **Size/Weight:** What are the maximum frame perimeter and weight limits for this season?
-* **Bumpers:** What are the specific height and coverage requirements for competition bumpers?
-* **Movement:** Does the game floor require high-traction wheels, or is the standard Team 2064 Swerve Drivebase preferred?
+### Requirements (the musts)
 
-#### 2. Scoring Objectives (The "Wants")
-Rank the scoring methods from highest to lowest priority.
-* **Primary Scoring:** What is the fastest way to score points (e.g., shooting, climbing, placing)?
-* **Autonomous:** What tasks can the robot perform in the first 15 seconds without driver input?
-* **Endgame:** How many points is the final task worth, and does it require a specialized mechanism (e.g., a climber)?
+* **Inspection size and weight.** Maximum starting perimeter, maximum height, and robot-plus-bumper weight for this manual.
+* **Bumpers.** Height band, coverage, team number, and whether an intake gap is even legal.
+* **Movement.** REBUILT rewards long cycles across bumps or through a low trench. Say whether Team 2064's swerve base is the right answer, or what would force a different drivetrain.
+* **Control.** Auto is 20 seconds with no driver input. A robot with no auto plan still has to be safe and disabled-legal.
 
----
+### Scoring objectives (the wants)
 
-## 📊 Step 3: Mechanical Feasibility
+Rank these. Do not mark everything high.
 
-Based on our shop capabilities at Pomperaug High School, determine which mechanisms are required for this season.
-
-| Subsystem | Function | Priority |
-| :--- | :--- | :--- |
-| **Drivetrain** | Swerve vs. Tank; speed vs. torque. | High |
-| **Intake** | Ground pickup vs. human player station pickup. | High |
-| **Indexer** | Storing and moving game pieces internally. | Medium |
-| **Scoring Tool** | Shooter, elevator, or arm mechanism. | High |
+* **Fuel cycle.** Active-hub fuel is 1 point each, and the piece comes back. Throughput beats a single clever shot.
+* **Hub timing.** Scoring during an inactive shift is wasted. The strategy has to include where the robot goes when its hub is off.
+* **Auto.** Fuel and a Level 1 climb both count, and auto tower points are worth more than the same climb in teleop.
+* **Endgame.** Level 3 is 30 points at kickoff values. Three robots on Level 3 is a match swing, but only if the climber works on a real tower, in the last 30 seconds, after a full match.
 
 ---
 
-## ✅ Module Deliverable: Analysis Submission
+## Step 3: Mechanical feasibility
 
-To receive credit for your game analysis, you must complete the official 2064 Game Analysis Form.
+Pomperaug's shop can build a small number of mechanisms well. A priority of High means the team will spend design time, spares, and drive practice on it. Medium means it ships only if the High items are already reliable.
+
+| Subsystem | REBUILT job | Priority | Shop question |
+| --- | --- | --- | --- |
+| Drivetrain | Cross bumps or the trench and reset for the next cycle | High | Does our swerve clear the trench and stay planted on the bump? |
+| Intake | Pick fuel off the floor, from the depot, or from a human player | High | Ground pickup, source pickup, or both? What bumper gap does that need? |
+| Storage | Hold fuel with no count limit other than what fits inside the robot | Medium | How many balls fit without jamming or breaking the 30 in height cap? |
+| Scorer | Deliver fuel into the active hub quickly | High | Shooter, dump, or both? What happens when the hub is inactive? |
+| Climber | Reach Level 1, 2, or 3 without going over 30 in until the climb | High | Which level is real for our weight and our drivers? |
+
+A mechanism the shop cannot wire, code, and drive before the first event is not a High priority. It is a risk.
+
+---
+
+## Module deliverable: analysis submission
+
+Submit the 2064 Game Analysis Form after you have read the manual sections and finished the need/want notes. The form asks you to do three things:
+
+1. **Musts:** State the starting frame perimeter, height limit, and robot-plus-bumper weight, and name one bumper rule that changes how an intake is designed.
+2. **Priority:** Rank fuel cycling, auto, and the tower climb for a qualification match. Say which one you would cut first if the shop can only finish two.
+3. **Feasibility:** Pick one High-priority subsystem from the table and name one reason it could fail at Pomperaug (time, parts, driver practice, or inspection).
 
 :::note
 **Identification Required**
@@ -113,13 +164,25 @@ You **must** be logged into your **@region15.org** Google account to access and 
 
 <br/>
 
-<LinkButton 
-  href="https://forms.gle/KGeb8zhehEopF5oaA" 
-  variant="secondary" 
-  target="_blank" 
+<LinkButton
+  href="https://forms.gle/KGeb8zhehEopF5oaA"
+  variant="secondary"
+  target="_blank"
   rel="noopener noreferrer"
   class="ext-btn"
   icon="pencil"
 >
   Submit Game Analysis Form
 </LinkButton>
+
+<br/>
+<br/>
+
+---
+
+### Discussion
+
+After submitting:
+
+1. **Notify a mentor.** Tell a strategy, CAD, or mechanical mentor, or your Subteam Lead, that the form is in.
+2. **Review.** Be ready to explain why ranking points can matter more than a single highlight score, and which REBUILT rule you would check again before the team locks a frame perimeter.
