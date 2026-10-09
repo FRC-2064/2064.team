@@ -2,7 +2,9 @@
 title: "1.3.4 - Safety Practical"
 ---
 
-**Objective:** Make one part, in front of a mentor, without skipping a safety step. The drawing is the assignment. This page is the procedure.
+import { Steps, Card, CardGrid } from '@astrojs/starlight/components';
+
+**Objective:** Make one part, in front of a mentor, without skipping a safety step. The drawing is the assignment. This page is the order.
 
 :::danger
 A mentor is in the room for the whole practical. One student or a small group. You do not start a machine until that mentor says the setup is ready. Gloves stay off the saw, the sander, and the drill.
@@ -12,43 +14,62 @@ Glasses on. Hair tied back. Closed-toe shoes. The part is not a pass if the clea
 
 ## The drawing
 
-The mentor gives you the sketch. Cut length, hole size, and hole location come from that sheet, not from memory.
+Cut length, hole size, and hole location come from this sheet. Do not guess.
 
 ![Part drawing](/img/safetypractical.png)
 
-If the image is missing, use the paper copy on the bench. Do not guess a dimension.
+Paper copy on the bench if the image does not load. Two holes: 3/8 centered through the 2-inch face, 1/4 through the 1-inch face and 0.50 from one end.
+
+<CardGrid>
+  <Card title="Stock" icon="document">
+    1 × 2 tube, 1/8 wall, cut 2.00 long.
+  </Card>
+  <Card title="Before you start" icon="warning">
+    Say the length and both holes back to the mentor.
+  </Card>
+  <Card title="Pass" icon="approve-check">
+    Mentor signs the sheet. Bench is the way you found it.
+  </Card>
+</CardGrid>
 
 ## Do this in order
 
-1. **Read the task.** Say the cut length, the hole size, and the hole location back to the mentor before you touch stock.
-2. **Get the material.** The stock on the drawing, not a leftover that is close.
-3. **Get the tools.** Marker, square or rule, the saw you were assigned, sander, drill and the bit that matches the hole, and a vise or clamp.
-4. **Pick a space.** Clear bench. Cord not across the walk. Someone can stand beside you without being in the cut path.
-5. **Mark the cut.** Measure from a clean end. Mark the waste side so the finished length is still there after the kerf.
-6. **Cut.** Mentor checks the setup. Then one of these:
-   * Vertical bandsaw, part supported, hands clear of the blade.
-   * Cordless saw, stock held in a vise, not in your hand.
-   * Horizontal bandsaw, stock clamped, guard in place.
-7. **Stop the blade before you reach in.** Wait until it is still.
-8. **Sand the edges.** Sander off until the part is on the table. Deburr the cut and the corners the drawing calls out. No gloves.
-9. **Mark the hole.** Location from the drawing, measured from the edges you just cut, not from the scrap.
-10. **Drill.** Clamp the part. Bit matches the callout. Mentor checks the clamp and the bit. Drill, then stop the chuck before you move the part.
-11. **Clean up.** Tools back. Scrap in the bin. Bench brushed. Floor clear. Battery unplugged or saw unplugged if you used one.
+<Steps>
+1. **Read the task.** Say the cut length and both hole sizes and locations before you touch stock.
+
+2. **Get the material.** The tube on the drawing, not a leftover that is close.
+
+3. **Get the tools.** Marker, rule, the saw you were assigned, sander, drill, both bits, and a vise or clamp.
+
+4. **Pick a space.** Clear bench. Cord not across the walk. You can stand beside the cut, not in it.
+
+5. **Mark the cut.** Measure from a clean end. Mark the waste side so the 2.00 length is still there after the kerf.
+
+6. **Cut.** Mentor checks the setup. Cordless saw with the stock in a vise, or the horizontal bandsaw with the stock clamped and the guard in place.
+
+7. **Stop the blade.** Wait until it is still before you reach in.
+
+8. **Sand the edges.** Sander off until the part is on the table. Deburr the cut. No gloves.
+
+9. **Mark the holes.** Measure from the edges you just cut. Center punch the 3/8 and the 1/4.
+
+10. **Drill.** Clamp the part. Bit matches the callout. Mentor checks the clamp and the bit. Stop the chuck before you move the part. Then the other hole.
+
+11. **Clean up.** Tools back. Scrap in the bin. Bench brushed. Floor clear. Battery or saw unplugged.
+</Steps>
 
 ## Rubric
 
-A mentor marks this. Every row has to pass. One miss is a redo of that step, not a debate.
+A mentor marks this. Every row has to pass. One miss is a redo of that step.
 
 | Step | Pass | Not a pass |
 | --- | --- | --- |
-| Brief | States cut length, hole size, and hole location before starting | Starts from memory |
+| Brief | States length and both holes before starting | Starts from memory |
 | PPE | Glasses, shoes, hair, no gloves on rotating tools | Fixes it only after being told twice |
-| Setup | Stock and bit match the drawing; bench is clear | Wrong stock, wrong bit, or a cord across the walk |
-| Mark and cut | Mark is on the waste side; saw stops before hands enter | Cuts short, holds stock by hand on the cordless saw, or reaches in early |
+| Setup | Stock and bits match the drawing; bench is clear | Wrong stock, wrong bit, or a cord across the walk |
+| Mark and cut | Mark is on the waste side; saw stops before hands enter | Cuts short, holds stock by hand, or reaches in early |
 | Edges | Cut edge deburred; part is safe to hand over | Sharp edge left on the cut |
-| Hole | Size and location match the drawing; part was clamped | Handheld part, wrong bit, or hole in the wrong face |
-| Cleanup | Tools, scrap, and floor done before the mentor is asked to grade | Leaves the bench for someone else |
-
-The part passes when the mentor signs the sheet and the bench is the way you found it.
+| Holes | Both sizes and locations match; part was clamped | Handheld part, wrong bit, or hole in the wrong face |
+| Cleanup | Tools, scrap, and floor done before the grade | Leaves the bench for someone else |
 
 [Back to the dashboard](/index/)
