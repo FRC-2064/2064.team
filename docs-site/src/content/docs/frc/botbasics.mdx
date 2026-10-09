@@ -19,13 +19,37 @@ import { LinkButton, Card, CardGrid } from '@astrojs/starlight/components';
   }
 `}</style>
 
-**Objective:** Name the parts on every Team 2064 robot, and say how power and control get from the battery to a wheel.
+**Objective:** Finish FIRST Module 2, then name the parts on a Team 2064 robot and say how power gets from the battery to a wheel.
 
 :::danger
 Finish every section of Module 1.1 before you are in the shop. Then tell a mentor you are ready to start safety training.
 :::
 
-Mechanisms change every game. These parts do not.
+## Do this first
+
+Module 2 is the required training for this page. It is about two hours. Open it, finish it, then come back here. A Dashboard login stores the credit. A school Google account does not.
+
+<br/>
+
+<LinkButton
+  href="https://training.firstinspires.org/courses/module-2-how-do-first-robotics-competition-robots-work"
+  variant="primary"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="ext-btn"
+  icon="rocket"
+>
+  Open Module 2: How Robots Work
+</LinkButton>
+
+<br/>
+<br/>
+
+When you return, you should be able to point at the main breaker, PDH, roboRIO, and radio and say what each one does. Tell a mentor the module is finished.
+
+## Check these parts
+
+Mechanisms change every game. These do not. Use them to review what Module 2 covered.
 
 <CardGrid>
   <Card title="Frame and drivetrain" icon="puzzle">
@@ -43,14 +67,14 @@ Mechanisms change every game. These parts do not.
   <Card title="Motor controller, then motor" icon="setting">
     A motor never wires straight to the PDH. The controller takes a command and switches battery power to the motor.
   </Card>
-  <Card title="RoboRio/SystemCore" icon="laptop">
+  <Card title="roboRIO" icon="laptop">
     Runs the code and sends commands. It does not power the drive motors.
   </Card>
   <Card title="Radio" icon="rss">
     Links the robot to the driver station and the field. No link, no teleop.
   </Card>
   <Card title="CAN bus" icon="random">
-    Yellow and green wires between the RoboRio/SystemCore, the PDH, and the controllers. A bad wire can look like a dead motor.
+    Yellow and green wires between the roboRIO, the PDH, and the controllers. A bad wire can look like a dead motor.
   </Card>
   <Card title="Driver station" icon="monitor">
     Not on the robot. Laptop, FRC Driver Station, controllers, and an Ethernet cable.
@@ -61,21 +85,3 @@ Mechanisms change every game. These parts do not.
 </CardGrid>
 
 Power order, battery to a drive motor: battery, main breaker, PDH, branch breaker, motor controller, motor.
-
-<br/>
-
-<LinkButton
-  href="https://training.firstinspires.org/courses/module-2-how-do-first-robotics-competition-robots-work"
-  variant="secondary"
-  target="_blank"
-  rel="noopener noreferrer"
-  class="ext-btn"
-  icon="rocket"
->
-  Module 2: How Robots Work, about 2 hours
-</LinkButton>
-
-<br/>
-<br/>
-
-Use a Dashboard login if you want the credit stored. Tell a mentor the module is in. Be ready to point at the main breaker, PDH, RoboRio/SystemCore, and radio and say what each one does.

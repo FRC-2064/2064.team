@@ -2,7 +2,7 @@
 title: "1.1.4 - Engineering Design Process"
 ---
 
-import { LinkButton } from '@astrojs/starlight/components';
+import { LinkButton, Card, CardGrid } from '@astrojs/starlight/components';
 
 <style>{`
   .ext-btn {
@@ -19,11 +19,33 @@ import { LinkButton } from '@astrojs/starlight/components';
   }
 `}</style>
 
-**Objective:** Use the design loop on a mechanism, and know the mechanical basics that loop depends on: structure, materials, actuators, and a drivetrain.
+**Objective:** Finish FIRST Module 8, then use the design loop on a mechanism and name the mechanical basics it depends on.
 
-:::danger[STOP]
-Finish every section of Module 1.1: FRC Basics before you are in the shop. Then tell a mentor you are ready to start safety training. This page does not clear you to cut, drill, or power a prototype.
+:::danger
+Finish every section of Module 1.1 before you are in the shop. Then tell a mentor you are ready to start safety training. This page does not clear you to cut, drill, or power a prototype.
 :::
+
+## Do this first
+
+Module 8 is the required training for this page. It covers structure, materials, actuators, drivetrains, and subsystems. Open it, finish it, then come back. Take it straight through, or open the topic you need. A Dashboard login stores the credit. A school Google account does not.
+
+<br/>
+
+<LinkButton
+  href="https://training.firstinspires.org/courses/module-8-design-mechanical"
+  variant="primary"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="ext-btn"
+  icon="rocket"
+>
+  Open Module 8: Design and Mechanical
+</LinkButton>
+
+<br/>
+<br/>
+
+If the course and a mentor disagree about a machine in our room, the mentor wins. When you return, tell a mentor the module is finished. Be ready to point at a prototype and say which step of the loop it is in.
 
 ## The loop
 
@@ -37,46 +59,26 @@ A good mechanism is not the first idea on the whiteboard. It is the idea that st
 | 4. Test | Let the driver run it | A failure is written down, and the CAD changes from that |
 | 5. Build | Cut the thing you tested | Not a new idea that skipped the prototype |
 
-<br/>
-
-<LinkButton
-  href="https://training.firstinspires.org/courses/module-8-design-mechanical"
-  variant="secondary"
-  target="_blank"
-  rel="noopener noreferrer"
-  class="ext-btn"
-  icon="rocket"
->
-  Module 8: Design and Mechanical
-</LinkButton>
-
-<br/>
-<br/>
-
-Module 8 is the longer version of the foundation below: structure, materials, actuators, drivetrains, and subsystems. Take it straight through, or open the topic you need. Dashboard login if you want the credit stored. If it disagrees with a mentor about a machine in our room, the mentor wins.
-
----
-
-## Problem, then options
-
-"Score fuel into the active hub" is a problem. "Build a cool robot" is not. Constraints are the limits: weight, frame perimeter, budget, what this shop can cut. Criteria are how you will know it worked.
-
-More than one idea. Mechanical, electrical, programming, and drive each get a say before a concept is locked. A wild idea is allowed. Yes Griffin, even a trebuchet. Pick against the requirement, not against how exciting it looks.
-
-Draw the winner in Onshape. Prove the motion in wood, cardboard, or PLA before competition plate. Put the drive team on it. A mechanism a mentor can run slowly is not the same as one a student can run in a match. Change the model from what the test showed.
-
----
+"Score fuel into the active hub" is a problem. "Build a cool robot" is not. More than one idea. A wild idea is allowed. Yes Griffin, even a trebuchet. Pick against the requirement, not against how it looks. Draw the winner in Onshape, then prove it before competition plate.
 
 ## Mechanical foundation
 
-These are the ideas behind a legal, buildable part. Module 8 goes further. This is the floor.
+The floor under that loop. Module 8 goes further.
 
-* **Structure.** The frame holds everything else and has to survive a hit. Kit extrusion or plate, bolted or riveted so a bent corner can be swapped. A pretty sketch that cannot be held in the shop is not a design.
-* **Materials.** Aluminum is the usual structure. Steel is for small, high-load parts. Plastic and plywood are for prototypes and some bumpers. Heavier is not stronger if it blows the weight limit.
-* **Actuators.** A motor makes rotation. A gearbox trades speed for torque. A motor controller sits between the PDH and the motor. Pick the motor for the job, not for the brand you recognize.
-* **Drivetrain.** Tank runs each side together. Swerve steers each corner. If the drivetrain fails, the mechanism on top does not matter.
-* **Subsystem.** An intake, a shooter, or a climber is its own loop: requirement, prototype, test, then it joins the robot. It uses the same power and control rules as the drivetrain.
-
----
-
-Tell a mentor the module is in. Be ready to point at a prototype and say which step of the loop it is in.
+<CardGrid>
+  <Card title="Structure" icon="puzzle">
+    The frame holds everything else and has to survive a hit. Bolted or riveted so a bent corner can be swapped.
+  </Card>
+  <Card title="Materials" icon="document">
+    Aluminum for structure. Steel for small high-load parts. Plastic and plywood for prototypes. Heavier is not stronger if it blows the weight limit.
+  </Card>
+  <Card title="Actuators" icon="setting">
+    A motor makes rotation. A gearbox trades speed for torque. Pick the motor for the job, not the brand.
+  </Card>
+  <Card title="Drivetrain" icon="rocket">
+    Tank runs each side together. Swerve steers each corner. If this fails, the mechanism on top does not matter.
+  </Card>
+  <Card title="Subsystem" icon="approve-check">
+    An intake, shooter, or climber is its own loop, then it joins the robot.
+  </Card>
+</CardGrid>
