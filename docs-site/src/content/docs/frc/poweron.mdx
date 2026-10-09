@@ -2,7 +2,7 @@
 title: "1.1.6 - Power On"
 ---
 
-import { LinkButton } from '@astrojs/starlight/components';
+import { LinkButton, Steps } from '@astrojs/starlight/components';
 
 <style>{`
   .ext-btn {
@@ -19,176 +19,78 @@ import { LinkButton } from '@astrojs/starlight/components';
   }
 `}</style>
 
-**Objective:** Power on last season's robot, connect the driver station, and explain what Enable actually does. The robot changes every year. This sequence mostly does not.
+**Objective:** Power on last season's robot, connect the driver station, and explain what Enable does. The robot changes. This sequence mostly does not.
 
-:::note[📋 Prerequisites: Before You Start]
-Ensure you have successfully completed and received mentor sign-off for the following modules:
-
-- [x] **1.1.2 - Bot Basics** is required. You need to already know the battery, main breaker, radio, RoboRio/SystemCore, and driver station.
-- [x] Current safety clearance is required before the robot is powered.
+:::danger
+Do not enable until a mentor is present, the robot is on the cart or blocked up, and everyone is clear of wheels and mechanisms. Disabled is the safe state. Enable means the code can command motors.
 :::
 
-:::danger[STOP]
-Do not enable the robot until a mentor is present, the robot is on the cart or blocked up, and every person is clear of wheels and mechanisms. Disabled is the safe state. Enable means the code can command motors.
-:::
+Three things have to be alive before a stick does anything: robot power, a link, and the Driver Station software. A charged battery with no link cannot be driven. A perfect link with the breaker off cannot be driven.
 
-## What you are turning on
+## Power on
 
-Three separate things have to be alive before a stick does anything:
+<Steps>
+1. **Make it safe.** Wheels off the floor, or the robot blocked. Mechanisms clear of people. Competition battery, case not swollen, SB50 seats without force. Say "powering on."
 
-1. **Robot power.** Battery, main breaker, PDH. This feeds motors, the RoboRio/SystemCore, and the radio.
-2. **A link.** Ethernet, USB, or the robot radio. This is how the laptop talks to the RoboRio/SystemCore.
-3. **Driver Station software.** The FRC Driver Station on the drive laptop. It reads the controllers, sends Enable, and shows faults.
+2. **Plug in the battery.** Red to red, black to black. If it does not seat, stop.
 
-A charged battery with no link still cannot be driven. A perfect link with the main breaker off still cannot be driven.
+3. **Breaker on.** The large red 120 A breaker. Wait until the roboRIO or SystemCore and the radio finish booting.
 
----
+4. **Connect the laptop.** Ethernet to the radio first. Wi-Fi only if there is no cable, and only the robot network, not school Wi-Fi. USB tether if you are debugging the radio.
 
-## Step 1: Make the robot safe to power
+5. **Open the Driver Station.** Team number matches this robot. Controllers plug into the laptop, not the robot. Leave it Disabled. Set Teleoperated for stick practice.
 
-Do this before the battery is plugged in.
+6. **Read the lights.** Communications, Robot Code, and Joysticks should be green before anyone talks about Enable.
 
-* Robot on the cart, or drive wheels off the floor. A robot that can reach the ground can drive off the cart.
-* Mechanisms that swing, shoot, or climb are clear of people and of the ceiling.
-* Battery is the team competition pack, not a random 12-volt battery. Case is not swollen. Terminals are tight.
-* Anderson SB50 is the only legal battery connector. Do not jam a loose connector. If it does not seat, stop and get a mentor.
-* Area around the robot is clear. Say "powering on" so the people next to it look up.
+7. **Enable only with a mentor.** Path clear. Press Enable. Press Disable, or the space bar, the moment anything unexpected moves.
+</Steps>
 
-Voltage worth knowing: a rested competition battery should read about 12.5–13.0 V on the Driver Station. Under about 12.0 V at rest, do not practice. Swap the pack. A sagging battery causes brownouts, and brownouts look like a code bug.
+A rested competition battery should read about 12.5–13.0 V. Under about 12.0 V at rest, swap the pack. Shutdown is Disabled, breaker off, then unplug if the robot is being stored.
 
----
+## If a light is red
 
-## Step 2: Power the robot
+Change one thing, then look again.
 
-1. Plug the battery into the robot's SB50. Red to red, black to black. The connector is polarized; force means it is wrong.
-2. Wait until the RoboRio/SystemCore and radio have booted. Lights settle after several seconds. Enabling in that window fails for no useful reason.
-3. Turn the main breaker **on**. It is the large red 120 A breaker. This is the robot's power switch.
-4. Confirm the radio has power. On a VH-109, the status light comes up after boot. No radio light usually means the radio breaker on the PDH is open, or the battery is not actually connected.
-
-To shut down: Driver Station **Disabled**, main breaker **off**, then unplug the battery if the robot is being stored or worked on. Unplugging under load pits the connector.
-
----
-
-## Step 3: Connect the driver station
-
-The drive laptop runs the FRC Driver Station. Team number must match the robot. Controllers plug into that laptop, not into the robot.
-
-Use the first method that fits the shop that day.
-
-| Method | When to use it | What "good" looks like |
-| --- | --- | --- |
-| Ethernet to the radio | Most reliable shop connection | DS shows Communications and Robot Code |
-| Robot Wi-Fi | No cable, pit or practice field | Laptop joined to the team network, then the same two lights |
-| USB tether to the RoboRio/SystemCore | Radio or network is the thing you are debugging | Communications up without the radio in the path |
-
-Wi-Fi notes:
-
-* Connect to the robot radio's network, not school Wi-Fi. School Wi-Fi will never see the RoboRio/SystemCore.
-* Forget other saved robot networks if the laptop keeps joining last year's radio.
-* If Ethernet is plugged in, use Ethernet. A laptop on both Wi-Fi and a cable often picks the wrong path.
-
-In the Driver Station, select **Teleoperated** for stick practice. Leave the robot **Disabled** until Step 5. The mode dropdown does not move motors. Only Enable does.
-
----
-
-## Step 4: Read the three status lights
-
-The Driver Station has three indicators that matter more than the voltage graph.
-
-* **Communications.** Laptop is talking to the RoboRio/SystemCore. Red means no link. Check cable, Wi-Fi network, team number, and that the radio finished booting.
-* **Robot Code.** A program is running on the RoboRio/SystemCore. Red means code crashed or never deployed. Cycling power does not fix a missing deploy.
-* **Joysticks.** The laptop sees the controller. Unplug and replug USB. Check the USB device list in the DS. Axes should move before you enable.
-
-**Brownout** means battery voltage collapsed under load. The RoboRio/SystemCore sheds outputs to stay alive. Stop, Disabled, swap or charge the battery. Do not keep enabling.
-
----
-
-## Troubleshooting, in order
-
-Change one thing, then look at the lights again.
-
-1. Main breaker on, battery plugged in, radio light on.
-2. Laptop on the robot network or on the Ethernet tether, not on school Wi-Fi.
-3. Team number in the Driver Station matches this robot.
-4. Communications green. If not, reseat the Ethernet at the laptop and at the radio.
-5. Robot Code green. If not, a programmer has to deploy. That is not a battery problem.
-6. Joysticks green, and the stick you are holding is the one in the USB order the code expects.
+1. Breaker on, battery seated, radio light on.
+2. Laptop on the robot network or the Ethernet cable, not school Wi-Fi.
+3. Team number matches.
+4. Communications red: reseat Ethernet at the laptop and at the radio.
+5. Robot Code red: a programmer has to deploy. Not a battery problem.
+6. Joysticks red: unplug and replug. The stick in your hand has to be the one the code expects.
 7. Still dead: Disabled, breaker off, mentor. Do not start swapping CAN wires.
 
----
+Brownout means the battery collapsed under load. Disabled, then swap or charge the pack.
 
-## Step 5: Enable
+## Buttons
 
-* Mode is Teleoperated.
-* Communications, Robot Code, and Joysticks are green.
-* Mentor is watching. Wheels are up, or the path is clear.
-* Press **Enable**.
+Enable does not map buttons. It only lets the running code act on the controllers. The USB tab shows the order. Swapping ports swaps driver and operator.
 
-The robot can now follow the code. Press **Disable**, or the space bar, the moment anything unexpected moves. Disable is the emergency stop for shop practice. Use it early.
-
-Enable does not map buttons. It only allows the already-running code to act on the controllers.
-
----
-
-## How buttons get their jobs
-
-The controller is just axes and button numbers. The laptop reads them. The Driver Station forwards them. The robot code decides what each number means.
-
-A typical Xbox-style pad:
-
-| Input | Usual job on 2064 | Where it is set |
+| Input | Usual job | Where it is set |
 | --- | --- | --- |
-| Left stick | Drive translation | Code, drivetrain command |
-| Right stick | Rotation, or swerve rotation | Code |
-| Bumpers / triggers | Intake, score, climb | Code, bound to a command |
-| Face buttons | Shift a mode, cancel, stow | Code |
-| Start / Back | Leave unbound, or use as a safe action | Code |
+| Left stick | Drive | Code |
+| Right stick | Rotation | Code |
+| Bumpers and triggers | Intake, score, climb | Code |
+| Face buttons | Mode, cancel, stow | Code |
 
-The Driver Station **USB** tab shows the order. If two controllers are plugged in, USB order is the mapping. Swapping the ports swaps the driver and the operator. Plug them in the same ports every time, or the code will aim the operator stick at the drivetrain.
+To see a mapping without enabling: Disabled, Joysticks green, press one button, note the number, ask the programmer what it calls. Changing that job is a code change and a deploy.
 
-To see a mapping without enabling:
+## Submit
 
-1. Disabled, Joysticks green.
-2. Open the USB / joystick view in the Driver Station.
-3. Press one button. Note the number that lights.
-4. Ask the programmer which command that number calls.
+With a mentor, power on and stop at Disabled. Use your **@region15.org** account.
 
-Changing a button's job is a code change and a deploy, not a setting in the Driver Station. Write the agreed map on the drive-team sheet so practice and the pit use the same one.
-
----
-
-## Shop rules for this robot
-
-* Disabled before hands go inside the frame.
-* Breaker off before connector work.
-* No enabling from across the room.
-* Call out "enabling" and "disabling."
-* Last person to practice unplugs the battery or leaves the robot in the state the mentor asked for.
-
----
-
-## Module deliverable: power-on check
-
-With a mentor, power on last season's robot and stop at Disabled. Then submit the check.
-
-1. **Sequence.** List the order you used from battery plug-in to a green Communications light.
-2. **Fault.** Name one red light you hit, or one you were ready for, and the first fix you would try.
-3. **Mapping.** Name one button, its number if you saw it, and what the drive team uses it for. Say what has to happen to change that job.
-
-:::note
-**Identification Required**
-You **must** be logged into your **@region15.org** Google account to access and submit this form.
-:::
+1. List the order from battery plug-in to a green Communications light.
+2. Name one red light and the first fix you would try.
+3. Name one button and what the drive team uses it for.
 
 <br/>
 
 <LinkButton
   href="https://docs.google.com/forms/d/e/1FAIpQLSeK2K9XdkK5smzV1d8q2dFi6I0vbocLxyhY2qC8TX-oSX5SNA/viewform?usp=dialog"
-  variant="secondary"
+  variant="primary"
   target="_blank"
   rel="noopener noreferrer"
   class="ext-btn"
-  icon="pencil"
+  icon="rocket"
 >
   Submit Your Power-On Check
 </LinkButton>
@@ -196,11 +98,4 @@ You **must** be logged into your **@region15.org** Google account to access and 
 <br/>
 <br/>
 
----
-
-### Discussion
-
-After submitting:
-
-1. **Notify a mentor.** Tell a drive-team or electrical mentor, or your Subteam Lead, that the check is in.
-2. **Review.** Be ready to put the robot back to Disabled and breaker-off without being prompted, and to point at which status light failed if the laptop cannot see the robot.
+Tell a drive-team or electrical mentor the form is in. Be ready to put the robot back to Disabled and breaker-off without being asked.
