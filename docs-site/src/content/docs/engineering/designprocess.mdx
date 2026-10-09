@@ -19,43 +19,23 @@ import { LinkButton } from '@astrojs/starlight/components';
   }
 `}</style>
 
-**Objective:** Follow Team 2064's design process from a problem statement to a competition robot, and explain why a mechanism has to survive testing before it is cut in metal.
-
-:::note[📋 Prerequisites: Before You Start]
-Ensure you have successfully completed and received mentor sign-off for the following modules:
-
-- [x] This module requires no prerequisites.
-- [x] **1.1.3 - Game Analysis** is recommended. The design process starts from the musts and wants in that module.
-:::
+**Objective:** Use the design loop on a mechanism, and know the mechanical basics that loop depends on: structure, materials, actuators, and a drivetrain.
 
 :::danger[STOP]
-You should not be in the shop until all sections of Module 1.1: FRC BASICS are completed.  Once complete let a mentor know you would like to start your safety training. 
+Finish every section of Module 1.1: FRC Basics before you are in the shop. Then tell a mentor you are ready to start safety training. This page does not clear you to cut, drill, or power a prototype.
 :::
 
-## How we build
+## The loop
 
-The same loop covers a custom XRP ping-pong launcher and a full-size competition robot. A good robot is not the first idea that fits on a whiteboard. It is the idea that still works after research, a prototype, a drive-team test, and a change.
+A good mechanism is not the first idea on the whiteboard. It is the idea that still works after a requirement, a second concept, a prototype, and a drive-team test. The same loop covers an XRP launcher and a competition subsystem.
 
-Kickoff is typically the first Saturday in January, when school returns from winter break. *FIRST* reveals the game and publishes the manual at the same time worldwide. Team 2064 starts discussing the game that day. The target is a competition robot that can play in about six weeks.
-
-| Week | Phase | Exit criteria |
+| Step | You are doing | You are done when |
 | --- | --- | --- |
-| 1 | Problem and requirements | Musts, wants, and a written problem statement |
-| 1–2 | Design and prototyping | One concept selected; geometry proven in wood, cardboard, or PLA |
-| 2–3 | Testing and refinement | Drive team has tried it; frame perimeter is chosen; bumper build can start |
-| 3–4 | Production | Competition parts cut, assembled, and wired |
-| 5 | Integration | Mechanisms on one robot; code and drivers on the real machine |
-| 6 | Practice and freeze | Match-ready cycles; spares and pit plan; stop adding untested features |
-
----
-
-## Official training: design and mechanical
-
-Before the form, open FIRST's [Module 8: Design & Mechanical](https://training.firstinspires.org/courses/module-8-design-mechanical). It covers robot design, structure, materials, actuators, drivetrains, and subsystem development. Teams can take it straight through, or open the topic they need during build season.
-
-This page is the 2064 clock for that work. Module 8 will not tell you when our shop locks a frame perimeter. The table above does. If the course and a mentor disagree about a machine in our room, the mentor wins.
-
-Log in with a FIRST Dashboard account if you want the completion credit stored. A school Google account will not do that.
+| 1. Problem | Name the job and the limits | One sentence a new member can repeat, plus one constraint |
+| 2. Options | More than one way to do it | Two concepts, scored against the requirement |
+| 3. Prototype | Prove the motion cheaply | Wood, cardboard, or PLA has shown the geometry |
+| 4. Test | Let the driver run it | A failure is written down, and the CAD changes from that |
+| 5. Build | Cut the thing you tested | Not a new idea that skipped the prototype |
 
 <br/>
 
@@ -67,123 +47,45 @@ Log in with a FIRST Dashboard account if you want the completion credit stored. 
   class="ext-btn"
   icon="rocket"
 >
-  Open Module 8: Design and Mechanical
+  Module 8: Design and Mechanical
 </LinkButton>
 
 <br/>
 <br/>
 
----
-
-## Phase 1: The problem and requirements
-
-**Week 1.** The foundation is set before anyone touches a tool.
-
-**1. Define the problem**
-
-* **Identify the need.** What does the game actually reward, in points and in ranking points?
-* **Problem statement.** One or two sentences a new member can repeat. "Score fuel quickly into the active hub" is a problem statement. "Build a cool robot" is not.
-* **Constraints and criteria.** Constraints are limits: weight, frame perimeter, budget, CNC time, six weeks. Criteria are how you will know the design succeeded.
-
-**2. Research**
-
-* Watch the game animation, then read the manual sections that constrain the mechanism.
-* Look up past FRC mechanisms that solved a similar motion. Copy the principle, not last year's illegal robot.
-* Ask the drive team and mentors what they need to operate under match pressure.
-
-**3. Specify requirements**
-
-* **Functional requirements.** What it must do. Pick up, store, score, climb.
-* **Inspection requirements.** What it must survive to pass. Size, bumpers, wiring, and extension rules are requirements, not polish.
+Module 8 is the longer version of the foundation below: structure, materials, actuators, drivetrains, and subsystems. Take it straight through, or open the topic you need. Dashboard login if you want the credit stored. If it disagrees with a mentor about a machine in our room, the mentor wins.
 
 ---
 
-## Phase 2: Design and prototyping
+## Problem, then options
 
-**Weeks 1 and 2.** Ideas become geometry.
+"Score fuel into the active hub" is a problem. "Build a cool robot" is not. Constraints are the limits: weight, frame perimeter, budget, what this shop can cut. Criteria are how you will know it worked.
 
-:::tip
-**No bad ideas in brainstorming**
-Throw everything at the whiteboard. A wild idea is sometimes the spark for the mechanism that ships. Yes Griffin, even a trebuchet.
-:::
+More than one idea. Mechanical, electrical, programming, and drive each get a say before a concept is locked. A wild idea is allowed. Yes Griffin, even a trebuchet. Pick against the requirement, not against how exciting it looks.
 
-**4. Brainstorm**
-
-* Generate more than one way to do the job. A team that only draws the first shooter it remembers has not brainstormed.
-* Subteams bring different constraints. Mechanical, electrical, programming, and drive each get a say before a concept is locked.
-
-**5. Evaluate and select**
-
-* Score each idea against the Phase 1 requirements, not against how exciting it looks.
-* Feasibility includes cost, days left, and shop reality. A part that needs a week of CNC time in week 5 is not feasible.
-
-**6. Develop and prototype**
-
-* Detailed design happens in Onshape.
-* Prove the motion in wood, cardboard, or PLA before cutting competition plate. A prototype that fails on the bench is cheaper than a robot that fails at the event.
+Draw the winner in Onshape. Prove the motion in wood, cardboard, or PLA before competition plate. Put the drive team on it. A mechanism a mentor can run slowly is not the same as one a student can run in a match. Change the model from what the test showed.
 
 ---
 
-## Phase 3: Testing and refinement
+## Mechanical foundation
 
-**Weeks 2 and 3.** Fail on purpose, while a change is still cheap.
+These are the ideas behind a legal, buildable part. Module 8 goes further. This is the floor.
 
-**7. Test and evaluate**
-
-* Does it meet the functional requirement, or only look like it might?
-* Put the drive team on it. A mechanism mentors can run slowly in the shop is not the same as one a student can run in a noisy match.
-
-**8. Refine**
-
-* Change the CAD and the prototype from what the test showed, not from a new favorite idea.
-* Recheck weight, extension, and cycle time after every change.
-* Lock the frame perimeter in this window. Bumper construction can start once that perimeter is real. Do not build bumpers for a frame you are still resizing.
+* **Structure.** The frame holds everything else and has to survive a hit. Kit extrusion or plate, bolted or riveted so a bent corner can be swapped. A pretty sketch that cannot be held in the shop is not a design.
+* **Materials.** Aluminum is the usual structure. Steel is for small, high-load parts. Plastic and plywood are for prototypes and some bumpers. Heavier is not stronger if it blows the weight limit.
+* **Actuators.** A motor makes rotation. A gearbox trades speed for torque. A motor controller sits between the PDH and the motor. Pick the motor for the job, not for the brand you recognize.
+* **Drivetrain.** Tank runs each side together. Swerve steers each corner. If the drivetrain fails, the mechanism on top does not matter.
+* **Subsystem.** An intake, a shooter, or a climber is its own loop: requirement, prototype, test, then it joins the robot. It uses the same power and control rules as the drivetrain.
 
 ---
 
-## Phase 4: Production
+## Submit
 
-**Weeks 3 and 4.** Build the machine you tested, not a new one.
+Use your **@region15.org** account.
 
-**9. Implement**
-
-* Release manufacturing drawings for the remaining competition parts.
-* Assemble and wire the mechanism on the robot. Electrical and programming are on the critical path here, not a step that starts after mechanical is "done."
-
-**10. Document**
-
-* Record decisions, settings, and known failures. Judges, sponsors, and next year's students use that record. This site is part of the same habit.
-
----
-
-## Phase 5: Integrate, practice, maintain
-
-**Weeks 5 and 6.** A finished mechanism on a bench is not a competition robot.
-
-**11. Integrate**
-
-* All subsystems on one robot, with the battery, radio, and driver station from Bot Basics.
-* Run full match cycles: auto, teleop, endgame. Fix the failure that shows up every third cycle before adding a feature.
-
-**12. Monitor and maintain**
-
-* During events, pit crew watches the same failure modes found in testing.
-* Spares, a written pit checklist, and a frozen feature list beat a new mechanism invented on Thursday night.
-
----
-
-## Module deliverable: process check
-
-Show that you can run the loop, not just name the steps.
-
-1. **Problem statement.** Write a one- or two-sentence problem statement for one scoring action in the current game. Include one constraint.
-2. **Selection.** Name two concepts that could solve it. Say which one you would prototype first, and why the other one loses on time or shop resources.
-3. **Stop rule.** At which phase should the team refuse to cut competition metal, and what evidence would change that?
-
-:::note
-**Identification Required**
-You **must** be logged into your **@region15.org** Google account to access and submit this form.
-:::
+1. Write a one- or two-sentence problem statement for one scoring action. Include one constraint.
+2. Name two concepts. Say which you would prototype first, and why the other loses on time, weight, or shop tools.
+3. Which foundation item above would you check before cutting competition metal, and what test would change that decision?
 
 <br/>
 
@@ -201,11 +103,4 @@ You **must** be logged into your **@region15.org** Google account to access and 
 <br/>
 <br/>
 
----
-
-### Discussion
-
-After submitting:
-
-1. **Notify a mentor.** Tell a CAD or mechanical mentor, or your Subteam Lead, that the check is in.
-2. **Review.** Be ready to point at a prototype in the shop and say which phase it is in, and what test has to pass before it becomes a competition part.
+Tell a mentor the form is in. Be ready to point at a prototype and say which step of the loop it is in.
