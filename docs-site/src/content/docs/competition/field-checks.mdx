@@ -16,13 +16,13 @@ Before we ever pack the trailer, the programming and electrical leads must ensur
 
 :::caution
 **Version Mismatches**
-If your Driver Station is running v24.1 but the roboRIO is running v24.2, the field FMS will refuse to let you connect. Everything must match.
+If your Driver Station is running v24.1 but the RoboRio/SystemCore is running v24.2, the field FMS will refuse to let you connect. Everything must match.
 
 :::
 **The Update Checklist:**
 
 1. **NI Game Tools (Driver Station):** Verify the driver laptop has the latest FRC Game Tools installed. Check the Driver Station version number at the top of the window.
-2. **roboRIO Image:** Use the roboRIO Imaging Tool to format and flash the latest legal firmware to the RIO.
+2. **RoboRio/SystemCore Image:** Use the RoboRio/SystemCore Imaging Tool to format and flash the latest legal firmware to the RIO.
 3. **Kraken Motors:** Open **Phoenix Tuner X**. Connect to the robot and ensure every single Kraken X60 is flashed to the exact same, latest firmware version.
 4. **VH-109 Radio Firmware:** Connect an Ethernet cable from your laptop to the radio's `DS` port. Go to `http://radio.local/`. If the firmware is older than v1.3.0, you must update it.
     * *External Guide:* Open the [Vivid-Hosting Firmware Page :material-open-in-new:](https://frc-radio.vivid-hosting.net/miscellaneous/firmware-releases) in a new tab. Download the correct file, copy the SHA-256 key, and upload it via the radio interface. Once the SYS light blinks slowly, return to this page!

@@ -2,7 +2,7 @@
 title: "1.1.2 - Bot Basics"
 ---
 
-import { LinkButton } from '@astrojs/starlight/components';
+import { LinkButton, Card, CardGrid } from '@astrojs/starlight/components';
 
 <style>{`
   .ext-btn {
@@ -21,24 +21,46 @@ import { LinkButton } from '@astrojs/starlight/components';
 
 **Objective:** Name the parts on every Team 2064 robot, and say how power and control get from the battery to a wheel.
 
-:::danger[STOP]
-You should not be in the shop until all sections of Module 1.1: FRC BASICS are completed.  Once complete let a mentor know you would like to start your safety training. 
+:::danger
+Finish every section of Module 1.1 before you are in the shop. Then tell a mentor you are ready to start safety training.
 :::
 
-## The parts that stay
+Mechanisms change every game. These parts do not.
 
-Mechanisms change every game. These do not.
+<CardGrid>
+  <Card title="Frame and drivetrain" icon="puzzle">
+    The skeleton and the wheels. Tank runs each side together. Swerve steers each corner. If this fails, nothing else matters.
+  </Card>
+  <Card title="Battery" icon="warning">
+    One 12-volt sealed lead-acid pack. Anderson SB50. No second pack in a match.
+  </Card>
+  <Card title="Main breaker" icon="error">
+    The big red 120 A switch. Robot on and off, and the last over-current stop.
+  </Card>
+  <Card title="PDH" icon="list-format">
+    Splits battery power into channels. Each channel has its own breaker or fuse.
+  </Card>
+  <Card title="Motor controller, then motor" icon="setting">
+    A motor never wires straight to the PDH. The controller takes a command and switches battery power to the motor.
+  </Card>
+  <Card title="RoboRio/SystemCore" icon="laptop">
+    Runs the code and sends commands. It does not power the drive motors.
+  </Card>
+  <Card title="Radio" icon="rss">
+    Links the robot to the driver station and the field. No link, no teleop.
+  </Card>
+  <Card title="CAN bus" icon="random">
+    Yellow and green wires between the RoboRio/SystemCore, the PDH, and the controllers. A bad wire can look like a dead motor.
+  </Card>
+  <Card title="Driver station" icon="monitor">
+    Not on the robot. Laptop, FRC Driver Station, controllers, and an Ethernet cable.
+  </Card>
+  <Card title="Bumpers" icon="approve-check">
+    Required contact zone, team number, and frame protection.
+  </Card>
+</CardGrid>
 
-* **Frame and drivetrain.** The skeleton and the wheels. Tank drive runs each side together. Swerve steers each corner. If this fails, the rest of the robot does not matter.
-* **Battery.** One 12-volt sealed lead-acid pack. Anderson SB50 connector. No second pack in a match.
-* **Main breaker.** The big red 120 A switch. Robot on and off, and the last over-current stop.
-* **PDH.** Splits that power into channels. Each channel has its own breaker or fuse.
-* **Motor controller, then motor.** A motor never wires straight to the PDH. The controller takes a command and switches battery power to the motor.
-* **roboRIO.** Runs the code and sends those commands. It does not power the drive motors.
-* **Radio.** Links the robot to the driver station and the field. No link, no teleop, even if the code is fine.
-* **CAN bus.** Yellow and green wires between the roboRIO, the PDH, and the motor controllers. A bad CAN wire can look like a dead motor.
-* **Driver station.** Not on the robot. Laptop, FRC Driver Station software, controllers, and an Ethernet cable.
-* **Bumpers.** Required contact zone, team number, and frame protection.
+Power order, battery to a drive motor: battery, main breaker, PDH, branch breaker, motor controller, motor.
 
 <br/>
 
@@ -56,8 +78,4 @@ Mechanisms change every game. These do not.
 <br/>
 <br/>
 
-Use a Dashboard login if you want the credit stored.
-
----
-
-Tell a mentor the module is in. Be ready to point at the main breaker, PDH, roboRIO, and radio and say what each one does.
+Use a Dashboard login if you want the credit stored. Tell a mentor the module is in. Be ready to point at the main breaker, PDH, RoboRio/SystemCore, and radio and say what each one does.

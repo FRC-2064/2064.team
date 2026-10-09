@@ -24,7 +24,7 @@ import { LinkButton } from '@astrojs/starlight/components';
 :::note[📋 Prerequisites: Before You Start]
 Ensure you have successfully completed and received mentor sign-off for the following modules:
 
-- [x] **1.1.2 - Bot Basics** is required. You need to already know the battery, main breaker, radio, roboRIO, and driver station.
+- [x] **1.1.2 - Bot Basics** is required. You need to already know the battery, main breaker, radio, RoboRio/SystemCore, and driver station.
 - [x] Current safety clearance is required before the robot is powered.
 :::
 
@@ -36,8 +36,8 @@ Do not enable the robot until a mentor is present, the robot is on the cart or b
 
 Three separate things have to be alive before a stick does anything:
 
-1. **Robot power.** Battery, main breaker, PDH. This feeds motors, the roboRIO, and the radio.
-2. **A link.** Ethernet, USB, or the robot radio. This is how the laptop talks to the roboRIO.
+1. **Robot power.** Battery, main breaker, PDH. This feeds motors, the RoboRio/SystemCore, and the radio.
+2. **A link.** Ethernet, USB, or the robot radio. This is how the laptop talks to the RoboRio/SystemCore.
 3. **Driver Station software.** The FRC Driver Station on the drive laptop. It reads the controllers, sends Enable, and shows faults.
 
 A charged battery with no link still cannot be driven. A perfect link with the main breaker off still cannot be driven.
@@ -61,7 +61,7 @@ Voltage worth knowing: a rested competition battery should read about 12.5–13.
 ## Step 2: Power the robot
 
 1. Plug the battery into the robot's SB50. Red to red, black to black. The connector is polarized; force means it is wrong.
-2. Wait until the roboRIO and radio have booted. Lights settle after several seconds. Enabling in that window fails for no useful reason.
+2. Wait until the RoboRio/SystemCore and radio have booted. Lights settle after several seconds. Enabling in that window fails for no useful reason.
 3. Turn the main breaker **on**. It is the large red 120 A breaker. This is the robot's power switch.
 4. Confirm the radio has power. On a VH-109, the status light comes up after boot. No radio light usually means the radio breaker on the PDH is open, or the battery is not actually connected.
 
@@ -79,11 +79,11 @@ Use the first method that fits the shop that day.
 | --- | --- | --- |
 | Ethernet to the radio | Most reliable shop connection | DS shows Communications and Robot Code |
 | Robot Wi-Fi | No cable, pit or practice field | Laptop joined to the team network, then the same two lights |
-| USB tether to the roboRIO | Radio or network is the thing you are debugging | Communications up without the radio in the path |
+| USB tether to the RoboRio/SystemCore | Radio or network is the thing you are debugging | Communications up without the radio in the path |
 
 Wi-Fi notes:
 
-* Connect to the robot radio's network, not school Wi-Fi. School Wi-Fi will never see the roboRIO.
+* Connect to the robot radio's network, not school Wi-Fi. School Wi-Fi will never see the RoboRio/SystemCore.
 * Forget other saved robot networks if the laptop keeps joining last year's radio.
 * If Ethernet is plugged in, use Ethernet. A laptop on both Wi-Fi and a cable often picks the wrong path.
 
@@ -95,11 +95,11 @@ In the Driver Station, select **Teleoperated** for stick practice. Leave the rob
 
 The Driver Station has three indicators that matter more than the voltage graph.
 
-* **Communications.** Laptop is talking to the roboRIO. Red means no link. Check cable, Wi-Fi network, team number, and that the radio finished booting.
-* **Robot Code.** A program is running on the roboRIO. Red means code crashed or never deployed. Cycling power does not fix a missing deploy.
+* **Communications.** Laptop is talking to the RoboRio/SystemCore. Red means no link. Check cable, Wi-Fi network, team number, and that the radio finished booting.
+* **Robot Code.** A program is running on the RoboRio/SystemCore. Red means code crashed or never deployed. Cycling power does not fix a missing deploy.
 * **Joysticks.** The laptop sees the controller. Unplug and replug USB. Check the USB device list in the DS. Axes should move before you enable.
 
-**Brownout** means battery voltage collapsed under load. The roboRIO sheds outputs to stay alive. Stop, Disabled, swap or charge the battery. Do not keep enabling.
+**Brownout** means battery voltage collapsed under load. The RoboRio/SystemCore sheds outputs to stay alive. Stop, Disabled, swap or charge the battery. Do not keep enabling.
 
 ---
 
