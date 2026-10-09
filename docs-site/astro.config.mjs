@@ -164,6 +164,7 @@ const sidebar = [
             items: [
               { slug: 'fabrication/level3/level3' },
               { slug: 'fabrication/level3/3dprinting2' },
+              { slug: 'fabrication/level3/stationary/sander' },
               { slug: 'fabrication/level3/stationary/horizontalsaw' },
               { slug: 'fabrication/level3/stationary/woodbandsaw' },
               { slug: 'fabrication/level3/lathe' },
