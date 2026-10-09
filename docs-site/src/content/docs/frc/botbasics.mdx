@@ -24,118 +24,145 @@ import { LinkButton } from '@astrojs/starlight/components';
 :::note[📋 Prerequisites: Before You Start]
 Ensure you have successfully completed and received mentor sign-off for the following modules:
 
-- [x] This module requires no prerequisites.
+- [x] **1.1.1 - Intro to FIRST** is recommended, not required.
+- [x] Safety clearance is required before you handle the battery or enter the build area.
 :::
 
 :::danger[STOP]
 If you have not completed your safety training, you do not have clearance to enter the build area or handle robot electrical hardware.
 :::
 
-## The Robot as a System
+## The robot as a system
 
-An FRC robot is not one part. It is a set of subsystems that have to work together under match rules: about 15 seconds of autonomous, then teleop, with a hard size and weight limit and a single 12-volt battery.
+An FRC robot is not one part. It is a set of subsystems that have to work together under that year's match rules: an autonomous period, then teleop, with a hard size and weight limit and a single 12-volt battery.
 
 Every competition robot Team 2064 builds has the same core stack:
 
-* **Frame and drivetrain** — the structure and the wheels that move it.
-* **Battery and power path** — the only energy source on the robot.
-* **Brain and radio** — the roboRIO and the radio that talk to the driver station.
-* **Motors and controllers** — what actually turns wheels and mechanisms.
-* **Driver station** — the laptop, controllers, and software the drive team uses.
-* **Bumpers** — required protection and team identity on the field.
+* **Frame and drivetrain.** The structure and the wheels that move it.
+* **Battery and power path.** The only energy source on the robot.
+* **Brain and radio.** The roboRIO and the radio that talk to the driver station.
+* **Motors and controllers.** What actually turns wheels and mechanisms.
+* **Driver station.** The laptop, controllers, and software the drive team uses.
+* **Bumpers.** Required protection and team identity on the field.
 
-Mechanisms (intakes, arms, shooters) change every season. The parts above do not.
+Mechanisms change every season. The parts above do not.
 
 ---
 
-## Frame and Drivetrain
+## Official training: how an FRC robot works
 
-The **frame** is the skeleton. It holds every other subsystem and has to survive hits, climbs, and transport. Team 2064 frames are usually built from kit extrusion (such as REV or AndyMark) or custom plate, bolted and riveted so a damaged corner can be swapped.
+Before the robot walk, complete FIRST's [Module 2: How Do FIRST Robotics Competition Robots Work?](https://training.firstinspires.org/courses/module-2-how-do-first-robotics-competition-robots-work). It is about two hours. It covers the drivetrains, mechanisms, power system, and programming pattern most FRC teams use. FIRST recommends it before kickoff.
+
+This page is the 2064 version of that course: our part names, our power order, and what you are allowed to touch. If the course and a mentor disagree about our robot, the mentor wins.
+
+Log in with a FIRST Dashboard account if you want the completion credit stored. A school Google account will not do that.
+
+<br/>
+
+<LinkButton
+  href="https://training.firstinspires.org/courses/module-2-how-do-first-robotics-competition-robots-work"
+  variant="secondary"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="ext-btn"
+  icon="rocket"
+>
+  Open Module 2: How Robots Work
+</LinkButton>
+
+<br/>
+<br/>
+
+---
+
+## Frame and drivetrain
+
+The **frame** is the skeleton. It holds every other subsystem and has to survive hits, climbs, and transport. Team 2064 frames are usually kit extrusion, such as REV or AndyMark, or custom plate, bolted and riveted so a damaged corner can be swapped.
 
 The **drivetrain** is how the robot moves. Common FRC layouts:
 
-* **Tank / skid steer** — left wheels driven together, right wheels driven together. Simple and strong.
-* **Swerve** — each corner module can drive and steer. Faster and more precise; more motors, more code, more to maintain.
-* **Mecanum** — rollers let the robot strafe. Less common on modern high-traction fields.
+* **Tank / skid steer.** Left wheels driven together, right wheels driven together. Simple and strong.
+* **Swerve.** Each corner module can drive and steer. Faster and more precise. More motors, more code, more to maintain.
+* **Mecanum.** Rollers let the robot strafe. Less common on modern high-traction fields.
 
 Wheels, gearboxes, and motors live on the drivetrain. If the drivetrain fails, nothing else on the robot matters.
 
 ---
 
-## Power: Battery to Breaker to PDH
+## Power: battery to breaker to PDH
 
-FRC robots run on a single **12-volt sealed lead-acid battery** (typically a 17–18 Ah competition battery). There is no second pack and no onboard charger during a match.
+FRC robots run on a single **12-volt sealed lead-acid battery**, typically a 17–18 Ah competition battery. There is no second pack and no onboard charger during a match.
 
 Power leaves the battery in a fixed order:
 
-1. **Battery** — Anderson SB50 connector, always.
-2. **Main breaker** — the big red 120A breaker. This is the robot’s on/off switch and the last line of over-current protection.
-3. **Power Distribution Hub (PDH)** — splits battery power into protected channels for motor controllers, the roboRIO, radio, pneumatics, and custom circuits.
-4. **Branch circuits** — each channel has its own breaker or fuse sized to the wire and the device.
+1. **Battery.** Anderson SB50 connector, always.
+2. **Main breaker.** The big red 120 A breaker. This is the robot's on/off switch and the last line of over-current protection.
+3. **Power Distribution Hub (PDH).** Splits battery power into protected channels for motor controllers, the roboRIO, the radio, pneumatics, and custom circuits.
+4. **Branch circuits.** Each channel has its own breaker or fuse sized to the wire and the device.
 
-A dead, loose, or poorly crimped connection anywhere in that path looks like a “robot died on the field” failure. Battery care (charged, terminals tight, no swollen cases) is a drive-team and electrical job, not an afterthought.
+A dead, loose, or poorly crimped connection anywhere in that path looks like a robot that died on the field. Battery care is an electrical job, not an afterthought. Charged, terminals tight, no swollen case.
 
 ---
 
-## The Brain and the Radio
+## The brain and the radio
 
 The **roboRIO** is the robot controller. It runs team code, reads sensors, and commands motor controllers over CAN. It does not power the drive motors. It only decides what they should do.
 
-The **radio** (currently the Vivid-Hosting VH-109 on most teams) links the robot to the field network and to the driver station. No radio link means no teleop control, even if the code is perfect.
+The **radio**, currently the VH-109 on most teams, links the robot to the field network and to the driver station. No radio link means no teleop control, even if the code is perfect.
 
-Those two devices, plus the PDH, sit on the **CAN bus**: a two-wire network (yellow and green) that lets the roboRIO talk to motor controllers and the PDH. A bad CAN wire can look like a random motor failure.
+Those two devices, plus the PDH, sit on the **CAN bus**: a two-wire network, yellow and green, that lets the roboRIO talk to motor controllers and the PDH. A bad CAN wire can look like a random motor failure.
 
 ---
 
-## Motors and Controllers
+## Motors and controllers
 
-A **motor** turns electrical power into motion. Common FRC motors include NEO, Kraken X60, Falcon 500, CIM, and smaller NEO 550 / bag motors for mechanisms.
+A **motor** turns electrical power into motion. Common FRC motors include NEO, Kraken X60, Falcon 500, CIM, and smaller NEO 550 or bag motors for mechanisms.
 
 A motor never wires straight to the PDH. A **motor controller** sits in between:
 
-* It takes a command from the roboRIO (over CAN or PWM).
+* It takes a command from the roboRIO, over CAN or PWM.
 * It switches battery power to the motor.
 * Many also read an encoder so code can hold a speed or a position.
 
-If a wheel does not turn, the fault is usually the controller, the CAN connection, the breaker, or the code command — not “the motor is bad” until those are checked.
+If a wheel does not turn, the fault is usually the controller, the CAN connection, the breaker, or the code command. Do not call the motor bad until those are checked.
 
 ---
 
-## Driver Station
+## Driver station
 
 The **driver station** is not on the robot. It is the drive-team setup:
 
 * A laptop running the **FRC Driver Station** software.
-* One or two controllers (Xbox-style or custom button boards).
+* One or two controllers, Xbox-style or a custom button board.
 * An Ethernet connection into the field, or into the robot radio at the shop.
 
-The Driver Station shows battery voltage, robot mode (Disabled, Autonomous, Teleop, Test), communication status, and fault messages. Learning to read that screen is as important as learning the robot’s buttons.
+The Driver Station shows battery voltage, robot mode, communication status, and fault messages. Learning to read that screen is as important as learning the robot's buttons. Power-on procedure is its own module. Do not enable from this one.
 
 ---
 
-## Bumpers, Sensors, and Mechanisms
+## Bumpers, sensors, and mechanisms
 
-**Bumpers** are required. They set the robot’s contact zone, protect the frame, and carry the team number. They are fabric over pool-noodle foam on a plywood backing, built to that year’s bumper rules.
+**Bumpers** are required. They set the robot's contact zone, protect the frame, and carry the team number. They are fabric over foam on a plywood backing, built to that year's bumper rules.
 
-**Sensors** tell code what the robot is doing: encoders on motors, a gyro or IMU for heading, limit switches, and cameras for vision. A robot can drive without most of them. It cannot drive well, or repeat an auto, without the important ones.
+**Sensors** tell code what the robot is doing: encoders on motors, a gyro or IMU for heading, limit switches, and cameras for vision. A robot can drive without most of them. It cannot repeat an auto without the important ones.
 
 **Mechanisms** are the season-specific parts: intakes, elevators, shooters, climbers. They use the same power, CAN, and motor-controller rules as the drivetrain.
 
 ---
 
-## ✅ Module Deliverable: Bot Basics Check
+## Module deliverable: bot basics check
 
-To show you can point to the major parts and explain the power and control path, complete the **Bot Basics** check in the digital portal.
+Do these in order: Module 2, then a robot walk with a mentor, then the form.
 
 ### Step 1: Look at a real robot
+
 With a mentor, walk a Team 2064 robot or the practice chassis. Find the battery, main breaker, PDH, roboRIO, radio, at least one motor controller, and the driver station laptop. Do not unplug anything unless a mentor asks you to.
 
-### Step 2: Analysis activity
-Submit the questionnaire at the link below. You will be asked to answer these three questions:
+### Step 2: Analysis
 
-1. **Power path:** In order, what does current pass through from the battery terminals to a drivetrain motor?
-2. **Control path:** What is the difference between the roboRIO and a motor controller? What happens in a match if the radio link drops?
-3. **Shop habit:** Name two things a new member should never do around the battery, main breaker, or CAN wiring without a mentor present.
+1. **Power path.** In order, what does current pass through from the battery terminals to a drivetrain motor?
+2. **Control path.** What is the difference between the roboRIO and a motor controller? What happens in a match if the radio link drops?
+3. **Shop habit.** Name two things a new member should never do around the battery, main breaker, or CAN wiring without a mentor present.
 
 :::note
 **Identification Required**
@@ -150,7 +177,7 @@ You **must** be logged into your **@region15.org** Google account to access and 
   target="_blank"
   rel="noopener noreferrer"
   class="ext-btn"
-  icon="pencil"
+  icon="rocket"
 >
   Submit Your Bot Basics Check
 </LinkButton>
@@ -162,7 +189,7 @@ You **must** be logged into your **@region15.org** Google account to access and 
 
 ### Step 3: Discussion
 
-After submitting your Google Form:
+After submitting:
 
-1. **Notify a mentor:** Tell an electrical or mechanical mentor, or your Subteam Lead, that the check is in.
-2. **Review:** Be ready to point at the main breaker, PDH, roboRIO, and radio on a real robot and say what each one does.
+1. **Notify a mentor.** Tell an electrical or mechanical mentor, or your Subteam Lead, that the check is in.
+2. **Review.** Be ready to point at the main breaker, PDH, roboRIO, and radio on a real robot and say what each one does.
