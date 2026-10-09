@@ -2,78 +2,78 @@
 title: "1.3.1 - General Safety"
 ---
 
-import { LinkButton } from '@astrojs/starlight/components';
+import { LinkButton, Card, CardGrid } from '@astrojs/starlight/components';
 
-**Objective:** Know the shop rules that apply before you pick up a tool, and know what to do in the first minute of a fire, an injury, or a leaking battery.
+<style>{`
+  .ext-btn {
+    text-decoration: none !important;
+    color: #ffffff !important;
+    transition: all 0.2s ease-in-out;
+  }
+  .ext-btn:hover {
+    text-decoration: none !important;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    filter: brightness(1.15);
+  }
+`}</style>
 
-:::danger[STOP]
-This page is the general credential. It does not sign you off on the CNC, lathe, mill, or enabling the robot. If you have not passed the safety quiz, you do not have clearance for the build area.
+**Objective:** Follow Team 2064 and Region 15 shop rules before you touch a tool, a battery, or the robot.
+
+:::danger
+This page is the general rule. It does not authorize you on a mill, lathe, or any other machine. A student cannot authorize another student. No mentor present, no equipment.
 :::
 
-The Panther Project shop is a shared workspace, not a garage. Food and drinks stay out. If you are unsure whether a tool is allowed for you, it is not.
+FIRST and Region 15 safety rules apply in the workshop, on the robot outside the workshop, and at any event where shop work is happening. A mentor, advisor, or staff member can require PPE at any time.
 
-## The three rules that fail people first
+<CardGrid>
+  <Card title="School handbook" icon="document">
+    Pomperaug student and parent rules still apply in this room.
+
+    [Open the handbook](https://docs.google.com/document/d/1hvsSDlCGlRysxldUnljYbrdeomI-CqGMDIm4XE6vfug/edit?tab=t.0)
+  </Card>
+  <Card title="FIRST Safety Manual" icon="warning">
+    The program manual. If this page and that manual disagree, the manual wins.
+
+    [Open the FIRST manual](https://info.firstinspires.org/hubfs/web/program/all/safety-manual.pdf)
+  </Card>
+</CardGrid>
+
+## Required PPE
 
 :::caution
-**On before you start**
-* **Glasses.** ANSI-rated safety glasses on whenever you are in the shop, the pit, or on a practice field. Prescription glasses need side shields or rated covers. Put them on before you approach a running machine.
-* **Shoes.** Closed-toe and substantial. No Crocs, sandals, or flip-flops. A battery or a robot frame will find the open toe.
-* **Hair and clothes.** Hair tied back. No dangling hoodie strings, loose jewelry, or baggy sleeves. Gloves are not allowed on rotating tools. They catch.
+* **Glasses.** ANSI-approved safety glasses in the shop, and when working on the robot anywhere. Wear them over prescription lenses.
+* **Shoes.** Closed toe and closed heel, substantial, whole foot covered. No flip-flops, sandals, mules, Crocs, or slippers. This applies on or near the robot, not only at a machine.
+* **Hair and clothes.** Hair tied back. No loose clothing. No hanging keychains or ties around the robot, tools, or power equipment.
 :::
 
-A mentor can send you out of the area for any of the three. That is the rule working.
+Gloves are required for heat and soldering. Gloves stay off power equipment. They catch.
 
-## Who does what
+Headphones and earbuds are for computer work only. One ear stays uncovered, and the volume stays low enough to hear the room.
 
-| Role | The job |
-| --- | --- |
-| Safety Captain | Inspections in the shop and the pit, emergency steps, calling out skipped PPE |
-| Member | Read this page, pass the quiz, stop a teammate who is about to skip a rule, tell the Safety Captain when something breaks or someone is hurt |
-| Mentor | Same PPE as the students, tool sign-off, MSDS sheets for chemicals and batteries, event rules from the *FIRST* manual |
+## Equipment
 
-Reporting is not tattling. A missing guard or a cracked battery case is how the next person gets hurt.
+Do not run a machine you have not been trained on. Authorization comes from a staff member or advisor who is already authorized on that machine. A damaged or missing guard means the machine is out of service. Tell that advisor. Do not use it.
 
-## Before you use a tool
+That covers the mill, the lathe, shop equipment, power tools, hand tools, and the 3D printers.
 
-* Area is clear, lit, and not a tripping path. Cords are not across the walkway.
-* The tool is the right one, and it is not tagged out.
-* Both hands stay on a power tool. You do not carry it by the cord.
-* Hand tools cut away from your body. A loose or splintered handle means the tool is out of service.
-* Broken tool: unplug it or remove the battery, tag it "Do Not Use," and tell a mentor. 
+## Energy
 
-## Batteries
+A robot that is not in use is off. Unused power sources disconnected. Batteries disconnected.
 
-A competition battery is sulfuric acid in a plastic case. A swollen, cracked, or leaking case does not go on the robot.
+* **Battery.** Terminals clean, tight, and dry. A damaged or leaking battery does not go on anything. Tell an advisor. Use the spill kit. The kit is inspected once a year.
+* **Cables.** A damaged cable gets reported to an advisor, mentor, or staff member. Do not tape it and keep going.
+* **Air.** Stored tanks read zero when not in use. Then close the valves.
 
-If it is leaking:
+## In the room and in the pit
 
-1. Tell a mentor. Do not carry it against your clothes.
-2. Baking soda on the wet surfaces to neutralize the acid.
-3. Acid-resistant gloves and glasses, then a non-metal leak-proof container.
-4. Skin contact means rinse and medical attention. Do not wait to see if it burns.
-* Do not work on a live robot unless a mentor is on that job with you. Check the cord before you plug a strip in. 
-* Enabling the robot is a separate procedure. Disabled, people clear, mentor present.
+No running. No horseplay. That includes mentors, staff, and volunteers.
 
-## If someone is hurt, or the building has to empty
+Do not climb to an unsecured height over 4 feet. That includes the loft. A ladder is fully open and stable, no one stands on a step marked "Do not use," and one person spots.
 
-* First aid kit is in the shop: bandages, gauze, tape, ointment, burn gel, alcohol pads, tweezers, ice packs, gloves. Restock what you use. Tell the Safety Captain if something is gone.
-* Fire extinguishers are in the closet and outside the robotics room. Use one only if you have been trained and the exit is still behind you. Otherwise leave.
-* Evacuation exits are near the Paint Room and near Mr. Napoli's office. Go to the meeting point outside. Do not go back in for a phone or a robot until a mentor clears it.
-* You should never be in the shop working alone, there is no nurse in the building, an injury that happens can be serious, and a mentor is the first call. 
-* If you are alone, leave the area and get a mentor.
-* Building custodians are the next to notify for non-emergencies, if there is an minor issue - and a mentor is not readily available. 
-* In the event a mentor is injured, or an adult is not immediatley present during an accident - Only Call 911 for a real emergency. 
+Lift with your legs. Ask a senior member or a mentor before you move something you are not sure of.
 
-## Phishing is a shop problem too
+In the pit, children under 12 stay with an adult 18 or older. Visitors are brief, and they wear PPE and meet consent and release rules. Keep the pit to the people who need to be there. Electrical work stays neat.
 
-A fake sponsor email or a bad attachment is how the team loses a drive laptop. Use SLAM before you click:
-
-* **Sender.** Does the address match the real company, or a lookalike?
-* **Links.** Hover. A button that says Onshape and a URL that is not Onshape is a no.
-* **Attachments.** Unexpected file, especially a zip or an invoice, does not get opened.
-* **Message.** Urgency and a threat are the bait. Ask a mentor in person.
-
-:::note
-**Core value check**
-Safety is the teammate next to you still having the guard on. Looking out for them is the job, not an extra.
-:::
+If you see a safety problem on another team, help. That is part of the job.
