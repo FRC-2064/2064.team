@@ -142,6 +142,7 @@ If your network restricts direct transfers or code copying, a backup copy of thi
 ### Part B: The Java Subsystem (`shooter.java`)
 Now switch to VS Code. Even though we are spinning a motor, our Java code uses the `XRPServo` class to generate the signal. We hide this inside the `shooter.java` subsystem.
 
+### `shooter.java`
 Create this file inside your `subsystems` folder. 
 
 ```java
@@ -341,7 +342,21 @@ public class AutoShoot extends Command {
 
 ---
 
-## 5. Hooking up the Controller (`RobotContainer.java`)
+## 4. Tying it Together: The AutoShoot Sequence
+
+We coordinate the Feeder and Shooter using a state machine command.
+
+### `AutoShoot.java`
+Create this file inside your `commands` folder.
+
+
+
+## 5. Hooking up the Controller
+
+Now we can map our controller buttons and create bindings to the controller.
+
+### `RobotContainer.java`
+Modify the existing file inside your `java/frc/robot` folder.
 
 ```java
 package frc.robot;
