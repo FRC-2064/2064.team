@@ -1,54 +1,72 @@
 ---
 title: "1.5.8 - Launcher Wiring"
+description: "Wire the Arduino Pro Micro and L9110S motor driver for the high-RPM ball launcher."
 ---
 
-> **Custom Electronics:** This manifest defines the wiring for an **Arduino Pro Micro** acting as a sub-controller for the **XRP**.
+import { LinkButton } from '@astrojs/starlight/components';
 
-:::note
-**Prerequisites**
-This step assumes your base XRP is already built and wired. This is a custom add-on required to run the High-RPM motors for the ball launcher. It also provides expansion slots for additional add-ons in the future.
-:::
+> **Custom Electronics:** This step adds an **Arduino Pro Micro** as a sub-controller so the XRP can drive the high-RPM launcher motors.
 
 :::caution
 **Stop!**
-Only continue with this wiring step if you have **completed the physical assembly** of the Ping Pong bot. If not, go back to the Assembly Guide now.
+Only continue if you have **completed the physical assembly** of the Ping Pong bot.  
+If not, go back to the Assembly Guide first.
 :::
-
----
-
-![Wiring Diagram 1](/img/IMG_0527.png)
-
----
-
-![Wiring Diagram 2](/img/IMG_0529.png)
-
----
-
-## 🧠 Method & Reasoning
-
-The standard XRP motors are too slow for shooting a ping pong ball, and the XRP board doesn't have enough motor ports for our design. We solve this by adding custom electronics:
-
-* **1. The "Smart Controller" (Arduino Pro Micro):** The Arduino takes the single command from WPILib (e.g., "Shoot at 80% speed"), does the math, and translates it into the specific dual-pin hardware signals needed by the motor driver.
-* **2. The "Heavy Valve" (L9110S Motor Driver):** This chip acts as a heavy-duty electronic valve. It connects directly to a secondary power source to pull high current, and waits for a tiny, low-current signal from the Arduino to tell it how much power to let through. This keeps dangerous electrical current isolated from your delicate XRP brain.
 
 :::note
-**The FRC Big Picture: Why We Build This**
-By building this custom bridge, you are accidentally building an exact, miniature replica of how a 125-pound FRC competition robot handles its drivebase and shooters!
-
-In a real FRC robot, the RoboRio/SystemCore (your XRP) does not power the motors directly. It sends a low-voltage data signal to a Spark MAX or Talon FX (your Arduino + L9110S). That smart controller then pulls massive current straight from the Power Distribution Panel (your direct battery wire) to spin a NEO or Kraken motor (your high-RPM 130 motors).
+**Prerequisites**
+Your base XRP should already be built and wired.  
+This is a custom add-on required for the high-RPM launcher motors. It also leaves expansion options for future add-ons.
 :::
 
----
+## What You Will Be Doing
 
-## 🔌 Master Wiring Table
+You are adding a small “smart controller” (Arduino Pro Micro) and a motor driver (L9110S) so the launcher motors can spin fast enough to shoot a ping pong ball.
 
-*Follow this table precisely. Ensure your robot is powered OFF and the battery is unplugged before making these connections.*
+The XRP does not power the launcher motors directly. It only sends a simple command. The Arduino reads that command and tells the motor driver how much power to send to the two high-RPM motors.
 
-| Connection Group | From (Component : Pin) | To (Component : Pin) | Logic/Voltage | Purpose |
-| :--- | :--- | :--- | :--- | :--- |
-| **Control Signal** | **XRP SERVO2:** Signal (IO17) | **Pro Micro:** Pin 2 | PWM | Signal from WPILib |
-| **Common Ground** | **L9110S:** Ground (GND) | **XRP SERVO2:** Ground (GND) | 0V | Completes the circuit |
-| **Arduino Power** | **XRP SERVO2:** Power (Center/Red) | **Pro Micro:** RAW | 5V | Powers the Arduino |
-| **Motor A Drive** | **Pro Micro:** Pin 5 & 6 | **L9110S:** A-1A & A-1B | 5V Logic | Speed/Direction A |
-| **Motor B Drive** | **Pro Micro:** Pin 9 & 10 | **L9110S:** B-1A & B-1B | 5V Logic | Speed/Direction B |
-| **Motor Power** | **XRP Battery:** Red Wire | **L9110S:** VCC | 6V Battery | **High Current Supply** |
+:::note
+**The FRC Big Picture**
+This is a miniature version of how a real FRC robot works.
+
+In competition robots, the RoboRIO / SystemCore (your XRP) does not power the motors directly. It sends a low-voltage signal to a smart motor controller (your Arduino + L9110S). That controller then pulls high current straight from the battery to spin the motors.
+:::
+
+## Wiring Diagram
+
+Use the live wiring diagram below. It shows every connection you need to make.
+
+<LinkButton 
+  href="https://docs.google.com/spreadsheets/d/1BvGCnVF4Ye6cyJB5FxUXwRW85nl3ZElN0-Z23qL8lxg/edit?usp=sharing" 
+  variant="primary" 
+  icon="external" 
+  iconPlacement="start"
+>
+  Open Launcher Wiring Diagram
+</LinkButton>
+
+:::caution
+**Power Off First**
+Make sure your robot is **powered off** and the battery is **unplugged** before making any of these connections.
+:::
+
+## Master Wiring Table
+
+Follow this table exactly.
+
+| Connection Group   | From (Component : Pin)             | To (Component : Pin)         | Logic/Voltage | Purpose                 |
+| :----------------- | :--------------------------------- | :--------------------------- | :------------ | :---------------------- |
+| **Control Signal** | **XRP SERVO2:** Signal (IO17)      | **Pro Micro:** Pin 2         | PWM           | Signal from WPILib      |
+| **Common Ground**  | **L9110S:** Ground (GND)           | **XRP SERVO2:** Ground (GND) | 0V            | Completes the circuit   |
+| **Arduino Power**  | **XRP SERVO2:** Power (Center/Red) | **Pro Micro:** RAW           | 5V            | Powers the Arduino      |
+| **Motor A Drive**  | **Pro Micro:** Pin 5 & 6           | **L9110S:** A-1A & A-1B      | 5V Logic      | Speed/Direction A       |
+| **Motor B Drive**  | **Pro Micro:** Pin 9 & 10          | **L9110S:** B-1A & B-1B      | 5V Logic      | Speed/Direction B       |
+| **Motor Power**    | **XRP Battery:** Red Wire          | **L9110S:** VCC              | 6V Battery    | **High Current Supply** |
+
+### Quick Summary of What Each Part Does
+
+- **Arduino Pro Micro** — Receives the simple “shoot” command from the XRP and turns it into the two signals the motor driver needs.
+- **L9110S Motor Driver** — Acts as a high-current switch. It takes power directly from the battery and only lets it through when the Arduino tells it to.
+- **High-RPM Motors** — Get the power they need to launch the ball (connected through the L9110S).
+
+Once all wires match the table and the wiring diagram, you’re ready to continue.
