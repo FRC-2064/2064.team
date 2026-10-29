@@ -437,9 +437,6 @@ When you test your robot code on the practice field, default parameters rarely f
 * **Why change it:** Lowering this to `0.4` or `0.5` gives the driver finer, safer control over the shooter tilt angle.
 
 ---
-title: XRP to Driver Station Setup
-description: Step-by-step protocol to take a blank XRP from power-on to driving through the shared VH-109 network.
----
 
 # XRP → Driver Station Protocol
 
@@ -459,14 +456,14 @@ On your laptop, join the network:
 In a browser go to: `http://192.168.42.1:5000`
 
 ## 4. Set it to join the shared network
-Replace the JSON with the following (copy exactly):
+Replace the JSON with the following (copy exactly - REPLACE YOUR-SSID-HERE with your actual WiFi name)
 
 ```json
 {
   "configVersion": 1,
   "network": {
     "defaultAP": {
-      "ssid": "XRP-XXXX-XXXX",
+      "ssid": "YOUR-SSID-HERE", 
       "password": "xrp-wpilib"
     },
     "networkList": [
@@ -500,7 +497,7 @@ Click **SAVE**.
 - In `build.gradle`, change this line to the IP you just wrote down:
 
 ```gradle
-wpi.sim.envVar("HALSIMXRP_HOST", "10.20.64.25")
+wpi.sim.envVar("HALSIMXRP_HOST", "10.20.YOUR.IP.ADDRESS")
 ```
 
 Save the file.
