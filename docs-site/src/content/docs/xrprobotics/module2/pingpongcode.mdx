@@ -435,3 +435,84 @@ When you test your robot code on the practice field, default parameters rarely f
 * **Where to look:** `RobotContainer.java` (Winch Bindings)
 * **What to change:** The power values (`0.7` and `-0.7`).
 * **Why change it:** Lowering this to `0.4` or `0.5` gives the driver finer, safer control over the shooter tilt angle.
+
+---
+title: XRP to Driver Station Setup
+description: Step-by-step protocol to take a blank XRP from power-on to driving through the shared VH-109 network.
+---
+
+# XRP → Driver Station Protocol
+
+Follow these steps in order. Do **one robot at a time**.
+
+## 1. Power on the blank XRP
+- Install good batteries.
+- Turn the XRP on.
+- Wait for the green LED to finish blinking (IMU calibration is done).
+
+## 2. Connect to its own WiFi
+On your laptop, join the network:
+- **SSID:** `XRP-XXXX-XXXX`
+- **Password:** `xrp-wpilib`
+
+## 3. Open the config page
+In a browser go to: `http://192.168.42.1:5000`
+
+## 4. Set it to join the shared network
+Replace the JSON with the following (copy exactly):
+
+```json
+{
+  "configVersion": 1,
+  "network": {
+    "defaultAP": {
+      "ssid": "XRP-XXXX-XXXX",
+      "password": "xrp-wpilib"
+    },
+    "networkList": [
+      {
+        "ssid": "FRC-AP-2064-xrp",
+        "password": "xrprobot"
+      }
+    ],
+    "mode": "STA"
+  }
+}
+```
+
+Click **SAVE**.
+
+## 5. Power cycle
+- Turn the XRP fully off.
+- Wait 15 seconds.
+- Turn it back on.
+- Wait 60 seconds.
+
+## 6. Get its new IP
+- Plug the XRP into the laptop with USB.
+- Open the drive that appears.
+- Open `xrp-status.txt`.
+- Write down the **IP Address** (example: `10.20.64.25`).
+- Confirm it says `WiFi Mode: STA`.
+
+## 7. Set up the code
+- Open (or create) the WPILib XRP project in VS Code.
+- In `build.gradle`, change this line to the IP you just wrote down:
+
+```gradle
+wpi.sim.envVar("HALSIMXRP_HOST", "10.20.64.25")
+```
+
+Save the file.
+
+## 8. Connect and drive
+- Connect the laptop to the same WiFi: `FRC-AP-2064-xrp`.
+- Pair your controller (Xbox, or PS4 + DS4Windows).
+- In VS Code press **F5** (Simulate Robot Code).
+- In the Driver Station window that opens, click **Enable**.
+- Drive.
+
+---
+
+**That’s it.**  
+Repeat steps 1–8 for every other robot. Each robot gets its own IP and its own laptop.
