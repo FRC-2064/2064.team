@@ -133,36 +133,6 @@ Rules carry an identifier by family. Quote the identifier when talking to a refe
 | `I` | Inspection | I1 |
 | `T` | Tournament procedure | T2 |
 
-### B1.3 Summary of changes
-
-**From v2.1**
-
-| Change | Reason |
-| --- | --- |
-| ROBOT capacity limit removed; **4 FUEL mandatory preload** replaces it | 2 was too tight to make AUTO meaningful; the preload sets a floor without capping hopper design |
-| 16 in cube now applies **with the preload loaded** | Otherwise teams would preload outside their own size envelope |
-| AUTO bonus RP raised from 2 to 4 FUEL | 4 free preload makes 2 trivial |
-| FUEL staging reduced to 32 on the FIELD | 16 FUEL are now in ROBOTS at the buzzer |
-| Added G26 for FUEL lost from a preload | Preloads will fall out; needs to be live, not a foul |
-
-**From v2.0**
-
-| Change | Reason |
-| --- | --- |
-| FUEL now starts scattered on the FIELD and is scored directly from the floor | The reference robot has a floor-reaching intake; shuttling everything back to a HUMAN PLAYER wasted it |
-| HUMAN PLAYER STATION renamed OUTPOST and given a fixed FUEL supply | Matches FRC loading-station convention; gives a safe alternative to contested floor FUEL |
-| Added OUTPOST access and contested-FUEL rules | A second supply source needs its own conflicts |
-| Added R7 floor-reach requirement to inspection | The game now depends on it |
-
-**From v1.2**
-
-| Change | Reason |
-| --- | --- |
-| SCORING ELEMENT changed from 40 mm ping pong ball to 63 mm foam FUEL | Foam grips in an intake and stops bouncing out of a HOPPER |
-| HOPPER rim lowered from 36–48 in to 32 in | A single XRP flywheel launches reliably to ~32 in, not 48 |
-| Actuator rule rewritten around XRP ports | Matches the actual hardware ceiling: 4 motor, 2 servo |
-| Added Inspection, Ranking, Playoffs, and Awards sections | A manual without a tournament section cannot run an event |
-
 ## B2. Game Overview
 
 **MINI REBUILT** is a 2v2 MATCH played on a floor FIELD. Each ALLIANCE is two ROBOTS and one HUMAN PLAYER.
