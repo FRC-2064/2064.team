@@ -22,8 +22,8 @@ The silkscreen printed on the XRP board counts from **1**. The code counts from 
 | Right drive motor | `M4` | Motor `3` |
 | Intake arm servo | `S1` | Servo `4` |
 | Gate servo | `S2` | Servo `5` |
-| Left drive encoder | `DIO 5` / `DIO 6` | DIO `4` / `5` |
-| Right drive encoder | `DIO 11` / `DIO 12` | DIO `10` / `11` |
+| Left drive encoder | `n/a` | DIO `4` / `5` |
+| Right drive encoder | `n/a` | DIO `10` / `11` |
 
 **Why this matters:** Two numbering systems are in play at once, and mixing them is the single most common way to fry a build. The printed labels are for your hands; the code numbers are for the compiler. A motor plugged into `M3` but addressed as `3` in code runs the wrong mechanism, and a servo plugged into `S1` but addressed as `1` sits dead because servo numbers begin at `4`.
 
