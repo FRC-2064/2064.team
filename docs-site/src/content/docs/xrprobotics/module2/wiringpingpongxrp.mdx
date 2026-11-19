@@ -1,35 +1,35 @@
 ---
 title: "1.5.8 - Launcher Wiring"
-description: "Wire the Arduino Pro Micro and L9110S motor driver for the high-RPM ball launcher."
+description: "Wiring Diagram"
 ---
 
 import { LinkButton } from '@astrojs/starlight/components';
 
-> **Custom Electronics:** This step adds an **Arduino Pro Micro** as a sub-controller so the XRP can drive the high-RPM launcher motors.
+> **Custom Electronics:** This step adds a small **Mossfet** as a sub-controller so the XRP can drive the high-RPM launcher motor.
 
 :::caution
 **Stop!**
-Only continue if you have **completed the physical assembly** of the Ping Pong bot.  
+Only continue if you have **completed the physical assembly** of the bot.  
 If not, go back to the Assembly Guide first.
 :::
 
 :::note
 **Prerequisites**
 Your base XRP should already be built and wired.  
-This is a custom add-on required for the high-RPM launcher motors. It also leaves expansion options for future add-ons.
+This is a custom add-on required for the high-RPM launcher motors. 
 :::
 
 ## What You Will Be Doing
 
-You are adding a small “smart controller” (Arduino Pro Micro) and a motor driver (L9110S) so the launcher motors can spin fast enough to shoot a ping pong ball.
+You are adding a small motor driver (MOSFET) so the launcher motors can spin a motor fast enough to shoot a ball.
 
-The XRP does not power the launcher motors directly. It only sends a simple command. The Arduino reads that command and tells the motor driver how much power to send to the two high-RPM motors.
+The XRP does not power the launcher motors directly. It only sends a simple command to the MOSFET and enable the external 12v battery to power the motor.
 
 :::note
 **The FRC Big Picture**
 This is a miniature version of how a real FRC robot works.
 
-In competition robots, the RoboRIO / SystemCore (your XRP) does not power the motors directly. It sends a low-voltage signal to a smart motor controller (your Arduino + L9110S). That controller then pulls high current straight from the battery to spin the motors.
+In competition robots, the RoboRIO / SystemCore (your XRP) does not power the motors directly. It sends a low-voltage signal to a smart motor controller (MOSFET). That controller then pulls high current straight from the battery to spin the motors.
 :::
 
 ## Wiring Diagram
@@ -63,10 +63,5 @@ Follow this table exactly.
 | **Motor B Drive**  | **Pro Micro:** Pin 9 & 10          | **L9110S:** B-1A & B-1B      | 5V Logic      | Speed/Direction B       |
 | **Motor Power**    | **XRP Battery:** Red Wire          | **L9110S:** VCC              | 6V Battery    | **High Current Supply** |
 
-### Quick Summary of What Each Part Does
-
-- **Arduino Pro Micro** — Receives the simple “shoot” command from the XRP and turns it into the two signals the motor driver needs.
-- **L9110S Motor Driver** — Acts as a high-current switch. It takes power directly from the battery and only lets it through when the Arduino tells it to.
-- **High-RPM Motors** — Get the power they need to launch the ball (connected through the L9110S).
 
 Once all wires match the table and the wiring diagram, you’re ready to continue.
