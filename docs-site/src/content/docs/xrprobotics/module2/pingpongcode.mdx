@@ -1,8 +1,9 @@
 ---
-title: "1.5.10 - Coding the BOT"
+title: "6.2 - Programming the Complete Robot"
 ---
 
 import { LinkButton } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
 
 <style>{`
   .repo-btn {
@@ -15,315 +16,871 @@ import { LinkButton } from '@astrojs/starlight/components';
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
     filter: brightness(1.15);
   }
+  .port-table td, .port-table th {
+    padding: 6px 12px;
+  }
 `}</style>
 
-On The Panther Project, we know a competitive robot does more than just drive. To score, you need specialized mechanisms that all work together. In this section, we are adding three distinct mechanisms to our robot. Because they all do very different jobs, we have to program each one using a different strategy.
+On The Panther Project, a robot that only drives is not a competitor. To score, three separate mechanisms have to work together, and every one of them needs its own programming strategy.
 
-Here is a breakdown of the three systems we are building:
-1. **The Shooter (MOSFET):** Needs massive power and speed to launch game pieces.
-2. **The Intake (6v Motor):** Needs high speed to load balls instantly when it touches a ball.
-3. **The Gate (Servo Motor):** Needs servo precision for angle control to stop balls, and allow to pass through shooter.
+Here is what we are building:
+
+1. **The Drivetrain:** Two motors, two encoders, and a gyro. It has to drive well, drive straight, and know how far it has moved.
+2. **The Intake:** A spinning wheel on a hinged arm. It needs to swing down, grab a piece, and tuck away.
+3. **The Shooter:** A flywheel driven through a MOSFET plus a servo gate that holds the piece back until the wheel is at speed.
+
+<Aside type="tip" title="Read this in order">
+Do not skip ahead. Each file depends on the one before it. If you jump to Step 8 without Steps 4 through 7, nothing will compile and the errors will look random.
+</Aside>
+
+<Aside type="note" title="You do not need to understand every line">
+You need to be able to *type* it, *run* it, and know *where to change numbers*. The "Why this matters" boxes explain the reasoning so the code is not a magic spell.
+</Aside>
 
 ---
 
-## 1. The Shooter
+## 0. Before You Type Anything
 
-The XRP has four built-in motor ports, but they are designed for small robotics. If you want to spin heavy flywheels to launch game pieces, you need larger motors and a separate, high-power motor controller. 
+You need three things installed before Step 1:
 
-Because we cannot plug a giant FRC-style motor directly into the XRP, we use an **MOSFET** as a translator. We plug the MOSFET into the XRP's **Servo Port**. The XRP sends a "Power" signal to the MOSFET, and the MOSFET allows current to pass through enabling the high powered motor.
+1. **WPILib** — the toolchain. Download it from [docs.wpilib.org](https://docs.wpilib.org) and run the installer. This also installs VS Code and Java for you.
+2. **The XRP extension** — open VS Code, go to the Extensions panel, search `XRP`, install the WPILib XRP extension.
+3. **Your controller plugged in** — a PS4 controller over USB.
 
-<br/>
+Now create the project:
 
-### Part A: The Shooter Class
+1. Press `Ctrl+Shift+P` to open the command palette.
+2. Type `WPILib: Create a new project`.
+3. Select **XRP** as the template.
+4. Name it `XRPBot`.
+5. Press **Create**.
 
-Now switch to VS Code. Even though we are spinning a motor, our Java code uses the `XRPServo` class to generate the signal. We hide this inside the `shooter.java` subsystem.
+VS Code opens the new project. **Do not** hand-edit anything outside the `src` folder — the rest is generated.
 
-### `shooter.java`
-Create this file inside your `subsystems` folder. 
+---
 
-```java
-package frc.robot.subsystems;
+## 1. Learn the Map of the Project
 
-import edu.wpi.first.wpilibj.xrp.XRPServo;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+Open the file explorer on the left and drill down to:
 
-public class shooter extends SubsystemBase {
-    
-    private final XRPServo shooterBridge = new XRPServo(5); 
-
-    public shooter() {}
-
-    public void setTargetSpeed(double speed) {
-        double angle = (speed + 1.0) * 90.0;
-        shooterBridge.setAngle(angle); 
-    }
-
-    public void stop() {
-        shooterBridge.setAngle(90.0); 
-    }
-
-    public void runDefaultBehavior() {
-        stop(); 
-    }
-
-    @Override
-    public void periodic() {
-        // Left blank since idle mode tracking is removed
-    }
-}
+```
+src/main/java/frc/robot/
 ```
 
----
+That folder is where all of your work happens. Inside it:
 
-## 2. The Intake:
+| Folder / file | What lives there |
+| --- | --- |
+| `subsystems/` | One class per mechanism. Each one owns its motors and sensors. |
+| `commands/` | Actions that combine mechanisms, like the autonomous routine. |
+| `Constants.java` | Every number and port in one place. |
+| `RobotContainer.java` | Wires buttons to mechanisms. |
+| `Robot.java` | The robot's life cycle. Runs once at boot, then loops forever. |
+| `Main.java` | Boilerplate. You will never touch it. |
 
-The intakes job is to pull a ball into the hopper for storage. We plug the intake servo into **Servo Port** and use its built-in encoder to turn it a precise amount every single time for the intake.
+**Why this matters:** This layout is called the *command-based framework*. A **subsystem** is a piece of hardware (a motor, a servo, an encoder). A **command** is an action that uses subsystems. Keeping them in separate files means one broken mechanism does not take down the other two, and the scheduler can stop any action that fights another.
 
-### `feeder.java`
-Create this file inside your `subsystems` folder.
+### Naming rule
 
-```java
-package frc.robot.subsystems;
-
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.xrp.XRPMotor;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-public class feeder extends SubsystemBase {
-    
-    private final XRPMotor feederMotor = new XRPMotor(2); 
-    private final Encoder feederEncoder = new Encoder(8, 9);
-
-    public feeder() {
-        feederEncoder.setDistancePerPulse(1.0 / 585.6);
-        resetEncoder();
-    }
-
-    public void runFeeder(double speed) {
-        feederMotor.set(speed);
-    }
-
-    public void stop() {
-        feederMotor.set(0.0);
-    }
-
-    public double getRevolutions() {
-        return Math.abs(feederEncoder.getDistance());
-    }
-
-    public void resetEncoder() {
-        feederEncoder.reset();
-    }
-
-    @Override
-    public void periodic() {}
-}
-```
+The file name must match the class name exactly, capitalization included. `Drivetrain.java` holds `public class Drivetrain`. If you name the file `drivetrain.java`, Java will not find it.
 
 ---
 
-## 3. The Gate:
+## 2. Wire the Robot to Match the Code
 
-Our gate uses a servo to raise and lower a gate to allow balls to travel from the hopper to the shooter path.
+The code below hardcodes these ports. Wire to this table or the code will move the wrong thing.
 
-### `winch.java`
-Create this file inside your `subsystems` folder.
+| Device | XRP port |
+| --- | --- |
+| Left drive motor | Motor `0` |
+| Right drive motor | Motor `3` |
+| Left drive encoder | DIO `4` / `5` |
+| Right drive encoder | DIO `10` / `11` |
+| Intake wheel motor | Motor `1` |
+| Intake arm servo | Servo `4` |
+| Flywheel motor (through MOSFET) | Motor `2` |
+| Gate servo | Servo `5` |
 
-```java
-package frc.robot.subsystems;
-
-import edu.wpi.first.wpilibj.xrp.XRPMotor;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-public class winch extends SubsystemBase {
-    
-    private final XRPMotor winchMotor = new XRPMotor(3); 
-
-    public winch() {}
-
-    public void setPower(double speed) {
-        winchMotor.set(speed);
-    }
-
-    public void stop() {
-        winchMotor.set(0.0);
-    }
-
-    @Override
-    public void periodic() {}
-}
-```
+**Why this matters:** XRP motor ports are numbered 0 through 3 and servo ports 4 and 5. The encoder channels are chosen to sit far from the motors so the cables do not collide. If you change a port on the robot, you change the matching line in `Constants.java` in Step 3, and nothing else.
 
 ---
 
-## 4. Tying it Together: The AutoShoot Sequence
+## 3. Constants.java: One Place for Every Number
 
-We coordinate the Gate and Shooter using a state machine command.
+<Aside type="caution" title="This file replaces an existing one">
+The XRP template already has a `Constants.java`. Open it, select all, and paste over it.
+</Aside>
 
-### `AutoShoot.java`
-Create this file inside your `commands` folder.
-
-```java
-package frc.robot.commands;
-
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.shooter;
-import frc.robot.subsystems.feeder;
-
-public class AutoShoot extends Command {
-    private final shooter m_shooter;
-    private final feeder m_feeder;
-    private final Timer m_timer = new Timer();
-
-    private final double FEED_ROTATIONS = 0.125;  
-    private final double INITIAL_SPIN_UP_TIME = 1.5; 
-    private final double RECOVERY_TIME = 1.5;       
-    
-    private int m_state = 0; 
-
-    public AutoShoot(shooter shooterSub, feeder feederSub) {
-        m_shooter = shooterSub;
-        m_feeder = feederSub;
-        addRequirements(m_shooter, m_feeder);
-    }
-
-    @Override
-    public void initialize() {
-        m_timer.restart();
-        m_state = 0; 
-        m_feeder.stop();
-        m_feeder.resetEncoder(); 
-    }
-
-    @Override
-    public void execute() {
-        m_shooter.setTargetSpeed(0.8);
-
-        if (m_state == 0) {
-            if (m_timer.hasElapsed(INITIAL_SPIN_UP_TIME)) {
-                m_state = 1; 
-                m_feeder.resetEncoder(); 
-            }
-        } 
-        else if (m_state == 1) {
-            m_feeder.runFeeder(0.6); 
-            
-            if (m_feeder.getRevolutions() >= FEED_ROTATIONS) {
-                m_state = 2; 
-                m_feeder.stop(); 
-                m_timer.restart(); 
-            }
-        } 
-        else if (m_state == 2) {
-            if (m_timer.hasElapsed(RECOVERY_TIME)) {
-                m_state = 1; 
-                m_feeder.resetEncoder(); 
-            }
-        }
-    }
-
-    @Override
-    public void end(boolean interrupted) {
-        m_shooter.stop();
-        m_feeder.stop();
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false; 
-    }
-}
-```
-
----
-
-## 5. Hooking up the Controller
-Now we can map our controller buttons and create bindings to the controller.
-
-### `RobotContainer.java`
-Modify the existing file inside your `java/frc/robot` folder.
+Path: `src/main/java/frc/robot/Constants.java`
 
 ```java
 package frc.robot;
 
-import edu.wpi.first.wpilibj.PS4Controller;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.OperatorConstants;
+import static edu.wpi.first.units.Units.Inches;
+import static edu.wpi.first.units.Units.Millimeters;
 
-import frc.robot.subsystems.XRPDrivetrain;
-import frc.robot.subsystems.shooter;
-import frc.robot.subsystems.feeder;
-import frc.robot.subsystems.winch;
-import frc.robot.commands.AutoShoot;
+/** All robot-wide constants live here. */
+public final class Constants {
+    private Constants() {}
 
-public class RobotContainer {
+    public static final class OperatorConstants {
+        public static final int DRIVER_CONTROLLER_PORT = 0;
+    }
 
-  private final shooter m_shooter = new shooter();
-  private final feeder m_feeder = new feeder();     
-  private final winch m_winch = new winch();        
-  private final XRPDrivetrain xrp = new XRPDrivetrain();
-  private final PS4Controller driverController = new PS4Controller(OperatorConstants.DRIVER_CONTROLLER_PORT);
+    public static final class DriveConstants {
+        public record EncoderPortPair(int aChannel, int bChannel) {}
 
-  public RobotContainer() {
-    xrp.setDefaultCommand(new RunCommand(
-        () -> xrp.executeDrive(
-            driverController.getLeftY(),    
-            driverController.getRightY(), 
-            false,
-            driverController.getCircleButton()
-        ),
-        xrp));
+        // XRP motor ports
+        public static final int LEFT_DRIVE_MOTOR = 0;
+        public static final int RIGHT_DRIVE_MOTOR = 3;
 
-    m_shooter.setDefaultCommand(new RunCommand(() -> m_shooter.runDefaultBehavior(), m_shooter));
+        // XRP encoder DIO channels (match the motor ports above)
+        public static final EncoderPortPair LEFT_ENCODER = new EncoderPortPair(4, 5);
+        public static final EncoderPortPair RIGHT_ENCODER = new EncoderPortPair(10, 11);
 
-    configureButtonBindings();
+        private static final double WHEEL_DIAMETER_INCHES = Inches.convertFrom(60, Millimeters);
+        private static final double ENCODER_TICKS_PER_REVOLUTION = 585.6;
+        public static final double DISTANCE_PER_PULSE =
+            (WHEEL_DIAMETER_INCHES * Math.PI) / ENCODER_TICKS_PER_REVOLUTION;
+
+        // Driving feel - increased deadband to combat stick drift
+        public static final double STICK_DEADBAND = 0.15;
+        public static final double SLOW_MODE_MULTIPLIER = 0.4;
+
+        // Drive-straight (Cross)
+        public static final double DRIVE_STRAIGHT_SPEED = -0.5;
+        public static final double kP_GYRO_TELEOP = 0.022;
+        public static final double MAX_GYRO_CORRECTION = 0.3;
+    }
+
+    public static final class IntakeConstants {
+        public static final int INTAKE_MOTOR = 1;       // XRP motor port 1
+        public static final double INTAKE_POWER = 1.0;
+
+        public static final int ARM_SERVO = 4;          // XRP Servo 1 (channel 4)
+        public static final double ARM_STOWED_ANGLE = 60.0;
+        public static final double ARM_DEPLOYED_ANGLE = 162.0;
+        public static final double ARM_MIN_ANGLE = 60.0;
+        public static final double ARM_MAX_ANGLE = 180.0;
+    }
+
+    public static final class ShooterConstants {
+        // Flywheel: XRP motor port 2 -> drives MOSFET on physical Motor 3 header
+        public static final int FLYWHEEL_MOTOR = 2;
+
+        // Ramp gate: XRP Servo 2 (channel 5)
+        public static final int GATE_SERVO = 5;
+
+        // Gate angles
+        public static final double GATE_CLOSED_ANGLE = 70.0;
+        public static final double GATE_OPEN_ANGLE = 130.0;
+        public static final double GATE_MIN_ANGLE = 0.0;
+        public static final double GATE_MAX_ANGLE = 180.0;
+
+        // Spin-up delay (in seconds) and acceleration ramping
+        public static final double SPIN_UP_SECONDS = 1.5;
+        public static final double FLYWHEEL_RAMP_PER_SECOND = 2.5;
+
+        // D-pad speed presets (fraction of full power, 0..1)
+        public static final double[] SPEED_PRESETS = {0.6, 0.7, 0.8, 0.9, 1.0};
+        public static final int DEFAULT_PRESET_INDEX = 2; // Default 100%
+
+        // Preferences keys
+        public static final String PREF_GATE_OPEN = "Shooter/GateOpenAngle";
+        public static final String PREF_GATE_CLOSED = "Shooter/GateClosedAngle";
+    }
+}
+```
+
+### Why this matters
+
+- **One source of truth.** Port `2` appears once. Change it here and the drivetrain, intake, and shooter all keep working.
+- **`WHEEL_DIAMETER_INCHES` and `ENCODER_TICKS_PER_REVOLUTION`** are used to convert raw encoder ticks into real inches. A 60 mm wheel rolling one full turn covers about 7.4 inches, and the encoder reports 585.6 ticks per turn, so dividing gives inches per tick.
+- **`STICK_DEADBAND = 0.15`** exists because worn sticks do not return to exactly zero. Without it the robot creeps when you let go.
+- **`SPEED_PRESETS`** lets the driver change flywheel power from the controller without a laptop.
+
+---
+
+## 4. The Drivetrain Subsystem
+
+Create the file `src/main/java/frc/robot/subsystems/Drivetrain.java`.
+
+```java
+package frc.robot.subsystems;
+
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.xrp.XRPGyro;
+import edu.wpi.first.wpilibj.xrp.XRPMotor;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DriveConstants;
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
+
+public class Drivetrain extends SubsystemBase {
+
+    private final XRPMotor leftMotor = new XRPMotor(DriveConstants.LEFT_DRIVE_MOTOR);
+    private final XRPMotor rightMotor = new XRPMotor(DriveConstants.RIGHT_DRIVE_MOTOR);
+
+    private final Encoder leftEncoder = new Encoder(
+        DriveConstants.LEFT_ENCODER.aChannel(),
+        DriveConstants.LEFT_ENCODER.bChannel()
+    );
+    private final Encoder rightEncoder = new Encoder(
+        DriveConstants.RIGHT_ENCODER.aChannel(),
+        DriveConstants.RIGHT_ENCODER.bChannel()
+    );
+
+    private final XRPGyro gyro = new XRPGyro();
+
+    public Drivetrain() {
+        leftEncoder.setDistancePerPulse(DriveConstants.DISTANCE_PER_PULSE);
+        rightEncoder.setDistancePerPulse(DriveConstants.DISTANCE_PER_PULSE);
+
+        // Flipped motor inversions to fix reverse driving direction
+        leftMotor.setInverted(false);
+        rightMotor.setInverted(true);
+
+        resetEncoders();
+        resetGyro();
+    }
+
+    public void tankDrive(double left, double right) {
+        leftMotor.set(MathUtil.clamp(left, -1.0, 1.0));
+        rightMotor.set(MathUtil.clamp(right, -1.0, 1.0));
+    }
+
+    public void stop() {
+        tankDrive(0.0, 0.0);
+    }
+
+    public Command driveCommand(DoubleSupplier leftY, DoubleSupplier rightY, BooleanSupplier slowMode) {
+        return run(() -> {
+            double left = MathUtil.applyDeadband(-leftY.getAsDouble(), DriveConstants.STICK_DEADBAND);
+            double right = MathUtil.applyDeadband(-rightY.getAsDouble(), DriveConstants.STICK_DEADBAND);
+
+            if (slowMode.getAsBoolean()) {
+                left *= DriveConstants.SLOW_MODE_MULTIPLIER;
+                right *= DriveConstants.SLOW_MODE_MULTIPLIER;
+            }
+
+            tankDrive(left, right);
+        });
+    }
+
+    public Command driveStraightCommand(double speed) {
+        return runOnce(this::resetGyro)
+            .andThen(run(() -> {
+                double headingError = getGyroAngleZ();
+                double turnCorrection = MathUtil.clamp(
+                    -headingError * DriveConstants.kP_GYRO_TELEOP,
+                    -DriveConstants.MAX_GYRO_CORRECTION,
+                    DriveConstants.MAX_GYRO_CORRECTION
+                );
+                tankDrive(speed + turnCorrection, speed - turnCorrection);
+            }))
+            .finallyDo(this::stop);
+    }
+
+    public void resetEncoders() {
+        leftEncoder.reset();
+        rightEncoder.reset();
+    }
+
+    public double getLeftDistanceInches() {
+        return leftEncoder.getDistance();
+    }
+
+    public double getRightDistanceInches() {
+        return rightEncoder.getDistance();
+    }
+
+    public double getAverageDistanceInches() {
+        return (getLeftDistanceInches() + getRightDistanceInches()) / 2.0;
+    }
+
+    public void resetGyro() {
+        gyro.reset();
+    }
+
+    public double getGyroAngleZ() {
+        return gyro.getAngleZ();
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Drive/Left Inches", getLeftDistanceInches());
+        SmartDashboard.putNumber("Drive/Right Inches", getRightDistanceInches());
+        SmartDashboard.putNumber("Drive/Gyro Z Deg", getGyroAngleZ());
+    }
+}
+```
+
+### Why this matters
+
+- **`SubsystemBase`** is the base class every mechanism extends. It gives the scheduler a way to know which mechanism is busy so two commands cannot fight over the same motor.
+- **`setInverted(true)` on the right motor** flips its direction so that positive power on both motors drives forward. Without it the robot spins in place.
+- **`MathUtil.clamp`** guarantees the motor never receives more than 100% power, even after corrections are added.
+- **`applyDeadband`** turns any stick reading smaller than 0.15 into zero.
+- **`driveStraightCommand`** is a mini autopilot. It reads the gyro, and if the robot has drifted, it nudges one side faster than the other to steer back. `kP_GYRO_TELEOP` sets how hard it corrects and `MAX_GYRO_CORRECTION` caps it.
+- **`SmartDashboard.putNumber`** prints live numbers to the dashboard so you can watch distance and heading while tuning.
+
+---
+
+## 5. The Intake Subsystem
+
+Create `src/main/java/frc/robot/subsystems/Intake.java`.
+
+```java
+package frc.robot.subsystems;
+
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.xrp.XRPMotor;
+import edu.wpi.first.wpilibj.xrp.XRPServo;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.IntakeConstants;
+
+public class Intake extends SubsystemBase {
+
+    private final XRPMotor intakeMotor = new XRPMotor(IntakeConstants.INTAKE_MOTOR);
+    private final XRPServo armServo = new XRPServo(IntakeConstants.ARM_SERVO);
+
+    public Intake() {
+        intakeMotor.setInverted(false);
+        stowArm();
+        stopWheels();
+    }
+
+    public void setArmAngle(double degrees) {
+        armServo.setAngle(MathUtil.clamp(degrees, IntakeConstants.ARM_MIN_ANGLE, IntakeConstants.ARM_MAX_ANGLE));
+    }
+
+    public void deployArm() {
+        setArmAngle(IntakeConstants.ARM_DEPLOYED_ANGLE);
+    }
+
+    public void stowArm() {
+        setArmAngle(IntakeConstants.ARM_STOWED_ANGLE);
+    }
+
+    public void runWheels() {
+        intakeMotor.set(IntakeConstants.INTAKE_POWER);
+    }
+
+    public void stopWheels() {
+        intakeMotor.set(0.0);
+    }
+
+    public Command intakeCommand() {
+        return startEnd(
+            () -> {
+                deployArm();
+                runWheels();
+            },
+            () -> {
+                stowArm();
+                stopWheels();
+            }
+        );
+    }
+
+    public Command armDeployCommand() {
+        return startEnd(this::deployArm, this::stowArm);
+    }
+}
+```
+
+### Why this matters
+
+- **`startEnd`** builds a command from two lambdas: what to do when it starts, and what to do when it stops. Here, holding the button lowers the arm and spins the wheel; releasing it puts everything back.
+- **The clamp in `setArmAngle`** protects the servo. Servos strip gears when commanded past their mechanical stops, and the clamp makes that impossible.
+- **The constructor calls `stowArm()` and `stopWheels()`** so the arm never boots up hanging out into the field.
+- **`intakeCommand` and `armDeployCommand` are separate** so you can grab a piece (both actions) or just flip the arm down (arm only) without the wheel running.
+
+---
+
+## 6. The Shooter Subsystem
+
+Create `src/main/java/frc/robot/subsystems/Shooter.java`.
+
+```java
+package frc.robot.subsystems;
+
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.xrp.XRPMotor;
+import edu.wpi.first.wpilibj.xrp.XRPServo;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ShooterConstants;
+import java.util.Set;
+
+public class Shooter extends SubsystemBase {
+
+    private final XRPMotor flywheel = new XRPMotor(ShooterConstants.FLYWHEEL_MOTOR);
+    private final XRPServo gate = new XRPServo(ShooterConstants.GATE_SERVO);
+
+    private int presetIndex = ShooterConstants.DEFAULT_PRESET_INDEX;
+    private boolean flywheelEnabled = false;
+    private boolean gateOpen = false;
+
+    public Shooter() {
+        Preferences.initDouble(ShooterConstants.PREF_GATE_OPEN, ShooterConstants.GATE_OPEN_ANGLE);
+        Preferences.initDouble(ShooterConstants.PREF_GATE_CLOSED, ShooterConstants.GATE_CLOSED_ANGLE);
+
+        flywheel.setInverted(false);
+        stop();
+    }
+
+    /**
+     * Fire sequence (Direct speed, no ramping):
+     * 1. Close gate & enable flywheel (instantly snaps to selected preset output).
+     * 2. Wait spin-up time.
+     * 3. Open gate to fire.
+     * 4. On release / cancel: close gate & set flywheel to 0.0 immediately.
+     */
+    public Command fireCommand() {
+        return Commands.sequence(
+                runOnce(() -> {
+                    closeGate();
+                    flywheelEnabled = true;
+                }),
+                Commands.defer(() -> Commands.waitSeconds(getSpinUpSeconds()), Set.of()),
+                runOnce(this::openGate),
+                Commands.idle(this))
+            .finallyDo((interrupted) -> stop());
+    }
+
+    /** Immediate stop (flywheel output 0.0, gate closed). */
+    public void stop() {
+        flywheelEnabled = false;
+        flywheel.set(0.0);
+        closeGate();
+    }
+
+    public void nextPreset() {
+        presetIndex = Math.min(presetIndex + 1, ShooterConstants.SPEED_PRESETS.length - 1);
+    }
+
+    public void previousPreset() {
+        presetIndex = Math.max(presetIndex - 1, 0);
+    }
+
+    public double getSelectedSpeed() {
+        return ShooterConstants.SPEED_PRESETS[presetIndex];
+    }
+
+    public void openGate() {
+        setGateAngle(Preferences.getDouble(ShooterConstants.PREF_GATE_OPEN, ShooterConstants.GATE_OPEN_ANGLE));
+        gateOpen = true;
+    }
+
+    public void closeGate() {
+        setGateAngle(Preferences.getDouble(ShooterConstants.PREF_GATE_CLOSED, ShooterConstants.GATE_CLOSED_ANGLE));
+        gateOpen = false;
+    }
+
+    private void setGateAngle(double degrees) {
+        gate.setAngle(MathUtil.clamp(degrees, ShooterConstants.GATE_MIN_ANGLE, ShooterConstants.GATE_MAX_ANGLE));
+    }
+
+    private double getSpinUpSeconds() {
+        return Math.max(0.0, ShooterConstants.SPIN_UP_SECONDS);
+    }
+
+    @Override
+    public void periodic() {
+        // Snaps directly to selected preset speed when enabled, 0.0 when disabled
+        double output = flywheelEnabled ? getSelectedSpeed() : 0.0;
+        flywheel.set(output);
+
+        SmartDashboard.putNumber("Shooter/Preset Speed %", getSelectedSpeed() * 100.0);
+        SmartDashboard.putNumber("Shooter/Output %", output * 100.0);
+        SmartDashboard.putBoolean("Shooter/Flywheel On", flywheelEnabled);
+        SmartDashboard.putBoolean("Shooter/Gate Open", gateOpen);
+    }
+}
+```
+
+### Why this matters
+
+- **The MOSFET.** The flywheel is a big motor that would melt an XRP header. It runs through a MOSFET wired to motor port `2`, so the XRP only sends the signal while the MOSFET carries the current.
+- **`flywheelEnabled` instead of calling `set()` directly.** The actual motor output is written every loop in `periodic()`. Commands only flip the flag. This means a preset change takes effect on the very next loop and nothing else has to know.
+- **The order inside `fireCommand` is the whole design.** Close the gate, spin up, wait, *then* open. If you opened the gate first, the piece would dribble out of a slow wheel and land on the floor.
+- **`Preferences`** stores the gate angles on the roboRIO. You can retune them from the dashboard without recompiling, and they survive a reboot.
+- **`nextPreset` / `previousPreset`** clamp to the ends of the array, so holding D-pad up at the top preset does nothing instead of crashing.
+- **`Commands.idle(this)`** holds the command running forever. The fire sequence does not end on its own; the button release or the `.withTimeout()` in auto ends it, and `.finallyDo` then shuts everything down.
+
+---
+
+## 7. The Autonomous Command
+
+Create `src/main/java/frc/robot/commands/Autonomous.java`.
+
+```java
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
+import java.util.function.DoubleSupplier;
+
+public class Autonomous extends SequentialCommandGroup {
+
+  /** Option 1: Drive straight & Shoot (No intake). */
+  public Autonomous(
+      double distanceInches,
+      double driveSpeed,
+      Drivetrain drivetrain,
+      Shooter shooter) {
+    this(distanceInches, driveSpeed, false, 0.0, drivetrain, null, shooter);
   }
 
-  private void configureButtonBindings() {
-    new Trigger(driverController::getL1Button)
-        .whileTrue(new RunCommand(() -> m_winch.setPower(0.7), m_winch))
-        .onFalse(new InstantCommand(() -> m_winch.stop(), m_winch));
+  /** Option 2: Full Routine — Drive & Intake ball, Turn, Drive to goal, and Shoot. */
+  public Autonomous(
+      double distanceInches,
+      double driveSpeed,
+      boolean useIntake,
+      double turnDegrees,
+      Drivetrain drivetrain,
+      Intake intake,
+      Shooter shooter) {
 
-    new Trigger(driverController::getR1Button)
-        .whileTrue(new RunCommand(() -> m_winch.setPower(-0.7), m_winch))
-        .onFalse(new InstantCommand(() -> m_winch.stop(), m_winch));
+    DoubleSupplier distanceSupplier = drivetrain::getAverageDistanceInches;
 
-    new Trigger(driverController::getTriangleButton)
-        .whileTrue(new AutoShoot(m_shooter, m_feeder));
+    // Step 0: Reset encoders & gyro at auto start
+    addCommands(
+        Commands.runOnce(() -> {
+          drivetrain.resetEncoders();
+          drivetrain.resetGyro();
+        })
+    );
 
-    new Trigger(driverController::getSquareButton)
-        .onTrue(new InstantCommand(() -> xrp.setServoPositionOne()))
-        .onFalse(new InstantCommand(() -> xrp.setServoDefault()));
+    // Step 1: Drive forward (with optional intake active)
+    if (useIntake && intake != null) {
+      addCommands(
+          Commands.parallel(
+              drivetrain.driveStraightCommand(-Math.abs(driveSpeed))
+                  .until(() -> Math.abs(distanceSupplier.getAsDouble()) >= Math.abs(distanceInches)),
+              intake.intakeCommand()
+          ).withTimeout(4.0)
+      );
+    } else {
+      addCommands(
+          drivetrain.driveStraightCommand(-Math.abs(driveSpeed))
+              .until(() -> Math.abs(distanceSupplier.getAsDouble()) >= Math.abs(distanceInches))
+      );
+    }
 
-    new Trigger(driverController::getCrossButton)
-        .onTrue(new InstantCommand(() -> xrp.setServoPositionTwo()))
-        .onFalse(new InstantCommand(() -> xrp.setServoDefault()));
+    // Step 2: Stop drive and stow intake arm
+    addCommands(Commands.runOnce(drivetrain::stop, drivetrain));
+    if (useIntake && intake != null) {
+      addCommands(
+          Commands.runOnce(intake::stowArm, intake),
+          Commands.runOnce(intake::stopWheels, intake)
+      );
+    }
+
+    // Step 3: Turn toward target using raw gyro angle Z
+    if (Math.abs(turnDegrees) > 1.0) {
+      addCommands(
+          Commands.runOnce(drivetrain::resetGyro),
+          Commands.run(() -> {
+            double currentAngle = drivetrain.getGyroAngleZ();
+            double error = turnDegrees - currentAngle;
+            double turnOutput = Math.copySign(Math.min(0.4, Math.abs(error) * 0.02), error);
+            drivetrain.tankDrive(-turnOutput, turnOutput);
+          }, drivetrain)
+          .until(() -> Math.abs(turnDegrees - drivetrain.getGyroAngleZ()) < 3.0)
+          .withTimeout(2.0),
+          Commands.runOnce(drivetrain::stop, drivetrain)
+      );
+    }
+
+    // Step 4: Shoot (Spin up -> Gate Open -> Fire for 3s total -> Stop)
+    addCommands(
+        shooter.fireCommand().withTimeout(3.0),
+        Commands.runOnce(() -> {
+          drivetrain.stop();
+          shooter.stop();
+          if (intake != null) intake.stopWheels();
+        })
+    );
   }
 }
 ```
 
+### Why this matters
+
+- **`SequentialCommandGroup`** runs its children in order and waits for each to finish. That is exactly what a routine is.
+- **`.until(...)`** ends the drive step the moment the encoder average reaches the target distance. It is a real measurement, not a guessed timer.
+- **`.withTimeout(...)` on every step** is a safety net. If an encoder dies or the robot gets stuck, the step still gives up instead of driving into a wall forever.
+- **`Commands.parallel(...)`** runs the drive and the intake at the same time, so the piece is already collected by the time the robot stops.
+- **The turn uses a proportional controller** like the drive-straight code, and stops within 3 degrees.
+- **The last command block calls `stop()` on everything** so nothing is left spinning after the routine ends.
+
 ---
 
-## 6. Newbie Customization Guide: Tuning Your Robot
+## 8. RobotContainer: Wiring the Controller
 
-When you test your robot code on the practice field, default parameters rarely fit every physical build perfectly. Here is how and why to customize them:
+<Aside type="caution" title="This file replaces an existing one">
+Open the existing `RobotContainer.java`, select all, and paste over it.
+</Aside>
 
-### 1. Speeding Up Initial Spin-Up
-* **Where to look:** `AutoShoot.java`
-* **What to change:** `INITIAL_SPIN_UP_TIME` (default: `1.5` seconds).
-* **Why change it:** If your motors reach maximum RPM faster than 1.5 seconds, lower this to `1.0` to cycle shots faster. If your flywheels are heavy, increase it to give them more time.
+Path: `src/main/java/frc/robot/RobotContainer.java`
 
-### 2. Adjusting Recovery Delay Between Shots
-* **Where to look:** `AutoShoot.java`
-* **What to change:** `RECOVERY_TIME` (default: `1.5` seconds).
-* **Why change it:** This controls the pause *between* fed balls. If the flywheels bog down too much when a ball enters, increase this delay so the motor recovers speed.
+```java
+package frc.robot;
 
-### 3. Modifying Feed Distance
-* **Where to look:** `AutoShoot.java`
-* **What to change:** `FEED_ROTATIONS` (default: `0.125`).
-* **Why change it:** Controls how far the feeder wheel rotates per shot. If a piece does not completely enter the flywheels, increase it slightly (e.g., `0.15`).
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Autonomous;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
+
+public class RobotContainer {
+
+  private final Drivetrain drivetrain = new Drivetrain();
+  private final Intake intake = new Intake();
+  private final Shooter shooter = new Shooter();
+
+  private final CommandPS4Controller driver =
+      new CommandPS4Controller(OperatorConstants.DRIVER_CONTROLLER_PORT);
+
+  private final SendableChooser<Command> autoChooser = new SendableChooser<>();
+
+  public RobotContainer() {
+    drivetrain.setDefaultCommand(
+        drivetrain.driveCommand(driver::getLeftY, driver::getRightY, driver.circle()));
+
+    configureButtonBindings();
+    configureAutoChooser();
+  }
+
+  private void configureButtonBindings() {
+    // Hold R1: Spins flywheel to selected preset speed instantly and opens servo gate after delay
+    driver.R1().whileTrue(shooter.fireCommand());
+
+    // Cycle speed presets using D-Pad Up / Down
+    driver.povUp().onTrue(Commands.runOnce(shooter::nextPreset, shooter));
+    driver.povDown().onTrue(Commands.runOnce(shooter::previousPreset, shooter));
+
+    // Intake & Arm control
+    driver.L1().whileTrue(intake.intakeCommand());
+    driver.square().whileTrue(intake.armDeployCommand());
+
+    // Straight drive helper
+    driver.cross().whileTrue(drivetrain.driveStraightCommand(DriveConstants.DRIVE_STRAIGHT_SPEED));
+  }
+
+  private void configureAutoChooser() {
+    autoChooser.setDefaultOption(
+        "1. Drive 24 in & Shoot", 
+        new Autonomous(24.0, 0.5, drivetrain, shooter));
+
+    autoChooser.addOption(
+        "2. Intake + Turn 90° + Shoot",
+        new Autonomous(24.0, 0.4, true, 90.0, drivetrain, intake, shooter));
+
+    autoChooser.addOption("3. Do Nothing", Commands.none());
+
+    SmartDashboard.putData("Auto Routine", autoChooser);
+  }
+
+  public Command getAutonomousCommand() {
+    return autoChooser.getSelected();
+  }
+
+  public void stopAllSubsystems() {
+    drivetrain.stop();
+    shooter.stop();
+    intake.stopWheels();
+  }
+}
+```
+
+### Why this matters
+
+- **The subsystems are created once, here.** Every command in the robot is handed one of these same objects, so they all talk to the same motors.
+- **`setDefaultCommand`** gives the drivetrain something to do whenever no other command needs it. That is what makes the sticks work with no button held.
+- **`whileTrue` versus `onTrue`.** `whileTrue` runs for as long as the button is held (driving, intake, firing). `onTrue` fires once per press (changing a preset).
+- **`SendableChooser`** builds the dropdown on the dashboard so the drive team picks the auto routine instead of you editing code at the field.
+- **`stopAllSubsystems()`** is what `Robot.java` calls when the robot is disabled, so nothing keeps running between matches.
+
+---
+
+## 9. Robot.java: The Life Cycle
+
+<Aside type="note" title="Main.java is unchanged">
+`Main.java` is boilerplate that boots the robot. Leave it alone.
+</Aside>
+
+Open the existing `src/main/java/frc/robot/Robot.java`, select all, and paste over it.
+
+```java
+package frc.robot;
+
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
+public class Robot extends TimedRobot {
+  private Command m_autonomousCommand;
+  private RobotContainer m_robotContainer;
+
+  @Override
+  public void robotInit() {
+    m_robotContainer = new RobotContainer();
+  }
+
+  @Override
+  public void robotPeriodic() {
+    CommandScheduler.getInstance().run();
+  }
+
+  @Override
+  public void disabledInit() {
+    if (m_robotContainer != null) {
+      m_robotContainer.stopAllSubsystems();
+    }
+  }
+
+  @Override
+  public void disabledPeriodic() {}
+
+  @Override
+  public void autonomousInit() {
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+    }
+  }
+
+  @Override
+  public void autonomousPeriodic() {}
+
+  @Override
+  public void teleopInit() {
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.cancel();
+    }
+  }
+
+  @Override
+  public void teleopPeriodic() {}
+
+  @Override
+  public void testInit() {
+    CommandScheduler.getInstance().cancelAll();
+  }
+
+  @Override
+  public void testPeriodic() {}
+}
+```
+
+### Why this matters
+
+- **`robotPeriodic` runs `CommandScheduler.run()` 50 times per second.** That single line is what actually executes every command in the robot. Forget it and nothing works.
+- **`teleopInit` cancels the auto command** so the routine cannot keep running when the match switches to driver control.
+- **`disabledInit` stops everything** so a motor is never left humming while the robot sits on the field.
+
+---
+
+## 10. Build and Deploy
+
+1. Plug the XRP into your laptop over USB.
+2. Press `Ctrl+Shift+P`, run `WPILib: Build Robot Code`. Read the terminal. It should end with `BUILD SUCCESSFUL`. If it does not, see Step 13.
+3. Press `Ctrl+Shift+P`, run `WPILib: Deploy Robot Code`.
+4. Open the dashboard and confirm `Drive/Left Inches` and `Drive/Gyro Z Deg` are reporting.
+
+<Aside type="danger" title="Prop the robot up the first time">
+Put the robot on blocks or a stand for the first deploy. If a motor is inverted wrong, it will launch itself off the table.
+</Aside>
+
+### Driver control reference
+
+| Input | Action |
+| --- | --- |
+| Left stick (up/down) | Left wheels |
+| Right stick (up/down) | Right wheels |
+| Circle (hold) | Slow mode |
+| Cross (hold) | Drive straight with gyro assist |
+| L1 (hold) | Lower arm and run intake |
+| Square (hold) | Lower arm only |
+| R1 (hold) | Spin up and fire |
+| D-pad up / down | Raise / lower flywheel preset |
+| Dashboard dropdown | Choose the auto routine |
+
+---
+
+## 11. Newbie Customization Guide
+
+### 1. Changing a port
+* **Where:** `Constants.java`
+* **What:** the matching `*_MOTOR`, `*_SERVO`, or `EncoderPortPair` line.
+* **Why:** you moved a cable. Change it here and nowhere else.
+
+### 2. Adjusting stick feel
+* **Where:** `DriveConstants.STICK_DEADBAND` (default `0.15`)
+* **Why:** raise it if the robot creeps with the sticks centered. Lower it if small stick inputs feel dead.
+
+### 3. Making drive-straight stiffer or gentler
+* **Where:** `DriveConstants.kP_GYRO_TELEOP` (default `0.022`)
+* **Why:** raise it if the robot wanders. Lower it if it weaves side to side while driving straight.
+
+### 4. Changing flywheel presets
+* **Where:** `ShooterConstants.SPEED_PRESETS` and `DEFAULT_PRESET_INDEX`
+* **Why:** each entry is a fraction of full power. `DEFAULT_PRESET_INDEX` is which one the robot boots on, counted from `0`.
+
+### 5. Retuning the gate angles without recompiling
+* **Where:** the dashboard, under `Shooter/GateOpenAngle` and `Shooter/GateClosedAngle`
+* **Why:** `Preferences` saves these to the robot. Once you like a value, copy it into `GATE_OPEN_ANGLE` / `GATE_CLOSED_ANGLE` so a fresh robot starts correct.
+
+### 6. Changing auto distances and turns
+* **Where:** `RobotContainer.configureAutoChooser()`
+* **Why:** the numbers passed to `new Autonomous(...)` are inches and degrees. Option 2 is `24.0` inches, `0.4` speed, `true` for intake, `90.0` degrees.
+
+---
+
+## 12. Troubleshooting
+
+| Symptom | Cause | Fix |
+| --- | --- | --- |
+| `cannot find symbol` | A file is named wrong, or a class name has different capitalization | File name and class name must match exactly, same case |
+| `package frc.robot.subsystems does not exist` | The file is in the wrong folder | Subsystems go in `subsystems/`, commands in `commands/` |
+| Robot drives backward | Right motor inversion missing | Confirm `rightMotor.setInverted(true)` in `Drivetrain.java` |
+| Robot creeps when idle | Deadband too low | Raise `STICK_DEADBAND` |
+| Flywheel does not spin | MOSFET wired to the wrong header | Move it to motor port `2` |
+| Piece dribbles out of the shooter | Spin-up too short | Raise `SPIN_UP_SECONDS` |
+| Nothing responds to buttons | `CommandScheduler.run()` missing | Confirm it is inside `robotPeriodic` |
+| Dashboard shows nothing | `periodic()` cleared | Restore the `SmartDashboard` calls in `Drivetrain.periodic()` |
+
+---
+
+## 13. Glossary
+
+- **Subsystem** — one mechanism and the code that owns it.
+- **Command** — an action. Runs, does its job, ends.
+- **Scheduler** — the 50 Hz loop that decides which commands run.
+- **Default command** — what a subsystem does when nothing else needs it.
+- **Deadband** — an input size treated as zero.
+- **Closed loop** — measuring a sensor and correcting toward a target, like the gyro hold.
+- **MOSFET** — a switch that lets a small signal control a big motor.
+- **Preferences** — saved values that survive a reboot.
 
 ---
