@@ -5,63 +5,21 @@ description: "Wiring Diagram"
 
 import { LinkButton } from '@astrojs/starlight/components';
 
-> **Custom Electronics:** This step adds a small **Mossfet** as a sub-controller so the XRP can drive the high-RPM launcher motor.
+## 1. Wire the Robot to Match the Code
 
-:::caution
-**Stop!**
-Only continue if you have **completed the physical assembly** of the bot.  
-If not, go back to the Assembly Guide first.
-:::
+The code below hardcodes these ports. Wire to this table or the code will move the wrong thing.
 
-:::note
-**Prerequisites**
-Your base XRP should already be built and wired.  
-This is a custom add-on required for the high-RPM launcher motors. 
-:::
+| Device | XRP port |
+| --- | --- |
+| Left drive motor | Motor `0` |
+| Right drive motor | Motor `3` |
+| Left drive encoder | DIO `4` / `5` |
+| Right drive encoder | DIO `10` / `11` |
+| Intake wheel motor | Motor `1` |
+| Intake arm servo | Servo `4` |
+| Flywheel motor (through MOSFET) | Motor `2` |
+| Gate servo | Servo `5` |
 
-## What You Will Be Doing
+**Why this matters:** XRP motor ports are numbered 0 through 3 and servo ports 4 and 5. The encoder channels are chosen to sit far from the motors so the cables do not collide. If you change a port on the robot, you change the matching line in `Constants.java` in Step 3, and nothing else.
 
-You are adding a small motor driver (MOSFET) so the launcher motors can spin a motor fast enough to shoot a ball.
-
-The XRP does not power the launcher motors directly. It only sends a simple command to the MOSFET and enable the external 12v battery to power the motor.
-
-:::note
-**The FRC Big Picture**
-This is a miniature version of how a real FRC robot works.
-
-In competition robots, the RoboRIO / SystemCore (your XRP) does not power the motors directly. It sends a low-voltage signal to a smart motor controller (MOSFET). That controller then pulls high current straight from the battery to spin the motors.
-:::
-
-## Wiring Diagram
-
-Use the live wiring diagram below. It shows every connection you need to make.
-
-<LinkButton 
-  href="https://docs.google.com/spreadsheets/d/1BvGCnVF4Ye6cyJB5FxUXwRW85nl3ZElN0-Z23qL8lxg/edit?usp=sharing" 
-  variant="secondary" 
-  icon="external" 
-  iconPlacement="start"
->
-  Open Launcher Wiring Diagram
-</LinkButton>
-
-:::caution
-**Power Off First**
-Make sure your robot is **powered off** and the battery is **unplugged** before making any of these connections.
-:::
-
-## Master Wiring Table
-
-Follow this table exactly.
-
-| Connection Group   | From (Component : Pin)             | To (Component : Pin)         | Logic/Voltage | Purpose                 |
-| :----------------- | :--------------------------------- | :--------------------------- | :------------ | :---------------------- |
-| **Control Signal** | **XRP SERVO2:** Signal (IO17)      | **Pro Micro:** Pin 2         | PWM           | Signal from WPILib      |
-| **Common Ground**  | **L9110S:** Ground (GND)           | **XRP SERVO2:** Ground (GND) | 0V            | Completes the circuit   |
-| **Arduino Power**  | **XRP SERVO2:** Power (Center/Red) | **Pro Micro:** RAW           | 5V            | Powers the Arduino      |
-| **Motor A Drive**  | **Pro Micro:** Pin 5 & 6           | **L9110S:** A-1A & A-1B      | 5V Logic      | Speed/Direction A       |
-| **Motor B Drive**  | **Pro Micro:** Pin 9 & 10          | **L9110S:** B-1A & B-1B      | 5V Logic      | Speed/Direction B       |
-| **Motor Power**    | **XRP Battery:** Red Wire          | **L9110S:** VCC              | 6V Battery    | **High Current Supply** |
-
-
-Once all wires match the table and the wiring diagram, you’re ready to continue.
+---
