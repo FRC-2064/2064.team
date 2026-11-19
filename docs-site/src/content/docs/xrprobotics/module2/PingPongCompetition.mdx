@@ -57,57 +57,16 @@ import { Aside } from '@astrojs/starlight/components';
 
 # XRP → Driver Station Protocol
 
-Follow these steps in order. Do **one robot at a time**.
+Follow these steps in order. Do **one robot at a time**. Everytime a robot connects to the host ip it obtains a unique ip address.  This can change if XRP bot is powered off and the host router is powered off, and they when they are turned on again, they will most likely grab a new ip.  
 
-## 1. Power on the blank XRP
-- Install good batteries.
-- Turn the XRP on.
-- Wait for the green LED to finish blinking (IMU calibration is done).
-
-## 2. Connect to its own WiFi
-On your laptop, join the network:
-- **SSID:** `XRP-XXXX-XXXX`
-- **Password:** `xrp-wpilib`
-
-## 3. Open the config page
-In a browser go to: `http://192.168.42.1:5000`
-
-## 4. Set it to join the shared network
-Replace the JSON with the following (copy exactly - REPLACE YOUR-SSID-HERE with your actual WiFi name)
-
-```json
-{
-  "configVersion": 1,
-  "network": {
-    "defaultAP": {
-      "ssid": "YOUR-SSID-HERE", 
-      "password": "xrp-wpilib"
-    },
-    "networkList": [
-      {
-        "ssid": "FRC-AP-2064-xrp",
-        "password": "xrprobot"
-      }
-    ],
-    "mode": "STA"
-  }
-}
-```
-
-Click **SAVE**.
-
-## 5. Power cycle
-- Turn the XRP fully off.
-- Wait 15 seconds.
-- Turn it back on.
-- Wait 60 seconds.
-
-## 6. Get its new IP
-- Plug the XRP into the laptop with USB.
-- Open the drive that appears.
-- Open `xrp-status.txt`.
-- Write down the **IP Address** (example: `10.20.64.25`).
+## 1. Get the XRP's new IP
+- Plug the XRP into the laptop with USB cable.
+- Open the drive that appears in file explorer.
+- Open the document `xrp-status.txt`.
+- Write down the **IP Address** (example: `10.20.64.25`). - This will be different each time you power on XRP, if multiple are in use powering on and off.
 - Confirm it says `WiFi Mode: STA`.
+- Keep XRP on throughout the process to prevent new ip being assigned.
+- Remember to unplug the USB cable after this step.
 
 ## 7. Set up the code
 - Open (or create) the WPILib XRP project in VS Code.
@@ -120,7 +79,7 @@ wpi.sim.envVar("HALSIMXRP_HOST", "10.20.YOUR.IP.ADDRESS")
 Save the file.
 
 ## 8. Connect and drive
-- Connect the laptop to the same WiFi: `FRC-AP-2064-xrp`.
+- Connect the device running your code to the host WiFi: `FRC-AP-2064-xrp`.
 - Pair your controller (Xbox, or PS4 + DS4Windows).
 - In VS Code press **F5** (Simulate Robot Code).
 - In the Driver Station window that opens, click **Enable**.
