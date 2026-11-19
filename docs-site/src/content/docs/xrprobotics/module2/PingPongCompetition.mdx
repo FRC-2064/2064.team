@@ -4,6 +4,7 @@ description: "Play a mini FRC-style game with the XRP launcher and complete the 
 ---
 
 import { LinkButton } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
 
 <style>{`
   .ext-btn {
@@ -18,26 +19,41 @@ import { LinkButton } from '@astrojs/starlight/components';
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
     filter: brightness(1.15);
   }
+  .manual-cover {
+    border: 2px solid var(--sl-color-gray-5);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--sl-color-gray-6);
+  }
+  .manual-cover .tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .manual-cover h2 {
+    margin: 0 0 0.4rem 0;
+    font-size: 2rem;
+    letter-spacing: 0.04em;
+  }
+  .manual-cover .sub {
+    margin: 0;
+    font-size: 0.95rem;
+    opacity: 0.85;
+  }
+  .rule-table td, .rule-table th {
+    padding: 6px 12px;
+    vertical-align: top;
+  }
+  .foul-minor { color: #e0a800; font-weight: 700; }
+  .foul-major { color: #e8590c; font-weight: 700; }
+  .foul-tech  { color: #d6336c; font-weight: 700; }
+  .field-svg { max-width: 100%; height: auto; display: block; margin: 1rem auto; }
+  .dim-note { font-size: 0.8rem; opacity: 0.75; text-align: center; }
 `}</style>
-
-## Launcher Competition
-
-Students will play a mini FRC game with the XRP bot using ping-pong balls. This simulates elements of the 2026 Rebuild Game and demonstrates understanding of the launcher system.
-
-Read the full game rules and scoring details in the official manual before starting:
-
-<LinkButton 
-  href="https://docs.google.com/document/d/1NT6om8CTkScP1b4D6RAimQH1fwjtV_aD9DGe3tJmYKA/edit?usp=sharing" 
-  variant="primary" 
-  icon="external" 
-  iconPlacement="start"
-  class="ext-btn"
->
-  Open Game Manual
-</LinkButton>
-
----
-
 
 # XRP → Driver Station Protocol
 
@@ -112,21 +128,437 @@ Save the file.
 
 ---
 
-**That’s it.**  
-Repeat steps 1–8 for every other robot. Each robot gets its own IP and its own laptop.
+# Part B — Game Manual
+
+<div class="manual-cover">
+  <span class="tag">FRC Mini Challenge Manual</span>
+  <h2>MINI REBUILT</h2>
+  <p class="sub">
+    A scaled-down REBUILT-style challenge for Experiential Robotics Platform (XRP) robots.<br/>
+    Presented by The Panther Project.
+  </p>
+  <p class="sub">
+    <strong>Manual Version 2.2</strong> &nbsp;•&nbsp; Released October 2026
+  </p>
+</div>
+
+<Aside type="note" title="About this document">
+This manual follows the structure and rule-writing conventions of an official FIRST Robotics Competition Game Manual. It is written that way on purpose: students and mentors should learn how a real game manual reads, how rule identifiers work, and how to argue a call from a numbered rule rather than from memory.
+</Aside>
+
+## B1. Introduction
+
+### B1.1 What Mini Rebuilt is
+
+**MINI REBUILT** is a two-versus-two XRP game about salvaging, staging, and launching **FUEL**. FUEL starts scattered across the FIELD. Alliances fight over the loose FUEL in the NEUTRAL ZONE, sweep up what is in their own zone, and top up at their **OUTPOST**. Every FUEL goes into a **HOPPER**.
+
+Every ROBOT starts AUTO holding **4 FUEL**. How many it can hold after that is up to the team — there is no capacity limit, only the size of the hopper you built and the intake you wrote. A well-built machine empties its preload, drives out, and comes back fuller than it started.
+
+The challenge is deliberately built around the real limits of an XRP: a small wheelbase, four motor ports, two servo ports, and a floor that fights you. Every rule in this manual is sized to that hardware, not to a full-size FRC robot.
+
+### B1.2 How to read this manual
+
+- **MUST** — mandatory. Violation is a FOUL or worse.
+- **MUST NOT** — prohibited.
+- **SHOULD** — expected; deviation is allowed with justification to the HEAD REFEREE.
+- **MAY** — permitted, never required.
+
+Rules carry an identifier by family. Quote the identifier when talking to a referee.
+
+| Prefix | Family | Example |
+| --- | --- | --- |
+| `S` | Safety | S3 |
+| `G` | Gameplay | G21 |
+| `H` | HUMAN PLAYER | H4 |
+| `R` | ROBOT construction | R2 |
+| `I` | Inspection | I1 |
+| `T` | Tournament procedure | T2 |
+
+### B1.3 Summary of changes
+
+**From v2.1**
+
+| Change | Reason |
+| --- | --- |
+| ROBOT capacity limit removed; **4 FUEL mandatory preload** replaces it | 2 was too tight to make AUTO meaningful; the preload sets a floor without capping hopper design |
+| 16 in cube now applies **with the preload loaded** | Otherwise teams would preload outside their own size envelope |
+| AUTO bonus RP raised from 2 to 4 FUEL | 4 free preload makes 2 trivial |
+| FUEL staging reduced to 32 on the FIELD | 16 FUEL are now in ROBOTS at the buzzer |
+| Added G26 for FUEL lost from a preload | Preloads will fall out; needs to be live, not a foul |
+
+**From v2.0**
+
+| Change | Reason |
+| --- | --- |
+| FUEL now starts scattered on the FIELD and is scored directly from the floor | The reference robot has a floor-reaching intake; shuttling everything back to a HUMAN PLAYER wasted it |
+| HUMAN PLAYER STATION renamed OUTPOST and given a fixed FUEL supply | Matches FRC loading-station convention; gives a safe alternative to contested floor FUEL |
+| Added OUTPOST access and contested-FUEL rules | A second supply source needs its own conflicts |
+| Added R7 floor-reach requirement to inspection | The game now depends on it |
+
+**From v1.2**
+
+| Change | Reason |
+| --- | --- |
+| SCORING ELEMENT changed from 40 mm ping pong ball to 63 mm foam FUEL | Foam grips in an intake and stops bouncing out of a HOPPER |
+| HOPPER rim lowered from 36–48 in to 32 in | A single XRP flywheel launches reliably to ~32 in, not 48 |
+| Actuator rule rewritten around XRP ports | Matches the actual hardware ceiling: 4 motor, 2 servo |
+| Added Inspection, Ranking, Playoffs, and Awards sections | A manual without a tournament section cannot run an event |
+
+## B2. Game Overview
+
+**MINI REBUILT** is a 2v2 MATCH played on a floor FIELD. Each ALLIANCE is two ROBOTS and one HUMAN PLAYER.
+
+ROBOTS score FUEL into their own ALLIANCE HOPPER. FUEL may be collected anywhere it lies in play, including the NEUTRAL ZONE, and scored without any intermediate step. HUMAN PLAYERS feed FUEL from their OUTPOST and, in the last 20 seconds, throw for points.
+
+<div class="rule-table">
+
+| Element | Specification |
+| --- | --- |
+| SCORING ELEMENT | FUEL — 63 mm (2.5 in) polyurethane or EVA foam ball, 7–10 g |
+| HOPPER | Elevated 5-gallon bucket with funnel guides, one per ALLIANCE |
+| OUTPOST | Marked loading area on each alliance wall, with a staged FUEL bin |
+| ROBOT preload | **4 FUEL, mandatory** |
+| ROBOT capacity during play | Unlimited — whatever the build holds |
+| FUEL supply | 48 total: 16 preloaded in ROBOTS, 12 NEUTRAL ZONE, 4 per alliance zone, 6 per OUTPOST |
+
+</div>
+
+<Aside type="tip" title="Why foam, not ping pong">
+A 40 mm ping pong ball at 2.7 g bounces out of a bucket, squirts out of a wheeled intake, and rolls for eight seconds after a miss. A 63 mm foam ball deforms against intake wheels, holds in a servo gate, and drops into a bucket instead of rebounding off the rim. Foam is also what makes floor pickup practical at all.
+</Aside>
+
+## B3. The Arena
+
+### B3.1 FIELD
+
+**G1** The FIELD is a rectangle **10 ft (3.05 m) wide by 12 ft (3.66 m) long**, ± 1 in on all dimensions.
+
+**G2** Boundaries are marked with 2 in gaffer tape, one color per ALLIANCE. The center NEUTRAL ZONE is marked with white tape and is **24 in (61 cm) deep**.
+
+**G3** The FIELD surface is flat, hard flooring. Carpet is not permitted; it stalls XRP casters.
+
+<svg class="field-svg" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Top-down field layout">
+  <rect x="100" y="40" width="500" height="600" fill="#1b1f27" stroke="#8a94a6" stroke-width="3"/>
+  <rect x="100" y="40" width="500" height="250" fill="#1e3a8a" opacity="0.35"/>
+  <rect x="100" y="290" width="500" height="100" fill="#9ca3af" opacity="0.18"/>
+  <rect x="100" y="390" width="500" height="250" fill="#991b1b" opacity="0.35"/>
+  <line x1="100" y1="290" x2="600" y2="290" stroke="#e5e7eb" stroke-width="2" stroke-dasharray="8 6"/>
+  <line x1="100" y1="390" x2="600" y2="390" stroke="#e5e7eb" stroke-width="2" stroke-dasharray="8 6"/>
+  <circle cx="350" cy="40" r="42" fill="#0b1220" stroke="#60a5fa" stroke-width="3"/>
+  <circle cx="350" cy="640" r="42" fill="#0b1220" stroke="#f87171" stroke-width="3"/>
+  <rect x="112" y="52" width="86" height="28" fill="#1d4ed8"/>
+  <rect x="502" y="52" width="86" height="28" fill="#1d4ed8"/>
+  <rect x="112" y="600" width="86" height="28" fill="#b91c1c"/>
+  <rect x="502" y="600" width="86" height="28" fill="#b91c1c"/>
+  <g fill="#fde68a">
+    <circle cx="200" cy="330" r="7"/><circle cx="270" cy="355" r="7"/><circle cx="345" cy="322" r="7"/>
+    <circle cx="420" cy="358" r="7"/><circle cx="490" cy="330" r="7"/><circle cx="240" cy="300" r="7"/>
+    <circle cx="400" cy="300" r="7"/><circle cx="310" cy="372" r="7"/><circle cx="470" cy="372" r="7"/>
+    <circle cx="170" cy="352" r="7"/><circle cx="530" cy="352" r="7"/><circle cx="345" cy="300" r="7"/>
+  </g>
+  <g fill="#fde68a" opacity="0.85">
+    <circle cx="220" cy="150" r="6"/><circle cx="480" cy="180" r="6"/><circle cx="350" cy="230" r="6"/>
+    <circle cx="200" cy="250" r="6"/>
+    <circle cx="220" cy="530" r="6"/><circle cx="480" cy="500" r="6"/><circle cx="350" cy="450" r="6"/>
+    <circle cx="200" cy="430" r="6"/>
+  </g>
+  <rect x="228" y="86" width="60" height="34" fill="#0b1220" stroke="#60a5fa" stroke-width="2"/>
+  <rect x="412" y="86" width="60" height="34" fill="#0b1220" stroke="#60a5fa" stroke-width="2"/>
+  <rect x="228" y="580" width="60" height="34" fill="#0b1220" stroke="#f87171" stroke-width="2"/>
+  <rect x="412" y="580" width="60" height="34" fill="#0b1220" stroke="#f87171" stroke-width="2"/>
+  <text x="258" y="108" fill="#bfdbfe" font-size="10" text-anchor="middle" font-family="sans-serif">4 PRELOAD</text>
+  <text x="442" y="108" fill="#bfdbfe" font-size="10" text-anchor="middle" font-family="sans-serif">4 PRELOAD</text>
+  <text x="258" y="602" fill="#fecaca" font-size="10" text-anchor="middle" font-family="sans-serif">4 PRELOAD</text>
+  <text x="442" y="602" fill="#fecaca" font-size="10" text-anchor="middle" font-family="sans-serif">4 PRELOAD</text>
+  <text x="350" y="20" fill="#93c5fd" font-size="15" text-anchor="middle" font-family="sans-serif">BLUE ALLIANCE WALL</text>
+  <text x="350" y="678" fill="#fca5a5" font-size="15" text-anchor="middle" font-family="sans-serif">RED ALLIANCE WALL</text>
+  <text x="350" y="345" fill="#e5e7eb" font-size="14" text-anchor="middle" font-family="sans-serif" letter-spacing="2">NEUTRAL ZONE</text>
+  <text x="350" y="200" fill="#bfdbfe" font-size="15" text-anchor="middle" font-family="sans-serif" letter-spacing="3">BLUE ALLIANCE ZONE</text>
+  <text x="350" y="480" fill="#fecaca" font-size="15" text-anchor="middle" font-family="sans-serif" letter-spacing="3">RED ALLIANCE ZONE</text>
+  <text x="155" y="70" fill="#dbeafe" font-size="11" text-anchor="middle" font-family="sans-serif">OUTPOST</text>
+  <text x="545" y="70" fill="#dbeafe" font-size="11" text-anchor="middle" font-family="sans-serif">OUTPOST</text>
+  <text x="155" y="620" fill="#fee2e2" font-size="11" text-anchor="middle" font-family="sans-serif">OUTPOST</text>
+  <text x="545" y="620" fill="#fee2e2" font-size="11" text-anchor="middle" font-family="sans-serif">OUTPOST</text>
+  <text x="350" y="32" fill="#93c5fd" font-size="11" text-anchor="middle" font-family="sans-serif">HOPPER</text>
+  <text x="350" y="652" fill="#fca5a5" font-size="11" text-anchor="middle" font-family="sans-serif">HOPPER</text>
+  <text x="96" y="345" fill="#9ca3af" font-size="12" text-anchor="end" font-family="sans-serif">24 in</text>
+  <text x="604" y="345" fill="#9ca3af" font-size="12" font-family="sans-serif">10 ft</text>
+</svg>
+<p class="dim-note">Figure B3-1 — FIELD layout, top down. Yellow dots are FUEL; boxes are ROBOT starting positions. Not to scale. 12 ft on the long axis.</p>
+
+### B3.2 HOPPER
+
+**G4** The HOPPER is a standard 5-gallon bucket with the rim cut to **11.5 in inner diameter**, mounted with the rim at **32 in (81 cm) ± 2 in** above the floor.
+
+**G5** Cardboard or foam-board funnel guides are mounted above the rim, angled inward between 30° and 45° from horizontal, with a funnel mouth no wider than 20 in.
+
+**G6** The HOPPER is centered on the alliance wall and MUST be at least 8 in clear of the wall face on all sides so FUEL can fall through.
+
+**G7** A FUEL is **SCORED** only when it has fully passed the rim and come to rest below it, or has been removed from the bucket by a referee. FUEL resting on the guides, wedged in the funnel, or balanced on the rim is **not** scored.
+
+<Aside type="caution" title="Referee note">
+Score a FUEL at the moment it clears the rim. Do not wait for it to settle. A FUEL that clears the rim and later bounces out stays scored.
+</Aside>
+
+### B3.3 OUTPOST
+
+**G8** Each ALLIANCE has two OUTPOSTS, one at each end of their alliance wall, each a marked 24 in × 24 in area with a shallow FUEL bin beside it.
+
+**G9** A ROBOT is **AT THE OUTPOST** when any part of its chassis overlaps the marked area and it is stationary or moving slower than walking pace.
+
+**G10** A HUMAN PLAYER MAY reach across the alliance wall to load a ROBOT that is AT THE OUTPOST. A HUMAN PLAYER MUST NOT otherwise enter the FIELD.
+
+### B3.4 FUEL staging and the floor
+
+**G11** FUEL is staged before each MATCH: **12 in the NEUTRAL ZONE, 4 in each alliance zone, 6 in each OUTPOST bin.** Placement is random but no FUEL may start within 12 in of a HOPPER or a wall corner. The 16 preloaded FUEL are separate and are loaded into ROBOTS by the DRIVERS before the MATCH.
+
+**G12** All FUEL on the FIELD is **live** from the start buzzer. Any ROBOT MAY collect any FUEL it can reach, in any zone.
+
+**G13** FUEL in an OUTPOST bin is reserved for that ALLIANCE's HUMAN PLAYER and MAY NOT be taken by a ROBOT.
+
+**G14** FUEL that leaves the FIELD is out of play. A HUMAN PLAYER MAY request a replacement FUEL from the FTA; the replacement enters play in the NEUTRAL ZONE.
+
+<Aside type="tip" title="Design note">
+Half of the FUEL is in the middle, where both ALLIANCES get to it at the same time. Building an intake that reaches the floor is the single highest-value decision in this game, and building a hopper that keeps what the intake hands it is the second.
+</Aside>
+
+## B4. Match Play
+
+### B4.1 MATCH structure
+
+| Period | Duration | ROBOT control |
+| --- | --- | --- |
+| AUTO | 0:15 | Pre-programmed only |
+| TELEOP | 1:45 | DRIVERS |
+| **Total** | **2:00** | |
+
+**G15** ROBOTS MUST begin each MATCH fully inside their own ALLIANCE ZONE, touching their alliance wall, **preloaded with 4 FUEL**.
+
+**G16** During AUTO, ROBOTS operate under sensor and code control only. No driver input. HUMAN PLAYERS MAY load FUEL at the OUTPOST during AUTO.
+
+**G17** At the AUTO buzzer, all AUTO scoring stops and DRIVERS take control. ROBOTS do not need to stop.
+
+### B4.2 Scoring
+
+| Action | AUTO | TELEOP |
+| --- | --- | --- |
+| FUEL scored in own HOPPER | **5** | **2** |
+| FUEL scored in opponent HOPPER | 5 (opponent) | 2 (opponent) |
+| SALVAGE RUSH throw scored | — | **2** |
+| MINOR FOUL | 5 to opponent | 5 to opponent |
+| FOUL | 8 to opponent | 8 to opponent |
+| TECH FOUL | 10 to opponent + card | 10 to opponent + card |
+
+**G18** The ALLIANCE with the higher final score wins the MATCH. Equal scores are a TIE.
+
+**G19** A ROBOT MUST be fully within its own ALLIANCE ZONE or the NEUTRAL ZONE at the moment its FUEL clears a HOPPER rim. A FUEL launched from the opponent's half scores for the HOPPER it enters, not the ROBOT that launched it.
+
+### B4.3 SALVAGE RUSH
+
+**G20** The final **20 seconds** of TELEOP is the SALVAGE RUSH. During this window HUMAN PLAYERS MAY throw FUEL underhand from behind their alliance wall toward either HOPPER.
+
+**H1** A HUMAN PLAYER MUST keep both feet behind the alliance wall line while throwing. A foot on the line is legal; a foot over it is not.
+
+**H2** A thrown FUEL scores 2 points for whichever HOPPER it enters, including the opponent's. Own-goals are live.
+
+### B4.4 FUEL possession
+
+**G21** A ROBOT MUST begin the MATCH with 4 FUEL loaded. A ROBOT that cannot retain 4 FUEL has not passed inspection (see I2, check 3).
+
+**G22** There is **no maximum capacity** during play. A ROBOT MAY hold as many FUEL as its mechanisms retain.
+
+**G23** A FUEL collected from the floor MAY be scored directly. No intermediate stop is required.
+
+**G24** A HUMAN PLAYER MUST load FUEL one at a time, by hand, into a presented intake. Dropping or tossing FUEL into a ROBOT from above is not permitted.
+
+**G25** A ROBOT MAY shoot at any time, including with a full hopper. It does not need to return to the OUTPOST first.
+
+**G26** A FUEL that falls out of a ROBOT is live where it lands. Losing a preload is not a foul.
+
+<Aside type="note" title="What no capacity limit means in practice">
+It means the ceiling is your build, not a rule. A four-ball hopper with a gate is worth more than a ten-ball hopper that spills on the first turn. Size the hopper to what your intake can feed reliably, and stop there.
+</Aside>
+
+### B4.5 Ranking
+
+**T1** MATCHES are played as QUALIFICATION MATCHES in rounds of four ALLIANCES or fewer, seeded randomly.
+
+**T2** Ranking Points:
+
+| Result | RP |
+| --- | --- |
+| WIN | 2 |
+| TIE | 1 |
+| LOSS | 0 |
+| 4 or more FUEL scored in AUTO | +1 |
+| 12 or more FUEL scored in TELEOP | +1 |
+
+**T3** Maximum 4 RP per MATCH. Ties in ranking are broken by, in order: total FUEL scored, fewest FOULS, lowest ROBOT number.
+
+### B4.6 Playoffs and awards
+
+**T4** The top four ALLIANCES by RP advance to a single-elimination bracket. Semifinals are one MATCH; the Final is best-of-three.
+
+**T5** Awards: **Excellence** (best overall), **Design** (mechanism quality), **Control** (highest AUTO FUEL count across the event), **Gracious Professionalism** (peer-nominated).
+
+## B5. Game Rules
+
+### B5.1 Safety
+
+**S1** Safety glasses SHOULD be worn by everyone inside the FIELD perimeter. FUEL is soft; flywheels are not.
+
+**S2** ROBOTS MUST NOT be lifted or carried while enabled.
+
+**S3** A ROBOT with a spinning flywheel MUST be enabled only with all persons clear of the launch path.
+
+**S4** Loose FUEL on the floor inside the FIELD is in play and MAY be driven over. Foam crushes and springs back; do not stop to rescue it.
+
+**S5** A loaded hopper raises the center of gravity. ROBOTS SHOULD be tested for tipping with a full load before their first MATCH.
+
+### B5.2 Gameplay
+
+**G27** ROBOTS MUST NOT intentionally contact an opposing ROBOT above 12 in from the floor.
+
+**G28** Pinning or blocking an opposing ROBOT for more than **5 continuous seconds** is a FOUL.
+
+**G29** Two ROBOTS of the same ALLIANCE MAY NOT occupy one OUTPOST area at the same time. The second ROBOT MUST wait clear of the marked area until the first leaves.
+
+**G30** A ROBOT MAY NOT deliberately knock FUEL out of an opponent's HOPPER.
+
+**G31** A ROBOT MAY enter the opponent's ALLIANCE ZONE to collect FUEL, and MUST leave within 5 seconds if it does not collect one.
+
+**G32** A ROBOT MAY NOT deliberately tip, ram, or drive over another ROBOT. Contact while both ROBOTS are chasing the same FUEL is not ramming.
+
+**G33** A ROBOT MAY NOT be driven by a HUMAN PLAYER during AUTO. Touching a controller during AUTO is a FOUL unless the ROBOT is disabled first.
+
+**G34** A FUEL that comes to rest against the outside of a HOPPER stays live until it stops moving; it MAY be knocked in by any ROBOT.
+
+**G35** A ROBOT MAY NOT extend any part beyond the FIELD perimeter to score.
+
+**G36** A HUMAN PLAYER MAY NOT hold, steady, or straighten a ROBOT that is AT THE OUTPOST except to place FUEL into its intake.
+
+### B5.3 FOUL summary
+
+| Severity | Penalty | Typical causes |
+| --- | --- | --- |
+| <span class="foul-minor">MINOR FOUL</span> | 5 to opponent | Late zone exit (G31), brief pin (G28), OUTPOST crowding (G29) |
+| <span class="foul-major">FOUL</span> | 8 to opponent | Sustained pin, contact above 12 in (G27), driving during AUTO (G33), steadying a ROBOT (G36) |
+| <span class="foul-tech">TECH FOUL</span> | 10 to opponent + yellow card | Repeated FOULS, damaging a HOPPER, unsafe flywheel handling (S3) |
+
+**G37** A second yellow card in one MATCH is a red card and the ROBOT plays no further part in that MATCH.
+
+**G38** The HEAD REFEREE MAY escalate any FOUL to a TECH FOUL for repetition or for an advantage gained.
+
+## B6. ROBOT Rules
+
+**R1** ROBOTS MUST be built on an unmodified Experiential Robotics Platform (XRP) chassis and drivetrain. The two drive motors and drive gearing MUST remain stock.
+
+**R2** ROBOTS MUST fit within **16 in × 16 in × 16 in** (406 mm cube) in the starting configuration, mechanisms retracted, **with the 4 FUEL preload loaded**.
+
+**R3** A ROBOT MUST retain 4 FUEL loaded and drive 10 ft without losing one. There is no capacity maximum; any FUEL retained beyond 4 is legal.
+
+**R4** Actuator allowance — ROBOTS MAY use **all four XRP motor ports** and **both XRP servo ports**. Two motor ports are consumed by drive, leaving **2 motor ports and 2 servo ports** for mechanisms.
+
+**R5** A high-current mechanism (flywheel, second drive-stage motor) SHOULD be driven through a MOSFET on a motor port rather than directly from the XRP header. A MOSFET is not an additional actuator.
+
+**R6** No motor controllers other than a MOSFET. No external battery packs. Stock XRP power only.
+
+**R7** A ROBOT's intake MUST be able to collect a FUEL from a flat floor unaided, in three consecutive attempts, with the ROBOT approaching from any direction.
+
+**R8** ROBOTS MUST accept FUEL by hand into an intake, and MUST present that intake at the OUTPOST without the HUMAN PLAYER reaching over a wheel guard.
+
+**R9** ROBOTS MUST have no sharp edges, exposed wiring, or protruding hardware below 1 in from the floor.
+
+**R10** ROBOTS MUST display their team number on two opposite faces, minimum 1 in character height, in a contrasting color.
+
+**R11** A ROBOT's flywheel MUST be covered on the launch face by a guard that a finger cannot pass through.
+
+**R12** ROBOTS MUST have a way to be disabled quickly — the XRP power switch MUST be reachable without lifting the ROBOT.
+
+**R13** Cosmetic additions (flags, signs, sponsor panels) are unlimited and do not count toward R2 provided they flex.
+
+**R14** Any FUEL retained beyond the preload MUST be held by a mechanism, not by friction against the frame, tape, or a rubber band.
+
+<Aside type="tip" title="Build note — the reference architecture">
+The reference robot is a two-motor tank drivetrain, a servo-hinged intake arm with a driven roller that reaches the floor (motor port 1, servo port 4), and a MOSFET-driven flywheel (motor port 2) behind a servo gate (servo port 5). That consumes exactly the R4 allowance.
+
+Note what the arm does: it deploys past the frame to reach the floor and stows inside 16 in when retracted. Your arm geometry is the whole build, and the preload requirement means the hopper has to survive a full match of turns at 4 balls before you ever add a fifth.
+</Aside>
+
+## B7. Inspection
+
+**I1** Every ROBOT passes inspection before its first QUALIFICATION MATCH.
+
+**I2** Inspection checks, in order:
+
+| # | Check | Rule |
+| --- | --- | --- |
+| 1 | Stock XRP chassis and drive gearing | R1 |
+| 2 | Fits the 16 in cube, mechanisms retracted, 4 FUEL loaded | R2 |
+| 3 | Retains 4 FUEL over a 10 ft drive | R3 |
+| 4 | Motor and servo ports within allowance | R4 |
+| 5 | Flywheel on a MOSFET, if fitted | R5 |
+| 6 | Floor pickup, three consecutive FUEL from any approach angle | R7 |
+| 7 | Accepts hand-loaded FUEL cleanly, five consecutive loads | R8 |
+| 8 | Flywheel guard passes the finger test | R11 |
+| 9 | Power switch reachable | R12 |
+| 10 | Team number on two faces | R10 |
+| 11 | No sharp edges; wiring strain-relieved | R9 |
+| 12 | Full-load tip test, five hard turns each direction | S5 |
+
+**I3** A failed check is corrected and re-inspected. A ROBOT that cannot pass by the start of its second MATCH is scratched from the round.
+
+**I4** Inspectors MAY re-inspect any ROBOT between MATCHES.
+
+**I5** A ROBOT that loses floor pickup mid-event (broken roller, stripped servo) is not required to re-pass check 6, but MUST be re-inspected for the safety items before its next MATCH.
+
+## B8. Tournament procedure
+
+**T6** A MATCH begins with a 30-second FIELD check, including FUEL staging by two FIELD RESETTERS. ROBOTS are placed by their DRIVERS and preloaded, then hands off.
+
+**T7** Scoring is done by two SCORERS per HOPPER, counting aloud, plus one HEAD REFEREE with final authority.
+
+**T8** Disputed calls are raised by a DRIVER or HUMAN PLAYER at the FIELD, citing a rule identifier, within 30 seconds of the MATCH ending.
+
+**T9** The HEAD REFEREE's decision is final. Arguing a judgment call after the decision is a warning; a second is a MINOR FOUL in the next MATCH.
+
+**T10** FIELD RESETTERS MUST re-stage FUEL to the B3.4 distribution between MATCHES and remove any FUEL from HOPPERS.
+
+**T11** DRIVERS preload their own ROBOTS. A preload counts as retained only if it survives the drive from the alliance wall to the starting position; if it falls, it starts live on the floor.
+
+## B9. Glossary
+
+**ALLIANCE** — two ROBOTS and one HUMAN PLAYER competing together.
+**AT THE OUTPOST** — a ROBOT overlapping an OUTPOST area, per G9.
+**AUTO** — the 15-second pre-programmed period.
+**DRIVER** — the student operating a ROBOT during TELEOP.
+**FOUL** — an infraction carrying a point penalty, per B5.3.
+**FUEL** — the SCORING ELEMENT: a 63 mm foam ball.
+**HOPPER** — the elevated bucket and funnel that FUEL is scored into.
+**HUMAN PLAYER (HP)** — the person loading and throwing FUEL at the OUTPOST.
+**LIVE** — a FUEL in play, collectable and scoreable by either ALLIANCE.
+**MATCH** — 0:15 AUTO plus 1:45 TELEOP.
+**NEUTRAL ZONE** — the 24 in center band, legal ground for both ALLIANCES.
+**OUTPOST** — the marked loading area and FUEL bin on each alliance wall.
+**PIN** — holding an opposing ROBOT against a wall or FIELD element.
+**PRELOAD** — the 4 FUEL a ROBOT starts the MATCH holding.
+**ROBOT** — an XRP-based machine, per B6.
+**SALVAGE RUSH** — the final 20 seconds of TELEOP, when HUMAN PLAYERS throw.
+**SCORED** — a FUEL that has cleared a HOPPER rim, per G7.
+**TELEOP** — the 1:45 driver-controlled period.
+
+## B10. Revision history
+
+| Version | Date | Notes |
+| --- | --- | --- |
+| 1.0 | May 2026 | Initial release, ping pong SCORING ELEMENT, capacity 5 |
+| 1.2 | October 2026 | Clarified shuttle rule, added conduct section |
+| 2.0 | October 2026 | FUEL foam SCORING ELEMENT, HOPPER lowered to 32 in, actuator rules rewritten to XRP ports, added Inspection / Ranking / Playoffs / Awards |
+| 2.1 | October 2026 | Floor pickup becomes a scoring path, FUEL scattered on the FIELD, OUTPOST introduced, added contested-FUEL and OUTPOST access rules, added R7 floor-reach inspection |
+| 2.2 | October 2026 | Capacity limit removed, 4 FUEL mandatory preload added, size limit now applies with preload, AUTO bonus RP raised to 4, added G26, R14, S5, I2 check 12, T11 |
 
 ---
 
-## 🎉 Module Complete!
-
-You have reached the end of this module. Let a mentor know and return to the master dashboard to choose a specialization path.
-
-<br/>
-
-<LinkButton 
-  href="https://docs.2064.team/" 
-  variant="secondary" 
-  class="ext-btn"
->
-  🏠 Return to Home Dashboard
+<LinkButton href="/the-panther-project/6-mechanisms/" variant="secondary">
+Back to Mechanisms
 </LinkButton>
